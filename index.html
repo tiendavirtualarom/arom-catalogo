@@ -43,7 +43,7 @@
         body {
             font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--text-dark);
+            color: var(--text-primary);
             background: var(--primary-gradient);
             min-height: 100vh;
             overflow-x: hidden;
@@ -91,7 +91,7 @@
 
         .subtitle {
             font-size: 1.3rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
             margin-bottom: 25px;
             font-weight: 300;
         }
@@ -203,7 +203,7 @@
 
         .cart-count {
             background: white;
-            color: var(--accent-color);
+            color: #c44569;
             border-radius: 50%;
             width: 24px;
             height: 24px;
@@ -290,14 +290,14 @@
         .product-name {
             font-size: 1.2rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 12px;
             line-height: 1.4;
         }
 
         .product-description {
             font-size: 0.95rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
             margin-bottom: 20px;
             line-height: 1.6;
             display: -webkit-box;
@@ -410,7 +410,7 @@
         .cart-title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .close-cart {
@@ -418,12 +418,12 @@
             border: none;
             font-size: 2rem;
             cursor: pointer;
-            color: var(--text-light);
+            color: var(--text-secondary);
             transition: color 0.3s ease;
         }
 
         .close-cart:hover {
-            color: var(--accent-color);
+            color: #c44569;
         }
 
         .cart-item {
@@ -440,12 +440,12 @@
 
         .cart-item-name {
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 5px;
         }
 
         .cart-item-price {
-            color: var(--accent-color);
+            color: #c44569;
             font-weight: 600;
         }
 
@@ -536,7 +536,7 @@
         .payment-title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-primary);
             margin-bottom: 20px;
         }
 
@@ -593,7 +593,7 @@
         .empty-cart {
             text-align: center;
             padding: 40px 20px;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         .empty-cart-icon {
@@ -669,7 +669,7 @@
         <header>
             <div class="header-decoration"></div>
             <div class="logo">Tienda Virtual AROM</div>
-            <div class="subtitle"> Maquillaje y accesorios</div>
+            <div class="subtitle"> Maquillaje y Accesorios</div>
             
             <div class="contact-info">
                 <div class="contact-item">
@@ -700,14 +700,14 @@
 
         <div class="categories">
             <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
-            <button class="category-btn" onclick="filterCategory('cuidado-Facial')">Cuidado Facial</button>
-            <button class="category-btn" onclick="filterCategory('labios')">Labios</button>
-            <button class="category-btn" onclick="filterCategory('rubores')">Rubores</button>
-            <button class="category-btn" onclick="filterCategory('sombras')">Sombras</button>
-            <button class="category-btn" onclick="filterCategory('pestañas')">Pestañas</button>
-            <button class="category-btn" onclick="filterCategory('delineadores')">Delineadores</button>
-            <button class="category-btn" onclick="filterCategory('cabello')">Cabello</button>
-            <button class="category-btn" onclick="filterCategory('otros')">Otros</button>
+            <button class="category-btn" onclick="filterCategory('Cuidado-Facial')">Cuidado Facial</button>
+            <button class="category-btn" onclick="filterCategory('Labios')">Labios</button>
+            <button class="category-btn" onclick="filterCategory('Rubores')">Rubores</button>
+            <button class="category-btn" onclick="filterCategory('Sombras')">Sombras</button>
+            <button class="category-btn" onclick="filterCategory('Pestañas')">Pestañas</button>
+            <button class="category-btn" onclick="filterCategory('Delineadores')">Delineadores</button>
+            <button class="category-btn" onclick="filterCategory('Cabello')">Cabello</button>
+            <button class="category-btn" onclick="filterCategory('Otros')">Otros</button>
         </div>
 
         <div id="productsContainer">
@@ -716,11 +716,11 @@
                 <h2 class="category-title">Cuidado Facial</h2>
                 <div class="products-grid">
                     <div class="product-card" data-id="1">
-                        <img src="imagenes/29.jpg" alt="Imagen del producto" width="300">
+                        <img src="imagenes/29.jpg" alt="Imagen del producto" width="300"</div>
                         <div class="product-name">Crema Hidratante de Arroz BIOAQUA</div>
                         <div class="product-description">Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.</div>
                         <div class="product-footer">
-                            <div class="product-price">$8.000</div>
+                            <div class="product-price">$6.500</div>
                             <button class="add-to-cart" onclick="addToCart(1, 'Crema Hidratante de Arroz BIOAQUA', 8000)">Agregar</button>
                         </div>
                     </div>
