@@ -237,12 +237,14 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 25px;
-            padding: 25px;
+            padding: 0;
             box-shadow: var(--shadow-light);
             transition: all 0.4s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card::before {
@@ -266,6 +268,25 @@
             transform: scaleX(1);
         }
 
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 25px 25px 0 0;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
         .product-name {
             font-size: 1.2rem;
             font-weight: 700;
@@ -283,6 +304,7 @@
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            flex: 1;
         }
 
         .product-footer {
@@ -319,6 +341,24 @@
 
         .add-to-cart:active {
             transform: scale(0.95);
+        }
+
+        /* Image placeholder styles */
+        .product-image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #ccc;
+            border-radius: 25px 25px 0 0;
         }
 
         /* Category Sections */
@@ -581,6 +621,90 @@
             opacity: 0.5;
         }
 
+        /* Image Upload Section */
+        .image-upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .upload-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .upload-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            display: inline-block;
+        }
+
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-selector {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .upload-btn {
+            background: var(--secondary-gradient);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .logo {
@@ -617,6 +741,14 @@
                 padding: 12px 20px;
                 font-size: 13px;
             }
+
+            .upload-controls {
+                flex-direction: column;
+            }
+
+            .product-selector {
+                min-width: 100%;
+            }
         }
 
         /* Notification Styles */
@@ -641,6 +773,10 @@
         .notification.success {
             background: linear-gradient(45deg, #2ecc71, #27ae60);
         }
+
+        .notification.error {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
     </style>
 </head>
 <body>
@@ -648,7 +784,7 @@
         <header>
             <div class="header-decoration"></div>
             <div class="logo">Tienda Virtual AROM</div>
-            <div class="subtitle">Maquillaje y Cuidado Personal Premium</div>
+            <div class="subtitle">Maquillaje y accesorios</div>
             
             <div class="contact-info">
                 <div class="contact-item">
@@ -662,6 +798,21 @@
                 </div>
             </div>
         </header>
+
+        <!-- Image Upload Section -->
+        <div class="image-upload-section">
+            <div class="upload-title">Agregar Imágenes de Productos</div>
+            <div class="upload-controls">
+                <div class="file-input-wrapper">
+                    <input type="file" id="imageInput" class="file-input" accept="image/*">
+                    <label for="imageInput" class="file-input-label">📷 Seleccionar Imagen</label>
+                </div>
+                <select id="productSelector" class="product-selector">
+                    <option value="">Seleccionar Producto</option>
+                </select>
+                <button class="upload-btn" onclick="uploadImage()">Subir Imagen</button>
+            </div>
+        </div>
 
         <div class="search-section">
             <div class="search-bar">
@@ -695,508 +846,57 @@
                 <h2 class="category-title">Cuidado Facial</h2>
                 <div class="products-grid">
                     <div class="product-card" data-id="1">
-                        <div class="product-name">Crema Hidratante de Arroz BIOAQUA</div>
-                        <div class="product-description">Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(1, 'Crema Hidratante de Arroz BIOAQUA', 8000)">Agregar</button>
+                        <div class="product-image-placeholder" id="image-1">🧴</div>
+                        <div class="product-info">
+                            <div class="product-name">Crema Hidratante de Arroz BIOAQUA</div>
+                            <div class="product-description">Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.</div>
+                            <div class="product-footer">
+                                <div class="product-price">$8.000</div>
+                                <button class="add-to-cart" onclick="addToCart(1, 'Crema Hidratante de Arroz BIOAQUA', 8000)">Agregar</button>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="product-card" data-id="2">
-                        <div class="product-name">Crema Polipéptidos de Perilla</div>
-                        <div class="product-description">Hidratación intensa, reduce signos del envejecimiento, piel más uniforme y radiante.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(2, 'Crema Polipéptidos de Perilla', 8000)">Agregar</button>
+                        <div class="product-image-placeholder" id="image-2">🧴</div>
+                        <div class="product-info">
+                            <div class="product-name">Crema Polipéptidos de Perilla</div>
+                            <div class="product-description">Hidratación intensa, reduce signos del envejecimiento, piel más uniforme y radiante.</div>
+                            <div class="product-footer">
+                                <div class="product-price">$8.000</div>
+                                <button class="add-to-cart" onclick="addToCart(2, 'Crema Polipéptidos de Perilla', 8000)">Agregar</button>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="product-card" data-id="3">
-                        <div class="product-name">Crema Hidratante Centella Asiática BIOAQUA</div>
-                        <div class="product-description">Reduce enrojecimiento e irritación. Potente antioxidante que protege de radicales libres.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(3, 'Crema Hidratante Centella Asiática BIOAQUA', 8000)">Agregar</button>
+                        <div class="product-image-placeholder" id="image-3">🧴</div>
+                        <div class="product-info">
+                            <div class="product-name">Crema Hidratante Centella Asiática BIOAQUA</div>
+                            <div class="product-description">Reduce enrojecimiento e irritación. Potente antioxidante que protege de radicales libres.</div>
+                            <div class="product-footer">
+                                <div class="product-price">$8.000</div>
+                                <button class="add-to-cart" onclick="addToCart(3, 'Crema Hidratante Centella Asiática BIOAQUA', 8000)">Agregar</button>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="product-card" data-id="4">
-                        <div class="product-name">Crema Vitamina C BIOAQUA</div>
-                        <div class="product-description">Reduce líneas de expresión, activa síntesis de colágeno, minimiza manchas. 50g.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(4, 'Crema Vitamina C BIOAQUA', 8000)">Agregar</button>
+                        <div class="product-image-placeholder" id="image-4">🧴</div>
+                        <div class="product-info">
+                            <div class="product-name">Crema Vitamina C BIOAQUA</div>
+                            <div class="product-description">Reduce líneas de expresión, activa síntesis de colágeno, minimiza manchas. 50g.</div>
+                            <div class="product-footer">
+                                <div class="product-price">$8.000</div>
+                                <button class="add-to-cart" onclick="addToCart(4, 'Crema Vitamina C BIOAQUA', 8000)">Agregar</button>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="product-card" data-id="5">
-                        <div class="product-name">Gel de Arroz BIOAQUA</div>
-                        <div class="product-description">99% Pulpa Cruda de Arroz. Hidratación profunda, reparación y regeneración celular.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$10.000</div>
-                            <button class="add-to-cart" onclick="addToCart(5, 'Gel de Arroz BIOAQUA', 10000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="6">
-                        <div class="product-name">Suero de Arroz BIOAQUA</div>
-                        <div class="product-description">Con ácido hialurónico. Propiedades antioxidantes, antiinflamatorias y blanqueadoras.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$5.000</div>
-                            <button class="add-to-cart" onclick="addToCart(6, 'Suero de Arroz BIOAQUA', 5000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="7">
-                        <div class="product-name">Suero Ácido Hialurónico 100ml</div>
-                        <div class="product-description">Hidratación intensa, ideal para pieles sensibles. Sin conservantes artificiales.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$13.000</div>
-                            <button class="add-to-cart" onclick="addToCart(7, 'Suero Ácido Hialurónico 100ml', 13000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="8">
-                        <div class="product-name">Suero de Vitamina C BIOAQUA</div>
-                        <div class="product-description">Alta concentración, poder antioxidante, previene envejecimiento prematuro.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$13.000</div>
-                            <button class="add-to-cart" onclick="addToCart(8, 'Suero de Vitamina C BIOAQUA', 13000)">Agregar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Labios -->
-            <div class="category-section" data-category="labios">
-                <h2 class="category-title">Labios</h2>
-                <div class="products-grid">
-                    <div class="product-card" data-id="9">
-                        <div class="product-name">Tinta para Labios</div>
-                        <div class="product-description">Tinta de larga duración para labios con acabado natural.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$5.000</div>
-                            <button class="add-to-cart" onclick="addToCart(9, 'Tinta para Labios', 5000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="10">
-                        <div class="product-name">Lip Gloss NICOR</div>
-                        <div class="product-description">Brillo labial con acabado glossy de larga duración.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$4.000</div>
-                            <button class="add-to-cart" onclick="addToCart(10, 'Lip Gloss NICOR', 4000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="11">
-                        <div class="product-name">Labial Mate Líquido LAMEILA</div>
-                        <div class="product-description">Labial líquido con acabado mate de larga duración.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$4.000</div>
-                            <button class="add-to-cart" onclick="addToCart(11, 'Labial Mate Líquido LAMEILA', 4000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="12">
-                        <div class="product-name">Bálsamo Fresa</div>
-                        <div class="product-description">Bálsamo hidratante con aroma a fresa para labios suaves.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$2.500</div>
-                            <button class="add-to-cart" onclick="addToCart(12, 'Bálsamo Fresa', 2500)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="13">
-                        <div class="product-name">Colágeno de Labios VEZE</div>
-                        <div class="product-description">Hidrata y suaviza, elimina líneas finas, previene grietas y arrugas.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$10.000</div>
-                            <button class="add-to-cart" onclick="addToCart(13, 'Colágeno de Labios VEZE', 10000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="14">
-                        <div class="product-name">Brillo Mágico Aloe Vera</div>
-                        <div class="product-description">Brillo labial con propiedades hidratantes del aloe vera.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$4.000</div>
-                            <button class="add-to-cart" onclick="addToCart(14, 'Brillo Mágico Aloe Vera', 4000)">Agregar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rubores y Contornos -->
-            <div class="category-section" data-category="rubores">
-                <h2 class="category-title">Rubores y Contornos</h2>
-                <div class="products-grid">
-                    <div class="product-card" data-id="15">
-                        <div class="product-name">Paleta de Correctores Full Coverage SFR Color</div>
-                        <div class="product-description">Paleta completa de correctores de alta cobertura para todo tipo de piel.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(15, 'Paleta de Correctores Full Coverage SFR Color', 8000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="16">
-                        <div class="product-name">Rubor Tipo Tiza CAPPUVINI</div>
-                        <div class="product-description">Rubor en polvo compacto con acabado natural y duradero.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(16, 'Rubor Tipo Tiza CAPPUVINI', 8000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="17">
-                        <div class="product-name">Rubor Líquido MLSMILE</div>
-                        <div class="product-description">Rubor líquido de fácil aplicación con acabado natural.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(17, 'Rubor Líquido MLSMILE', 8000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="18">
-                        <div class="product-name">Rubor en Gelatina Jelly Tint ALAMA BEAUTY</div>
-                        <div class="product-description">Textura gelatinosa única, fácil aplicación y acabado natural.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(18, 'Rubor en Gelatina Jelly Tint ALAMA BEAUTY', 8000)">Agregar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sombras e Iluminadores -->
-            <div class="category-section" data-category="sombras">
-                <h2 class="category-title">Sombras e Iluminadores</h2>
-                <div class="products-grid">
-                    <div class="product-card" data-id="19">
-                        <div class="product-name">Iluminador SAGUI</div>
-                        <div class="product-description">Iluminador para resaltar puntos altos del rostro con acabado radiante.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="addToCart(19, 'Iluminador SAGUI', 8000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="20">
-                        <div class="product-name">Paleta de Sombras 40 Tonos</div>
-                        <div class="product-description">Paleta completa con 40 tonos para crear looks versátiles.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$25.000</div>
-                            <button class="add-to-cart" onclick="addToCart(20, 'Paleta de Sombras 40 Tonos', 25000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="21">
-                        <div class="product-name">Paleta de Sombras 38 Tonos</div>
-                        <div class="product-description">Amplia gama de colores para todos los gustos y ocasiones.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$25.000</div>
-                            <button class="add-to-cart" onclick="addToCart(21, 'Paleta de Sombras 38 Tonos', 25000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="22">
-                        <div class="product-name">Paleta Libro Pride 117 Colores Kevin & Coco</div>
-                        <div class="product-description">Paleta profesional con 117 colores para maquillaje completo.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$48.000</div>
-                            <button class="add-to-cart" onclick="addToCart(22, 'Paleta Libro Pride 117 Colores Kevin & Coco', 48000)">Agregar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pestañas -->
-            <div class="category-section" data-category="pestañas">
-                <h2 class="category-title">Pestañas</h2>
-                <div class="products-grid">
-                    <div class="product-card" data-id="23">
-                        <div class="product-name">Serum Crecimiento Pestañas BIOAQUA</div>
-                        <div class="product-description">Nutre desde la raíz, agrega grosor, fortalece pestañas cortas y dispersas.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$7.000</div>
-                            <button class="add-to-cart" onclick="addToCart(23, 'Serum Crecimiento Pestañas BIOAQUA', 7000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="24">
-                        <div class="product-name">Pestañina Distinct Roots KARITÉ</div>
-                        <div class="product-description">Máscara para pestañas con efecto volumen y definición.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$7.000</div>
-                            <button class="add-to-cart" onclick="addToCart(24, 'Pestañina Distinct Roots KARITÉ', 7000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="25">
-                        <div class="product-name">Pestañina PROSA</div>
-                        <div class="product-description">Máscara premium para pestañas largas y voluminosas.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$20.000</div>
-                            <button class="add-to-cart" onclick="addToCart(25, 'Pestañina PROSA', 20000)">Agregar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card" data-id="26">
-                        <div class="product-name">Pestañina Súper Volumen OLIBOLLA</div>
-                        <div class="product-description">Con aloe vera, doble extensión para pestañas impactantes.</div>
-                        <div class="product-footer">
-                            <div class="product-price">$7.000</div>
-                            <button class="add-to-cart" onclick="addToCart(26, 'Pestañina Súper Volumen OLIBOLLA', 7000)">Agregar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Cart Modal -->
-        <div class="cart-modal" id="cartModal">
-            <div class="cart-content">
-                <div class="cart-header">
-                    <h2 class="cart-title">Tu Carrito</h2>
-                    <button class="close-cart" onclick="toggleCart()">&times;</button>
-                </div>
-                
-                <div id="cartItems">
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <p>Tu carrito está vacío</p>
-                        <p>¡Agrega algunos productos increíbles!</p>
-                    </div>
-                </div>
-                
-                <div class="cart-total" id="cartTotal" style="display: none;">
-                    <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
-                    <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="payment-info">
-            <div class="payment-title">Medios de Pago</div>
-            <p>El pago es por transferencia o consignación</p>
-            <div class="payment-methods">
-                <div class="payment-method">BANCOLOMBIA</div>
-                <div class="payment-method">NEQUI</div>
-                <div class="payment-method">DAVIPLATA</div>
-            </div>
-            <p style="margin-top: 15px; font-style: italic; color: #666;">
-                Siempre preguntar por el método de pago y esperar confirmación antes de realizar el pago
-            </p>
-        </div>
-    </div>
-
-    <div class="floating-whatsapp" onclick="contactWhatsApp()">
-        📱
-    </div>
-
-    <!-- Notification -->
-    <div class="notification" id="notification"></div>
-
-    <script>
-        // Cart functionality
-        let cart = [];
-        
-        function addToCart(id, name, price) {
-            const existingItem = cart.find(item => item.id === id);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: id,
-                    name: name,
-                    price: price,
-                    quantity: 1
-                });
-            }
-            
-            updateCartUI();
-            showNotification(`${name} agregado al carrito`, 'success');
-        }
-        
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-            showNotification('Producto eliminado del carrito', 'success');
-        }
-        
-        function updateQuantity(id, change) {
-            const item = cart.find(item => item.id === id);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(id);
-                } else {
-                    updateCartUI();
-                }
-            }
-        }
-        
-        function updateCartUI() {
-            const cartCount = document.getElementById('cartCount');
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            const totalAmount = document.getElementById('totalAmount');
-            
-            // Update cart count
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalItems;
-            
-            // Update cart items
-            if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <p>Tu carrito está vacío</p>
-                        <p>¡Agrega algunos productos increíbles!</p>
-                    </div>
-                `;
-                cartTotal.style.display = 'none';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${item.price.toLocaleString()}</div>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <span>Cantidad: ${item.quantity}</span>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                            </div>
-                        </div>
-                        <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
-                    </div>
-                `).join('');
-                
-                // Calculate total
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                totalAmount.textContent = total.toLocaleString();
-                cartTotal.style.display = 'block';
-            }
-        }
-        
-        function toggleCart() {
-            const cartModal = document.getElementById('cartModal');
-            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
-        }
-        
-        function checkout() {
-            if (cart.length === 0) {
-                showNotification('Tu carrito está vacío', 'error');
-                return;
-            }
-            
-            let message = "¡Hola! Me interesa comprar los siguientes productos:%0A%0A";
-            let total = 0;
-            
-            cart.forEach(item => {
-                message += `• ${item.name} - Cantidad: ${item.quantity} - ${(item.price * item.quantity).toLocaleString()}%0A`;
-                total += item.price * item.quantity;
-            });
-            
-            message += `%0ATotal: ${total.toLocaleString()}%0A%0A¿Cuál es el método de pago disponible?`;
-            
-            window.open(`https://wa.me/573054328798?text=${message}`, '_blank');
-        }
-        
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Search and filter functionality
-        function filterCategory(category) {
-            const sections = document.querySelectorAll('.category-section');
-            const buttons = document.querySelectorAll('.category-btn');
-            
-            // Update active button
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            if (category === 'all') {
-                sections.forEach(section => section.style.display = 'block');
-            } else {
-                sections.forEach(section => {
-                    if (section.dataset.category === category) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-            }
-        }
-
-        function searchProducts() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const productCards = document.querySelectorAll('.product-card');
-            const sections = document.querySelectorAll('.category-section');
-            
-            if (searchTerm === '') {
-                productCards.forEach(card => card.style.display = 'block');
-                sections.forEach(section => section.style.display = 'block');
-                return;
-            }
-            
-            let hasResults = false;
-            
-            sections.forEach(section => {
-                const sectionCards = section.querySelectorAll('.product-card');
-                let sectionHasResults = false;
-                
-                sectionCards.forEach(card => {
-                    const productName = card.querySelector('.product-name').textContent.toLowerCase();
-                    const productDesc = card.querySelector('.product-description').textContent.toLowerCase();
-                    
-                    if (productName.includes(searchTerm) || productDesc.includes(searchTerm)) {
-                        card.style.display = 'block';
-                        sectionHasResults = true;
-                        hasResults = true;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                section.style.display = sectionHasResults ? 'block' : 'none';
-            });
-            
-            if (!hasResults) {
-                showNotification('No se encontraron productos que coincidan con tu búsqueda.', 'error');
-            }
-        }
-
-        function contactWhatsApp() {
-            window.open('https://wa.me/573054328798', '_blank');
-        }
-
-        // Allow search on Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchProducts();
-            }
-        });
-
-        // Close cart when clicking outside
-        document.getElementById('cartModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleCart();
-            }
-        });
-
-        // Initialize cart UI
-        updateCartUI();
-    </script>
-</body>
-</html>
+                        <div class="product-image-placeholder" id="image-5">🧴</div>
+                        <div class="product-info">
+                            <div class="product-name">Gel de Arroz BIOAQUA</div>
+                            <div class="product-description">99% Pulpa Cruda de Arroz. Hidratación profunda, reparación y regeneración celular.</div>
+                            <div class="product-footer">
+                                
