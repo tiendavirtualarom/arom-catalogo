@@ -1190,6 +1190,27 @@
     <script>
         // Cart functionality
         let cart = [];
+        // Cargar carrito desde localStorage
+function loadCart() {
+    const savedCart = localStorage.getItem('aromCart');
+    if (savedCart) {
+        try {
+            cart = JSON.parse(savedCart);
+        } catch (e) {
+            console.error('Error al cargar el carrito:', e);
+            cart = [];
+        }
+    }
+}
+// Guardar carrito en localStorage
+function saveCart() {
+    try {
+        localStorage.setItem('aromCart', JSON.stringify(cart));
+    } catch (e) {
+        console.error('Error al guardar el carrito:', e);
+    }
+}
+
         
         function addToCart(id, name, price) {
             const existingItem = cart.find(item => item.id === id);
@@ -1205,13 +1226,15 @@
                 });
             }
             
-            updateCartUI();
+            loadCart();
+updateCartUI();
             showNotification(`${name} agregado al carrito`, 'success');
         }
         
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
-            updateCartUI();
+            loadCart();
+updateCartUI();
             showNotification('Producto eliminado del carrito', 'success');
         }
         
@@ -1222,7 +1245,8 @@
                 if (item.quantity <= 0) {
                     removeFromCart(id);
                 } else {
-                    updateCartUI();
+                    loadCart();
+updateCartUI();
                 }
             }
         }
