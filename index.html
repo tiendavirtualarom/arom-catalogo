@@ -6,24 +6,26 @@
     <title>AROM Tienda Virtual - Maquillaje y Cuidado Personal</title>
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #ff6b9b 0%, #c44569 100%);
-            --accent-gradient: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            --success-gradient: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-            --danger-gradient: linear-gradient(135deg, #e17055 0%, #d63031 100%);
-            --dark-gradient: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            --primary-gradient: linear-gradient(135deg, #E8D8F5 0%, #D8BFD8 50%, #DDA0DD 100%);
+            --secondary-gradient: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 50%, #DA70D6 100%);
+            --accent-gradient: linear-gradient(135deg, #F8E8FF 0%, #E6E6FA 50%, #DDA0DD 100%);
+            --success-gradient: linear-gradient(135deg, #98FB98 0%, #90EE90 100%);
+            --danger-gradient: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+            --dark-gradient: linear-gradient(135deg, #8B4CB8 0%, #9370DB 100%);
             
-            --text-primary: #2d3436;
-            --text-secondary: #636e72;
-            --text-light: #b2bec3;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --bg-glass: rgba(255, 255, 255, 0.25);
-            --bg-glass-dark: rgba(0, 0, 0, 0.1);
+            /* Colores de texto actualizados */
+            --text-primary: #4B0082;
+            --text-secondary: #8B4CB8;
+            --text-light: #C8A2C8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F0FF;
+            --bg-glass: rgba(248, 240, 255, 0.25);
+            --bg-glass-dark: rgba(139, 76, 184, 0.1);
             
-            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
-            --shadow-strong: 0 25px 50px rgba(0, 0, 0, 0.2);
+            /* Sombras con tonos púrpura suaves */
+            --shadow-soft: 0 10px 30px rgba(139, 76, 184, 0.15);
+            --shadow-hover: 0 20px 40px rgba(139, 76, 184, 0.25);
+            --shadow-strong: 0 25px 50px rgba(139, 76, 184, 0.35);
             
             --border-radius: 20px;
             --border-radius-small: 12px;
@@ -120,6 +122,7 @@
         .contact-item:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
+            background: rgba(255, 182, 193, 0.2);
         }
 
         /* Search and Navigation */
@@ -146,14 +149,16 @@
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
             box-shadow: var(--shadow-light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 182, 193, 0.3);
             transition: all 0.3s ease;
+            color: var(--text-primary);
         }
 
         .search-input:focus {
             outline: none;
             box-shadow: var(--shadow-hover);
             transform: translateY(-2px);
+             border-color: #FF69B4;
         }
 
         .search-btn {
@@ -203,7 +208,7 @@
 
         .cart-count {
             background: white;
-            color: #c44569;
+            color: #FF69B4;
             border-radius: 50%;
             width: 24px;
             height: 24px;
@@ -232,8 +237,9 @@
             font-weight: 600;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 182, 193, 0.3);
             font-size: 14px;
+            color: var(--text-primary);
         }
 
         .category-btn:hover, .category-btn.active {
@@ -258,7 +264,7 @@
             padding: 25px;
             box-shadow: var(--shadow-light);
             transition: all 0.4s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 182, 193, 0.2);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -322,7 +328,7 @@
         }
 
         .add-to-cart {
-            background: var(--primary-gradient);
+            background: var(--secondary-gradient);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -335,7 +341,7 @@
 
         .add-to-cart:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
         }
 
         .add-to-cart:active {
@@ -353,7 +359,7 @@
             color: white;
             text-align: center;
             margin-bottom: 40px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 15px rgba(139, 76, 184, 0.4);
             position: relative;
         }
 
@@ -377,7 +383,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(139, 76, 184, 0.8);
             z-index: 1000;
             backdrop-filter: blur(5px);
         }
@@ -396,6 +402,7 @@
             max-height: 80vh;
             overflow-y: auto;
             box-shadow: var(--shadow-hover);
+            border: 1px solid rgba(255, 182, 193, 0.3);
         }
 
         .cart-header {
@@ -404,7 +411,7 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            border-bottom: 2px solid rgba(255, 182, 193, 0.3);
         }
 
         .cart-title {
@@ -423,7 +430,7 @@
         }
 
         .close-cart:hover {
-            color: #c44569;
+            color: #FF69B4;
         }
 
         .cart-item {
@@ -431,7 +438,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 182, 193, 0.2);
         }
 
         .cart-item-info {
@@ -445,7 +452,7 @@
         }
 
         .cart-item-price {
-            color: #c44569;
+            color: #FF69B4;
             font-weight: 600;
         }
 
@@ -457,7 +464,7 @@
         }
 
         .quantity-btn {
-            background: var(--primary-gradient);
+            background: var(--secondary-gradient);
             color: white;
             border: none;
             width: 30px;
@@ -490,7 +497,7 @@
         .cart-total {
             text-align: center;
             padding: 20px 0;
-            border-top: 2px solid rgba(255, 107, 107, 0.2);
+            border-top: 2px solid rgba(255, 182, 193, 0.3);
             margin-top: 20px;
         }
 
@@ -530,7 +537,7 @@
             margin-top: 50px;
             text-align: center;
             box-shadow: var(--shadow-light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 182, 193, 0.2);
         }
 
         .payment-title {
@@ -549,7 +556,7 @@
         }
 
         .payment-method {
-            background: var(--primary-gradient);
+            background: var(--secondary-gradient);
             color: white;
             padding: 12px 25px;
             border-radius: 25px;
@@ -568,7 +575,7 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #25D366;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
             padding: 18px;
             border-radius: 50%;
@@ -660,7 +667,8 @@
         }
 
         .notification.success {
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            background: linear-gradient(45deg, #98FB98, #90EE90);
+            color: var(--text-primary);
         }
     </style>
 </head>
@@ -669,7 +677,7 @@
         <header>
             <div class="header-decoration"></div>
             <div class="logo">Tienda Virtual AROM</div>
-            <div class="subtitle"> Maquillaje y Accesorios</div>
+            <div class="subtitle"> 💄Maquillaje y Accesorios 💄</div>
             
             <div class="contact-info">
                 <div class="contact-item">
@@ -713,7 +721,7 @@
         <div id="productsContainer">
             <!-- Cuidado Facial -->
             <div class="category-section" data-category="Cuidado-Facial">
-                <h2 class="category-title">Cuidado Facial</h2>
+                <h2 class="category-title"> ✨ Cuidado Facial ✨ </h2>
                 <div class="products-grid">
                     <div class="product-card" data-id="1">
                         <img src="imagenes/29.jpg" alt="Imagen del producto" width="300"</div>
@@ -799,7 +807,7 @@
 
             <!-- Labios -->
             <div class="category-section" data-category="Labios">
-                <h2 class="category-title">Labios</h2>
+                <h2 class="category-title"> 💋 Labios 💋 </h2>
                 <div class="products-grid">
                     <div class="product-card" data-id="9">
                         <img src="imagenes/29.jpg" alt="Imagen del producto" width="300"</div>
