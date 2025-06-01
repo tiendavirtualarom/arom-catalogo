@@ -744,6 +744,28 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-light);
         }
+          /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            box-shadow: var(--shadow-hover);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+         .notification.show {
+            transform: translateX(0);
+        }  
+    .notification.success {
+            background: linear-gradient(45deg, #98FB98, #90EE90);
+            color: var(--text-primary);
+        }
+        
     </style>
 </head>
 <body>
