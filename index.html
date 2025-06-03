@@ -107,15 +107,37 @@
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
+         /* Estilos para el logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+         .logo-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff6b6b;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.1);
+        }
 
         .logo {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: var(--primary-gradient);
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            text-transform: uppercase;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             letter-spacing: 2px;
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -125,9 +147,9 @@
         }
 
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--text-secondary);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-weight: 300;
             animation: fadeInUp 1s ease-out 0.3s both;
         }
@@ -801,8 +823,10 @@
     <div class="container">
         <header>
             <div class="header-decoration"></div>
-            <img src="imagenes/29.jpg" alt="Imagen del producto" width="300"</div>
+            <div class="logo-container">
+            <img src="logo.png" alt="Logo AROM" class="logo-image">
             <div class="logo">Tienda Virtual AROM</div>
+             </div>
             <div class="subtitle"> 💄Maquillaje y Accesorios 💄</div>
             
             <div class="contact-info">
