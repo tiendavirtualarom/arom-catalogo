@@ -49,8 +49,21 @@
             background: var(--primary-gradient);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
-
+/* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g"><stop offset="0%" stop-color="rgba(255,182,193,0.1)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><circle cx="20" cy="20" r="10" fill="url(%23g)"><animate attributeName="cx" values="20;80;20" dur="20s" repeatCount="indefinite"/></circle><circle cx="80" cy="60" r="8" fill="url(%23g)"><animate attributeName="cy" values="60;20;60" dur="15s" repeatCount="indefinite"/></circle><circle cx="50" cy="80" r="12" fill="url(%23g)"><animate attributeName="cx" values="50;20;80;50" dur="25s" repeatCount="indefinite"/></circle></svg>') no-repeat center center;
+            background-size: cover;
+            pointer-events: none;
+            z-index: -1;
+        }
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -66,11 +79,21 @@
             text-align: center;
             border-radius: 25px;
             margin-bottom: 30px;
-            box-shadow: var(--shadow-light);
+            box-shadow: var(--shadow-soft);
             position: relative;
             overflow: hidden;
+            animation: slideInDown 0.8s ease-out;
         }
-
+         @keyframes slideInDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
         .header-decoration {
             position: absolute;
             top: 0;
@@ -78,6 +101,11 @@
             right: 0;
             height: 4px;
             background: var(--primary-gradient);
+            animation: shimmer 3s infinite linear;
+        }
+         @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
 
         .logo {
@@ -89,6 +117,11 @@
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+         @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(139, 76, 184, 0.3); }
+            to { text-shadow: 0 0 20px rgba(139, 76, 184, 0.6); }
         }
 
         .subtitle {
@@ -96,6 +129,17 @@
             color: var(--text-secondary);
             margin-bottom: 25px;
             font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+         @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .contact-info {
@@ -104,6 +148,7 @@
             gap: 25px;
             flex-wrap: wrap;
             margin-top: 20px;
+             animation: fadeInUp 1s ease-out 0.6s both;
         }
 
         .contact-item {
@@ -116,7 +161,8 @@
             font-weight: 600;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            cursor: pointer;
         }
 
         .contact-item:hover {
@@ -132,6 +178,7 @@
             align-items: center;
             margin-bottom: 30px;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.9s both;
         }
 
         .search-bar {
@@ -150,7 +197,7 @@
             backdrop-filter: blur(15px);
             box-shadow: var(--shadow-light);
             border: 1px solid rgba(255, 182, 193, 0.3);
-            transition: all 0.3s ease;
+            transition: var(--transition);
             color: var(--text-primary);
         }
 
@@ -159,6 +206,7 @@
             box-shadow: var(--shadow-hover);
             transform: translateY(-2px);
              border-color: #FF69B4;
+             background: rgba(255, 255, 255, 0.95);
         }
 
         .search-btn {
@@ -172,12 +220,13 @@
             padding: 12px 18px;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             font-size: 16px;
         }
 
         .search-btn:hover {
             transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
         }
 
         /* Cart Button */
@@ -194,11 +243,13 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             box-shadow: var(--shadow-light);
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
 
         .cart-btn:hover {
