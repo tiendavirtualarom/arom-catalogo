@@ -107,37 +107,15 @@
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
-         /* Estilos para el logo */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-         .logo-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ff6b6b;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .logo-image:hover {
-            transform: scale(1.1);
-        }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            text-transform: uppercase;
             letter-spacing: 2px;
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -147,9 +125,9 @@
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 300;
             animation: fadeInUp 1s ease-out 0.3s both;
         }
@@ -823,10 +801,7 @@
     <div class="container">
         <header>
             <div class="header-decoration"></div>
-            <div class="logo-container">
-            <img src="logo.png" alt="Logo AROM" class="logo-image">
             <div class="logo">Tienda Virtual AROM</div>
-             </div>
             <div class="subtitle"> 💄Maquillaje y Accesorios 💄</div>
             
             <div class="contact-info">
@@ -845,8 +820,9 @@
         <div class="search-section">
             <div class="search-bar">
                 <input type="text" class="search-input" placeholder="Buscar productos..." id="searchInput">
-                <button class="nav-btn prev" onclick="scrollCategories('left')"id="prevBtn">🔍</button>
+                <button class="search-btn" onclick="searchProducts()">🔍</button>
             </div>
+            
             <div class="cart-btn-container">
                 <button class="cart-btn" onclick="toggleCart()">
                     🛒 Carrito
@@ -855,7 +831,7 @@
             </div>
         </div>
 
-        <div class="categories" id="categoriesContainer">
+        <div class="categories">
             <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
             <button class="category-btn" onclick="filterCategory('Cuidado-Facial')">Cuidado Facial</button>
             <button class="category-btn" onclick="filterCategory('Labios')">Labios</button>
@@ -866,7 +842,7 @@
             <button class="category-btn" onclick="filterCategory('Cabello')">Cabello</button>
             <button class="category-btn" onclick="filterCategory('Otros')">Otros</button>
         </div>
-            <button class="nav-btn next" onclick="scrollCategories('right')" id="nextBtn">›</button>
+
         <div id="productsContainer">
             <!-- Cuidado Facial -->
             <div class="category-section" data-category="Cuidado-Facial">
@@ -1417,12 +1393,7 @@
                 showNotification('No se encontraron productos que coincidan con tu búsqueda.', 'error');
             }
         }
-      // Actualizar botones al hacer scroll
-        categoriesContainer.addEventListener('scroll', updateNavButtons);
-        
-        // Inicializar estado de botones
-        window.addEventListener('load', updateNavButtons);
-        
+
         function contactWhatsApp() {
             window.open('https://wa.me/573054328798', '_blank');
         }
