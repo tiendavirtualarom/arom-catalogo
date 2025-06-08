@@ -285,6 +285,28 @@
             font-weight: bold;
         }
 
+        /* Indicadores de scroll */
+        .scroll-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .scroll-dot.active {
+            background: #FF1493;
+            transform: scale(1.2);
+        }
+
+        
          /* Categories - Mejorado con scroll horizontal */
         .categories-container {
             display: flex;
