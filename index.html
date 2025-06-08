@@ -111,13 +111,18 @@
         .logo {
             font-size: 3.5rem;
             font-weight: 800;
-            background: var(--primary-gradient);
+            background: linear-gradient(45deg, #FF1493, #8A2BE2, #4B0082, #FF69B4);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            animation: glow 2s ease-in-out infinite alternate;
+            animation: logoGlow 3s ease-in-out infinite, gradientShift 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
+            position: relative;
+            z-index: 2;
         }
          @keyframes glow {
             from { text-shadow: 0 0 10px rgba(139, 76, 184, 0.3); }
