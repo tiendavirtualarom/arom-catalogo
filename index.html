@@ -1256,20 +1256,38 @@
                     <button class="close-cart" onclick="toggleCart()">&times;</button>
                 </div>
                 
-                <div id="cartItems">
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <p>Tu carrito está vacío</p>
-                        <p>¡Agrega algunos productos increíbles!</p>
-                    </div>
+                  <!-- Carrito Flotante -->
+    <div class="floating-cart" id="floatingCart">
+        <div class="cart-info">
+            <span class="cart-icon">🛒</span>
+            <div>
+                <div class="cart-items-count">
+                    <span id="cartItemsCount">0</span> productos
                 </div>
-                
-                <div class="cart-total" id="cartTotal" style="display: none;">
-                    <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
-                    <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
-                </div>
+                <div class="cart-total">$<span id="cartTotal">0</span></div>
             </div>
         </div>
+    </div>
+              <!-- Modal del Carrito -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h2>Tu Carrito de Compras</h2>
+                <button class="close-btn" id="closeCartBtn">×</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Los items del carrito se mostrarán aquí -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total-amount">
+                    Total: $<span id="cartTotalModal">0</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">
+                    Proceder al Pago 💳
+                </button>
+            </div>
+        </div>
+    </div>
 
         <div class="payment-info">
             <div class="payment-title">🌷Medios de Pago🌷</div>
