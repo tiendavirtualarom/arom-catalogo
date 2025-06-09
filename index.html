@@ -1330,44 +1330,36 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        // Cart functionality
-        let cart = [];
-        
-        function addToCart(id, name, price) {
-            const existingItem = cart.find(item => item.id === id);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: id,
-                    name: name,
-                    price: price,
-                    quantity: 1
-                });
-            }
-            
-            updateCartUI();
-            showNotification(`${name} agregado al carrito`, 'success');
-        }
-        
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-            showNotification('Producto eliminado del carrito', 'success');
-        }
-        
-        function updateQuantity(id, change) {
-            const item = cart.find(item => item.id === id);
+        const cart = {
+        items: [],
+
+        addToCart(id, name, price) {
+            const item = this.items.find(p => p.id === id);
             if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(id);
-                } else {
-                    updateCartUI();
-                }
+                item.quantity += 1;
+            } else {
+                this.items.push({ id, name, price, quantity: 1 });
             }
-        }
+            this.updateCartUI();
+            this.showNotification(`${name} agregado al carrito`, 'success');
+        },
+        
+         removeFromCart(id) {
+            this.items = this.items.filter(p => p.id !== id);
+            this.updateCartUI();
+            this.showNotification('Producto eliminado del carrito', 'success');
+        },
+        
+        updateQuantity(id, change) {
+            const item = this.items.find(p => p.id === id);
+            if (!item) return;
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                this.removeFromCart(id);
+            } else {
+                this.updateCartUI();
+            }
+        },
         
         function updateCartUI() {
             const cartCount = document.getElementById('cartCount');
