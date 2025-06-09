@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AROM Tienda Virtual - Maquillaje y Cuidado Personal</title>
+    <title>AROM Tienda Virtual - Maquillaje y Cuidado Personal ♡ </title>
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #E8D8F5 0%, #D8BFD8 50%, #DDA0DD 100%);
@@ -588,6 +588,32 @@
             font-weight: 600;
         }
 
+         /* Carrito Flotante */
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border-radius: 25px;
+            padding: 15px 20px;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            min-width: 200px;
+            transform: translateY(100px);
+            opacity: 0;
+        }
+      .floating-cart.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .floating-cart:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+        }
         .quantity-controls {
             display: flex;
             align-items: center;
