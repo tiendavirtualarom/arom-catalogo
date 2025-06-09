@@ -309,6 +309,19 @@
         
          /* Categories - Mejorado con scroll horizontal */
         .categories-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            overflow: hidden;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 20px 60px;
+        }
+        
+        /* Categories */
+        .categories {
             display: flex;
             gap: 15px;
             padding: 10px 0;
@@ -318,31 +331,29 @@
             -ms-overflow-style: none;
             transition: transform 0.3s ease;
         }
-        
-        /* Categories */
-        .categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            padding: 10px 0;
-            justify-content: center;
-            margin-bottom: 40px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            animation: slideRight 30s linear infinite;
-        }
         .categories::-webkit-scrollbar {
             display: none;
         }
-         /* Animación de desplazamiento automático */
-        @keyframes slideRight {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        
+         /* Indicadores de scroll */
+        .scroll-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
         }
-      .categories:hover {
-            animation-play-state: paused;
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .scroll-dot.active {
+            background: #FF1493;
+            transform: scale(1.2);
         }
         
         .category-btn {
@@ -912,6 +923,14 @@
             <button class="category-btn" onclick="filterCategory('Cabello')">Cabello</button>
             <button class="category-btn" onclick="filterCategory('Otros')">Otros</button>
         </div>
+        <button class="nav-button right" id="scrollRight">›</button>
+        
+        <div class="scroll-indicators" id="scrollIndicators">
+            <div class="scroll-dot active"></div>
+            <div class="scroll-dot"></div>
+            <div class="scroll-dot"></div>
+        </div>
+    </div>
 
         <div id="productsContainer">
             <!-- Cuidado Facial -->
