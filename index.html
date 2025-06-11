@@ -1,9 +1,9 @@
-f<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AROM Tienda Virtual - Maquillaje y Cuidado Personal ♡</title>
+    <title>AROM Tienda Virtual - Maquillaje y Cuidado Personal</title>
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #E8D8F5 0%, #D8BFD8 50%, #DDA0DD 100%);
@@ -13,6 +13,7 @@ f<!DOCTYPE html>
             --danger-gradient: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
             --dark-gradient: linear-gradient(135deg, #8B4CB8 0%, #9370DB 100%);
             
+            /* Colores de texto actualizados */
             --text-primary: #4B0082;
             --text-secondary: #8B4CB8;
             --text-light: #C8A2C8;
@@ -21,6 +22,7 @@ f<!DOCTYPE html>
             --bg-glass: rgba(248, 240, 255, 0.25);
             --bg-glass-dark: rgba(139, 76, 184, 0.1);
             
+            /* Sombras con tonos púrpura suaves */
             --shadow-soft: 0 10px 30px rgba(139, 76, 184, 0.15);
             --shadow-hover: 0 20px 40px rgba(139, 76, 184, 0.25);
             --shadow-strong: 0 25px 50px rgba(139, 76, 184, 0.35);
@@ -28,6 +30,10 @@ f<!DOCTYPE html>
             --border-radius: 20px;
             --border-radius-small: 12px;
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-glass: rgba(255, 255, 255, 0.1);
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.5);
+            
         }
 
         * {
@@ -43,20 +49,6 @@ f<!DOCTYPE html>
             background: var(--primary-gradient);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g"><stop offset="0%" stop-color="rgba(255,182,193,0.1)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><circle cx="20" cy="20" r="10" fill="url(%23g)"><animate attributeName="cx" values="20;80;20" dur="20s" repeatCount="indefinite"/></circle><circle cx="80" cy="60" r="8" fill="url(%23g)"><animate attributeName="cy" values="60;20;60" dur="15s" repeatCount="indefinite"/></circle><circle cx="50" cy="80" r="12" fill="url(%23g)"><animate attributeName="cx" values="50;20;80;50" dur="25s" repeatCount="indefinite"/></circle></svg>') no-repeat center center;
-            background-size: cover;
-            pointer-events: none;
-            z-index: -1;
         }
 
         .container {
@@ -74,21 +66,9 @@ f<!DOCTYPE html>
             text-align: center;
             border-radius: 25px;
             margin-bottom: 30px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-light);
             position: relative;
             overflow: hidden;
-            animation: slideInDown 0.8s ease-out;
-        }
-
-        @keyframes slideInDown {
-            from {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         .header-decoration {
@@ -98,45 +78,17 @@ f<!DOCTYPE html>
             right: 0;
             height: 4px;
             background: var(--primary-gradient);
-            animation: shimmer 3s infinite linear;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
         }
 
         .logo {
             font-size: 3.5rem;
             font-weight: 800;
-            background: linear-gradient(45deg, #FF1493, #8A2BE2, #4B0082, #FF69B4);
-            background-size: 300% 300%;
+            background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            animation: logoGlow 3s ease-in-out infinite, gradientShift 4s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% { 
-                filter: drop-shadow(0 0 10px rgba(139, 76, 184, 0.3));
-                transform: scale(1);
-            }
-            50% { 
-                filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.8));
-                transform: scale(1.02);
-            }
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
 
         .subtitle {
@@ -144,19 +96,6 @@ f<!DOCTYPE html>
             color: var(--text-secondary);
             margin-bottom: 25px;
             font-weight: 300;
-            animation: fadeInUp 1s ease-out 0.3s both;
-            text-shadow: 0 2px 10px rgba(139, 76, 184, 0.3);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         .contact-info {
@@ -165,7 +104,6 @@ f<!DOCTYPE html>
             gap: 25px;
             flex-wrap: wrap;
             margin-top: 20px;
-            animation: fadeInUp 1s ease-out 0.6s both;
         }
 
         .contact-item {
@@ -178,8 +116,7 @@ f<!DOCTYPE html>
             font-weight: 600;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: var(--transition);
-            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .contact-item:hover {
@@ -195,7 +132,6 @@ f<!DOCTYPE html>
             align-items: center;
             margin-bottom: 30px;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 0.9s both;
         }
 
         .search-bar {
@@ -212,9 +148,9 @@ f<!DOCTYPE html>
             font-size: 16px;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-light);
             border: 1px solid rgba(255, 182, 193, 0.3);
-            transition: var(--transition);
+            transition: all 0.3s ease;
             color: var(--text-primary);
         }
 
@@ -222,8 +158,7 @@ f<!DOCTYPE html>
             outline: none;
             box-shadow: var(--shadow-hover);
             transform: translateY(-2px);
-            border-color: #FF69B4;
-            background: rgba(255, 255, 255, 0.95);
+             border-color: #FF69B4;
         }
 
         .search-btn {
@@ -237,13 +172,12 @@ f<!DOCTYPE html>
             padding: 12px 18px;
             border-radius: 50px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             font-size: 16px;
         }
 
         .search-btn:hover {
             transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
         }
 
         /* Cart Button */
@@ -260,13 +194,11 @@ f<!DOCTYPE html>
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: var(--transition);
-            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
             display: flex;
             align-items: center;
             gap: 10px;
-            position: relative;
-            overflow: hidden;
         }
 
         .cart-btn:hover {
@@ -288,31 +220,12 @@ f<!DOCTYPE html>
         }
 
         /* Categories */
-        .categories-container {
-            position: relative;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto 40px;
-            overflow: hidden;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 20px 60px;
-        }
-
         .categories {
             display: flex;
+            flex-wrap: wrap;
             gap: 15px;
-            padding: 10px 0;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            transition: transform 0.3s ease;
-        }
-
-        .categories::-webkit-scrollbar {
-            display: none;
+            justify-content: center;
+            margin-bottom: 40px;
         }
 
         .category-btn {
@@ -327,10 +240,6 @@ f<!DOCTYPE html>
             border: 1px solid rgba(255, 182, 193, 0.3);
             font-size: 14px;
             color: var(--text-primary);
-            white-space: nowrap;
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
         }
 
         .category-btn:hover, .category-btn.active {
@@ -353,7 +262,7 @@ f<!DOCTYPE html>
             backdrop-filter: blur(20px);
             border-radius: 25px;
             padding: 25px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-light);
             transition: all 0.4s ease;
             border: 1px solid rgba(255, 182, 193, 0.2);
             position: relative;
@@ -361,7 +270,6 @@ f<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             height: 100%;
-            text-align: center;
         }
 
         .product-card::before {
@@ -385,11 +293,6 @@ f<!DOCTYPE html>
             transform: scaleX(1);
         }
 
-        .product-image {
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
-
         .product-name {
             font-size: 1.2rem;
             font-weight: 700;
@@ -404,9 +307,16 @@ f<!DOCTYPE html>
             margin-bottom: 20px;
             line-height: 1.6;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
         }
 
         .product-price {
@@ -415,240 +325,145 @@ f<!DOCTYPE html>
             background: var(--secondary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .qty-btn {
-            background: var(--secondary-gradient);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .qty-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
-        }
-
-        .qty-display {
-            font-size: 1.5rem;
-            font-weight: bold;
-            min-width: 40px;
-            color: var(--text-primary);
         }
 
         .add-to-cart {
             background: var(--secondary-gradient);
             color: white;
             border: none;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            font-size: 16px;
-            margin-top: auto;
+            font-size: 14px;
         }
 
         .add-to-cart:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
         }
 
-        /* Floating Cart */
-        .floating-cart {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--secondary-gradient);
+        .add-to-cart:active {
+            transform: scale(0.95);
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            font-weight: 800;
             color: white;
-            padding: 15px 20px;
-            border-radius: 50px;
-            box-shadow: var(--shadow-hover);
-            cursor: pointer;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            min-width: 200px;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 4px 15px rgba(139, 76, 184, 0.4);
+            position: relative;
         }
 
-        .floating-cart.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .floating-cart:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-strong);
-        }
-
-        .floating-cart.cart-bounce {
-            animation: cartBounce 0.6s ease;
-        }
-
-        @keyframes cartBounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-10px) scale(1.1); }
-        }
-
-        .cart-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cart-icon {
-            font-size: 1.5rem;
-        }
-
-        .cart-items-count {
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .cart-total {
-            font-size: 1.1rem;
-            font-weight: bold;
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gradient);
+            border-radius: 2px;
         }
 
         /* Cart Modal */
         .cart-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(139, 76, 184, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
-        .cart-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .cart-modal-content {
+        .cart-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border-radius: 25px;
             padding: 30px;
+            border-radius: 25px;
             max-width: 600px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-            box-shadow: var(--shadow-strong);
+            box-shadow: var(--shadow-hover);
             border: 1px solid rgba(255, 182, 193, 0.3);
-        }
-
-        .cart-modal.show .cart-modal-content {
-            transform: scale(1);
         }
 
         .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 2px solid rgba(255, 182, 193, 0.3);
         }
 
-        .cart-header h2 {
-            color: var(--text-primary);
+        .cart-title {
             font-size: 1.8rem;
             font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .close-btn {
+        .close-cart {
             background: none;
             border: none;
             font-size: 2rem;
             cursor: pointer;
             color: var(--text-secondary);
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
 
-        .close-btn:hover {
-            background: rgba(255, 182, 193, 0.2);
+        .close-cart:hover {
             color: #FF69B4;
-        }
-
-        .cart-items {
-            margin-bottom: 30px;
         }
 
         .cart-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            padding: 15px;
+            padding: 15px 0;
             border-bottom: 1px solid rgba(255, 182, 193, 0.2);
         }
 
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-
-        .cart-item-image {
-            font-size: 2rem;
-            width: 60px;
-        }
-
-        .cart-item-details {
+        .cart-item-info {
             flex: 1;
         }
 
         .cart-item-name {
-            font-weight: bold;
+            font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 5px;
         }
 
         .cart-item-price {
             color: #FF69B4;
-            font-weight: bold;
+            font-weight: 600;
         }
 
-        .cart-item-quantity {
+        .quantity-controls {
             display: flex;
             align-items: center;
             gap: 10px;
+            margin: 10px 0;
         }
 
-        .cart-qty-btn {
+        .quantity-btn {
             background: var(--secondary-gradient);
             color: white;
             border: none;
@@ -656,87 +471,61 @@ f<!DOCTYPE html>
             height: 30px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-weight: bold;
             transition: all 0.3s ease;
         }
 
-        .cart-qty-btn:hover {
+        .quantity-btn:hover {
             transform: scale(1.1);
         }
 
-        .cart-qty-input {
-            width: 50px;
-            text-align: center;
-            border: 1px solid rgba(255, 182, 193, 0.5);
-            border-radius: 5px;
-            padding: 5px;
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .remove-item-btn {
-            background: var(--danger-gradient);
+        .remove-item {
+            background: var(--secondary-gradient);
             color: white;
             border: none;
             padding: 8px 15px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 12px;
             transition: all 0.3s ease;
         }
 
-        .remove-item-btn:hover {
+        .remove-item:hover {
             transform: scale(1.05);
         }
 
-        .cart-summary {
+        .cart-total {
+            text-align: center;
+            padding: 20px 0;
             border-top: 2px solid rgba(255, 182, 193, 0.3);
-            padding-top: 20px;
+            margin-top: 20px;
         }
 
-        .cart-total-amount {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-primary);
-            text-align: center;
-            margin-bottom: 20px;
+        .total-amount {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .checkout-btn {
-            width: 100%;
-            background: var(--success-gradient);
+            background: var(--secondary-gradient);
             color: white;
             border: none;
-            padding: 15px;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            padding: 15px 40px;
+            border-radius: 50px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 15px;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
         }
 
         .checkout-btn:hover {
-            transform: scale(1.02);
+            transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--text-secondary);
-        }
-
-        .empty-cart-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
-        .empty-cart h3 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-            color: var(--text-primary);
         }
 
         /* Payment Info */
@@ -747,7 +536,7 @@ f<!DOCTYPE html>
             border-radius: 25px;
             margin-top: 50px;
             text-align: center;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-light);
             border: 1px solid rgba(255, 182, 193, 0.2);
         }
 
@@ -772,7 +561,7 @@ f<!DOCTYPE html>
             padding: 12px 25px;
             border-radius: 25px;
             font-weight: 600;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-light);
             transition: all 0.3s ease;
         }
 
@@ -781,11 +570,11 @@ f<!DOCTYPE html>
             box-shadow: var(--shadow-hover);
         }
 
-        /* WhatsApp Float */
+        /* Floating Elements */
         .floating-whatsapp {
             position: fixed;
             bottom: 30px;
-            left: 30px;
+            right: 30px;
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
             padding: 18px;
@@ -808,6 +597,18 @@ f<!DOCTYPE html>
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .logo {
@@ -822,6 +623,10 @@ f<!DOCTYPE html>
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                 gap: 20px;
+            }
+
+            .category-title {
+                font-size: 2rem;
             }
 
             .search-section {
@@ -839,17 +644,6 @@ f<!DOCTYPE html>
             .category-btn {
                 padding: 12px 20px;
                 font-size: 13px;
-            }
-
-            .floating-cart {
-                bottom: 20px;
-                right: 20px;
-                min-width: 150px;
-            }
-
-            .cart-modal-content {
-                width: 95%;
-                padding: 20px;
             }
         }
 
@@ -873,9 +667,105 @@ f<!DOCTYPE html>
         }
 
         .notification.success {
-            background: var(--success-gradient);
+            background: linear-gradient(45deg, #98FB98, #90EE90);
             color: var(--text-primary);
         }
+        /* Exit Prevention Modal */
+        .exit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 76, 184, 0.9);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .exit-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-hover);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .exit-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .exit-message {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .exit-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .exit-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .stay-btn {
+            background: var(--secondary-gradient);
+            color: white;
+        }
+
+        .leave-btn {
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .exit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+          /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            box-shadow: var(--shadow-hover);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+         .notification.show {
+            transform: translateX(0);
+        }  
+    .notification.success {
+            background: linear-gradient(45deg, #98FB98, #90EE90);
+            color: var(--text-primary);
+        }
+        
     </style>
 </head>
 <body>
@@ -883,14 +773,14 @@ f<!DOCTYPE html>
         <header>
             <div class="header-decoration"></div>
             <div class="logo">Tienda Virtual AROM</div>
-            <div class="subtitle">💄 Maquillaje y Cuidado Personal 💄</div>
+            <div class="subtitle"> 💄Maquillaje y Accesorios 💄</div>
             
             <div class="contact-info">
                 <div class="contact-item">
-                    🌐 AROM_TIENDAVIRTUAL
+                    📱 AROM_TIENDAVIRTUAL
                 </div>
                 <div class="contact-item">
-                    📱 305-4328-798
+                    📞 305-4328-798
                 </div>
                 <div class="contact-item">
                     📧 TIENDAVIRTUALAROM
@@ -901,16 +791,17 @@ f<!DOCTYPE html>
         <div class="search-section">
             <div class="search-bar">
                 <input type="text" class="search-input" placeholder="Buscar productos..." id="searchInput">
-                <button class="search-btn" onclick="cart.searchProducts()">🔍</button>
+                <button class="search-btn" onclick="searchProducts()">🔍</button>
             </div>
             
             <div class="cart-btn-container">
-                <button class="cart-btn" onclick="cart.showCartModal()">
+                <button class="cart-btn" onclick="toggleCart()">
                     🛒 Carrito
                     <span class="cart-count" id="cartCount">0</span>
                 </button>
             </div>
         </div>
+
         <div class="categories">
             <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
             <button class="category-btn" onclick="filterCategory('Cuidado-Facial')">Cuidado Facial</button>
@@ -922,13 +813,7 @@ f<!DOCTYPE html>
             <button class="category-btn" onclick="filterCategory('Cabello')">Cabello</button>
             <button class="category-btn" onclick="filterCategory('Otros')">Otros</button>
         </div>
-        <button class="nav-button right" id="scrollRight">›</button>
-        
-        <div class="scroll-indicators" id="scrollIndicators">
-            <div class="scroll-dot active"></div>
-            <div class="scroll-dot"></div>
-            <div class="scroll-dot"></div>
-        </div>
+
         <div id="productsContainer">
             <!-- Cuidado Facial -->
             <div class="category-section" data-category="Cuidado-Facial">
@@ -940,7 +825,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.</div>
                         <div class="product-footer">
                             <div class="product-price">$6.500</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(1, 'Crema Hidratante de Arroz BIOAQUA', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(1, 'Crema Hidratante de Arroz BIOAQUA', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -950,7 +835,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Hidratación intensa, reduce signos del envejecimiento, piel más uniforme y radiante.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(2, 'Crema Polipéptidos de Perilla', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(2, 'Crema Polipéptidos de Perilla', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -960,7 +845,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Reduce enrojecimiento e irritación. Potente antioxidante que protege de radicales libres.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(3, 'Crema Hidratante Centella Asiática BIOAQUA', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(3, 'Crema Hidratante Centella Asiática BIOAQUA', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -970,7 +855,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Reduce líneas de expresión, activa síntesis de colágeno, minimiza manchas. 50g.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(4, 'Crema Vitamina C BIOAQUA', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(4, 'Crema Vitamina C BIOAQUA', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -980,7 +865,7 @@ f<!DOCTYPE html>
                         <div class="product-description">99% Pulpa Cruda de Arroz. Hidratación profunda, reparación y regeneración celular.</div>
                         <div class="product-footer">
                             <div class="product-price">$10.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(5, 'Gel de Arroz BIOAQUA', 10000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(5, 'Gel de Arroz BIOAQUA', 10000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -990,7 +875,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Con ácido hialurónico. Propiedades antioxidantes, antiinflamatorias y blanqueadoras.</div>
                         <div class="product-footer">
                             <div class="product-price">$5.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(6, 'Suero de Arroz BIOAQUA', 5000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(6, 'Suero de Arroz BIOAQUA', 5000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1000,7 +885,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Hidratación intensa, ideal para pieles sensibles. Sin conservantes artificiales.</div>
                         <div class="product-footer">
                             <div class="product-price">$13.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(7, 'Suero Ácido Hialurónico 100ml', 13000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(7, 'Suero Ácido Hialurónico 100ml', 13000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1010,7 +895,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Alta concentración, poder antioxidante, previene envejecimiento prematuro.</div>
                         <div class="product-footer">
                             <div class="product-price">$13.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(8, 'Suero de Vitamina C BIOAQUA', 13000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(8, 'Suero de Vitamina C BIOAQUA', 13000)">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -1026,7 +911,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Tinta de larga duración para labios con acabado natural.</div>
                         <div class="product-footer">
                             <div class="product-price">$5.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(9, 'Tinta para Labios', 5000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(9, 'Tinta para Labios', 5000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1036,7 +921,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Brillo labial con acabado glossy de larga duración.</div>
                         <div class="product-footer">
                             <div class="product-price">$4.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(10, 'Lip Gloss NICOR', 4000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(10, 'Lip Gloss NICOR', 4000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1046,7 +931,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Labial líquido con acabado mate de larga duración.</div>
                         <div class="product-footer">
                             <div class="product-price">$4.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(11, 'Labial Mate Líquido LAMEILA', 4000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(11, 'Labial Mate Líquido LAMEILA', 4000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1056,7 +941,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Bálsamo hidratante con aroma a fresa para labios suaves.</div>
                         <div class="product-footer">
                             <div class="product-price">$2.500</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(12, 'Bálsamo Fresa', 2500)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(12, 'Bálsamo Fresa', 2500)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1066,7 +951,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Hidrata y suaviza, elimina líneas finas, previene grietas y arrugas.</div>
                         <div class="product-footer">
                             <div class="product-price">$10.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(13, 'Colágeno de Labios VEZE', 10000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(13, 'Colágeno de Labios VEZE', 10000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1076,7 +961,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Brillo labial con propiedades hidratantes del aloe vera.</div>
                         <div class="product-footer">
                             <div class="product-price">$4.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(14, 'Brillo Mágico Aloe Vera', 4000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(14, 'Brillo Mágico Aloe Vera', 4000)">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -1084,7 +969,7 @@ f<!DOCTYPE html>
 
             <!-- Rubores y Contornos -->
             <div class="category-section" data-category="Rubores">
-                <h2 class="category-title">🎨Rubores y Contornos🎨</h2>
+                <h2 class="category-title">Rubores y Contornos</h2>
                 <div class="products-grid">
                     <div class="product-card" data-id="15">
                         <img src="imagenes/29.jpg" alt="Imagen del producto" width="300"</div> 
@@ -1092,7 +977,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Paleta completa de correctores de alta cobertura para todo tipo de piel.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(15, 'Paleta de Correctores Full Coverage SFR Color', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(15, 'Paleta de Correctores Full Coverage SFR Color', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1102,7 +987,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Rubor en polvo compacto con acabado natural y duradero.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(16, 'Rubor Tipo Tiza CAPPUVINI', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(16, 'Rubor Tipo Tiza CAPPUVINI', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1112,7 +997,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Rubor líquido de fácil aplicación con acabado natural.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(17, 'Rubor Líquido MLSMILE', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(17, 'Rubor Líquido MLSMILE', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1122,7 +1007,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Textura gelatinosa única, fácil aplicación y acabado natural.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(18, 'Rubor en Gelatina Jelly Tint ALAMA BEAUTY', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(18, 'Rubor en Gelatina Jelly Tint ALAMA BEAUTY', 8000)">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -1130,7 +1015,7 @@ f<!DOCTYPE html>
 
             <!-- Sombras e Iluminadores -->
             <div class="category-section" data-category="Sombras">
-                <h2 class="category-title">🎭Sombras e Iluminadores🎭</h2>
+                <h2 class="category-title">Sombras e Iluminadores</h2>
                 <div class="products-grid">
                     <div class="product-card" data-id="19">
                          <img src="imagenes/29.jpg" alt="Imagen del producto" width="300"</div>
@@ -1138,7 +1023,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Iluminador para resaltar puntos altos del rostro con acabado radiante.</div>
                         <div class="product-footer">
                             <div class="product-price">$8.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(19, 'Iluminador SAGUI', 8000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(19, 'Iluminador SAGUI', 8000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1148,7 +1033,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Paleta completa con 40 tonos para crear looks versátiles.</div>
                         <div class="product-footer">
                             <div class="product-price">$25.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(20, 'Paleta de Sombras 40 Tonos', 25000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(20, 'Paleta de Sombras 40 Tonos', 25000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1158,7 +1043,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Amplia gama de colores para todos los gustos y ocasiones.</div>
                         <div class="product-footer">
                             <div class="product-price">$25.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(21, 'Paleta de Sombras 38 Tonos', 25000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(21, 'Paleta de Sombras 38 Tonos', 25000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1168,7 +1053,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Paleta profesional con 117 colores para maquillaje completo.</div>
                         <div class="product-footer">
                             <div class="product-price">$48.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(22, 'Paleta Libro Pride 117 Colores Kevin & Coco', 48000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(22, 'Paleta Libro Pride 117 Colores Kevin & Coco', 48000)">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -1176,7 +1061,7 @@ f<!DOCTYPE html>
 
             <!-- Pestañas -->
             <div class="category-section" data-category="Pestañas">
-                <h2 class="category-title">✏️Pestañas✏️</h2>
+                <h2 class="category-title">Pestañas</h2>
                 <div class="products-grid">
                     <div class="product-card" data-id="23">
                          <img src="imagenes/29.jpg" alt="Imagen del producto" width="300"</div>
@@ -1184,7 +1069,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Nutre desde la raíz, agrega grosor, fortalece pestañas cortas y dispersas.</div>
                         <div class="product-footer">
                             <div class="product-price">$7.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(23, 'Serum Crecimiento Pestañas BIOAQUA', 7000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(23, 'Serum Crecimiento Pestañas BIOAQUA', 7000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1194,7 +1079,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Máscara para pestañas con efecto volumen y definición.</div>
                         <div class="product-footer">
                             <div class="product-price">$7.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(24, 'Pestañina Distinct Roots KARITÉ', 7000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(24, 'Pestañina Distinct Roots KARITÉ', 7000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1204,7 +1089,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Máscara premium para pestañas largas y voluminosas.</div>
                         <div class="product-footer">
                             <div class="product-price">$20.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(25, 'Pestañina PROSA', 20000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(25, 'Pestañina PROSA', 20000)">Agregar</button>
                         </div>
                     </div>
                     
@@ -1214,7 +1099,7 @@ f<!DOCTYPE html>
                         <div class="product-description">Con aloe vera, doble extensión para pestañas impactantes.</div>
                         <div class="product-footer">
                             <div class="product-price">$7.000</div>
-                            <button class="add-to-cart" onclick="cart.addToCart(26, 'Pestañina Súper Volumen OLIBOLLA', 7000)">Agregar</button>
+                            <button class="add-to-cart" onclick="addToCart(26, 'Pestañina Súper Volumen OLIBOLLA', 7000)">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -1229,48 +1114,23 @@ f<!DOCTYPE html>
                     <button class="close-cart" onclick="toggleCart()">&times;</button>
                 </div>
                 
-                  <!-- Carrito Flotante -->
-    <div class="floating-cart" id="floatingCart">
-        <div class="cart-info">
-            <span class="cart-icon">🛒</span>
-            <div>
-                <div class="cart-items-count">
-                    <span id="cartItemsCount">0</span> productos
+                <div id="cartItems">
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Tu carrito está vacío</p>
+                        <p>¡Agrega algunos productos increíbles!</p>
+                    </div>
                 </div>
-                <div class="cart-total">$<span id="cartTotal">0</span></div>
+                
+                <div class="cart-total" id="cartTotal" style="display: none;">
+                    <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+                    <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+                </div>
             </div>
         </div>
-    </div>
-              <!-- Modal del Carrito -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-modal-content">
-            <div class="cart-header">
-                <h2>Tu Carrito de Compras</h2>
-                <button class="close-btn" id="closeCartBtn">×</button>
-            </div>
-            <div class="cart-items" id="cartItems">
-                <!-- Los items del carrito se mostrarán aquí -->
-            </div>
-            <div class="cart-summary">
-                <div class="cart-total-amount">
-                    Total: $<span id="cartTotalModal">0</span>
-                </div>
-                <button class="checkout-btn" id="checkoutBtn">
-                    Proceder al Pago 💳
-                </button>
-            </div>
-        </div>
-    </div>
-                <script>
-        class ShoppingCart {
-            constructor() {
-                this.cart = [];
-                this.products = this.generateProducts();
-                this.init();
-            }
 
         <div class="payment-info">
-            <div class="payment-title">🌷Medios de Pago🌷</div>
+            <div class="payment-title">Medios de Pago</div>
             <p>El pago es por transferencia o consignación</p>
             <div class="payment-methods">
                 <div class="payment-method">BANCOLOMBIA</div>
@@ -1287,40 +1147,38 @@ f<!DOCTYPE html>
             <div class="payment-info">
                 <div class="payment-title">🚚 Envíos</div>
                 <ul style="text-align: left; list-style: none; padding: 0;">
-                     <li style="margin: 10px 0; padding-left: 20px; position: relative;">
-                        <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
-                       🚚 Envíos a todo el país 
-                          </li>
                     <li style="margin: 10px 0; padding-left: 20px; position: relative;">
                         <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
-                       ❌los costos de envío no están incluidos❌
+                        Envíos a todo el país
                     </li>
                     <li style="margin: 10px 0; padding-left: 20px; position: relative;">
                         <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
-                        ✅ Entrega 2-5 días hábiles
-                    </li>
-                    <li style="margin: 10px 0; padding-left: 20px; position: relative;">
-                        <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
-                       ❌NO SE HACEN Devoluciones de Dinero❌
+                        Entrega 2-5 días hábiles
                     </li>
                 </ul>
             </div>
 
             <div class="payment-info">
-                <div class="payment-title">🎁 Garantías y Políticas </div>
+                <div class="payment-title">🎁 Garantías</div>
                 <ul style="text-align: left; list-style: none; padding: 0;">
                     <li style="margin: 10px 0; padding-left: 20px; position: relative;">
                         <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
-                    🛡️Plazo de reclamación: Cuentas con 2 días calendario a partir de la recepción del producto para reportar cualquier inconveniente (producto defectuoso, dañado, incompleto, etc.)
+                        Plazo de reclamación: Cuentas con 2 días calendario a partir de la recepción del producto para reportar cualquier inconveniente (producto defectuoso, dañado, incompleto, etc.)
                         </li>
-                    <li style="margin: 10px 0; padding-left: 20px; position: relative;">
-                        <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
-                    ✅ confirma pedido unicamente si vas a realizar el pago 
-                    <li>
-                    <li style="margin: 10px 0; padding-left: 20px; position: relative;">
-                        <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
-                    📦Empaque seguro: Embalaje especializado para proteger tu producto durante el transporte 
-                    <li>
+                    <li        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
     
     <div class="floating-whatsapp" onclick="contactWhatsApp()">
         📱
@@ -1330,36 +1188,68 @@ f<!DOCTYPE html>
     <div class="notification" id="notification"></div>
 
     <script>
-        const cart = {
-        items: [],
+        // Cart functionality
+        let cart = [];
+        // Cargar carrito desde localStorage
+function loadCart() {
+    const savedCart = localStorage.getItem('aromCart');
+    if (savedCart) {
+        try {
+            cart = JSON.parse(savedCart);
+        } catch (e) {
+            console.error('Error al cargar el carrito:', e);
+            cart = [];
+        }
+    }
+}
+// Guardar carrito en localStorage
+function saveCart() {
+    try {
+        localStorage.setItem('aromCart', JSON.stringify(cart));
+    } catch (e) {
+        console.error('Error al guardar el carrito:', e);
+    }
+}
 
-        addToCart(id, name, price) {
-            const item = this.items.find(p => p.id === id);
+        
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            loadCart();
+updateCartUI();
+            showNotification(`${name} agregado al carrito`, 'success');
+        }
+        
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            loadCart();
+updateCartUI();
+            showNotification('Producto eliminado del carrito', 'success');
+        }
+        
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
             if (item) {
-                item.quantity += 1;
-            } else {
-                this.items.push({ id, name, price, quantity: 1 });
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    loadCart();
+updateCartUI();
+                }
             }
-            this.updateCartUI();
-            this.showNotification(`${name} agregado al carrito`, 'success');
-        },
-        
-         removeFromCart(id) {
-            this.items = this.items.filter(p => p.id !== id);
-            this.updateCartUI();
-            this.showNotification('Producto eliminado del carrito', 'success');
-        },
-        
-        updateQuantity(id, change) {
-            const item = this.items.find(p => p.id === id);
-            if (!item) return;
-            item.quantity += change;
-            if (item.quantity <= 0) {
-                this.removeFromCart(id);
-            } else {
-                this.updateCartUI();
-            }
-        },
+        }
         
         function updateCartUI() {
             const cartCount = document.getElementById('cartCount');
@@ -1397,7 +1287,7 @@ f<!DOCTYPE html>
                     </div>
                 `).join('');
                 
-                // Calculate total ♡
+                // Calculate total
                 const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
                 totalAmount.textContent = total.toLocaleString();
                 cartTotal.style.display = 'block';
