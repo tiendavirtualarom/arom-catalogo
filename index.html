@@ -56,7 +56,228 @@
             margin: 0 auto;
             padding: 20px;
         }
+ body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
+        .carousel-container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .carousel-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .carousel-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .carousel-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+	.avatar-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--secondary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
+            transition: var(--transition);
+        }
+
+        .category-item:hover .avatar-container {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.5);
+        }
+
+        .avatar-emoji {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+        }
+
+        .category-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            line-height: 1.3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: var(--secondary-gradient);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .carousel-nav.prev {
+            left: -25px;
+        }
+
+        .carousel-nav.next {
+            right: -25px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(139, 76, 184, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: var(--secondary-gradient);
+            transform: scale(1.2);
+        }
+
+        .indicator:hover {
+            background: var(--secondary-gradient);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container {
+                padding: 25px;
+            }
+
+            .carousel-title {
+                font-size: 2rem;
+            }
+
+            .category-item {
+                flex: 0 0 140px;
+                padding: 20px 10px;
+            }
+
+            .avatar-container {
+                width: 60px;
+                height: 60px;
+            }
+
+            .avatar-emoji {
+                font-size: 1.8rem;
+            }
+
+            .category-name {
+                font-size: 0.85rem;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }    
+@media (max-width: 480px) {
+            .category-item {
+                flex: 0 0 120px;
+                padding: 15px 8px;
+            }
+
+            .avatar-container {
+                width: 50px;
+                height: 50px;
+            }
+
+            .avatar-emoji {
+                font-size: 1.5rem;
+            }
+
+            .category-name {
+                font-size: 0.8rem;
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
+            }
+            100% {
+                box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
+            }
         /* Header Styles */
         header {
             background: rgba(255, 255, 255, 0.95);
@@ -863,18 +1084,111 @@
             </div>
         </div>
 
-        <div class="categories">
-            <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
-            <button class="category-btn" onclick="filterCategory('Cuidado-Facial')">Cuidado Facial</button>
-            <button class="category-btn" onclick="filterCategory('Labios')">Labios</button>
-            <button class="category-btn" onclick="filterCategory('Rubores')">Rubores</button>
-            <button class="category-btn" onclick="filterCategory('Sombras')">Sombras</button>
-            <button class="category-btn" onclick="filterCategory('Pestañas')">Pestañas</button>
-            <button class="category-btn" onclick="filterCategory('Delineadores')">Delineadores</button>
-            <button class="category-btn" onclick="filterCategory('Cabello')">Cabello</button>
-            <button class="category-btn" onclick="filterCategory('Otros')">Otros</button>
+        <div class="carousel-container">
+        <div class="carousel-header">
+            <h1 class="carousel-title">Categorías AROM</h1>
+            <p class="carousel-subtitle">Explora nuestras categorías de maquillaje y cuidado personal</p>
         </div>
 
+        <div class="carousel-wrapper">
+            <button class="carousel-nav prev" onclick="prevSlide()">❮</button>
+            <button class="carousel-nav next" onclick="nextSlide()">❯</button>
+            
+            <div class="carousel-track" id="carouselTrack">
+                <div class="category-item" onclick="selectCategory('pijamas')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">👚</div>
+                    </div>
+                    <div class="category-name">• Pijamas •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('labios')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">💋</div>
+                    </div>
+                    <div class="category-name">• Labios •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('bases-correctores')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">🎨</div>
+                    </div>
+                    <div class="category-name">• Bases y<br>Correctores •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('polvos')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">✨</div>
+                    </div>
+                    <div class="category-name">• Polvos •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('iluminador')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">🌟</div>
+                    </div>
+                    <div class="category-name">• Iluminador •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('lapiz-delineadores')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">✏️</div>
+                    </div>
+                    <div class="category-name">• Lápiz y<br>Delineadores •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('sombras')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">🎭</div>
+                    </div>
+                    <div class="category-name">• Sombras •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('pestañas')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">👁️</div>
+                    </div>
+                    <div class="category-name">• Pestañas •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('rubores')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">🌸</div>
+                    </div>
+                    <div class="category-name">• Rubores •</div>
+                </div>
+
+                <div class="category-item" onclick="selectCategory('cabello')">
+                    <div class="avatar-container">
+                        <div class="avatar-emoji">💇‍♀️</div>
+                    </div>
+                    <div class="category-name">• Cabello •</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-indicators" id="indicators">
+            <!-- Los indicadores se generarán dinámicamente -->
+        </div>
+    </div>
+ <script>
+        let currentSlide = 0;
+        const itemsPerSlide = 5; // Número de items visibles por vez
+        const totalItems = document.querySelectorAll('.category-item').length;
+        const totalSlides = Math.ceil(totalItems / itemsPerSlide);
+        const track = document.getElementById('carouselTrack');
+        const indicatorsContainer = document.getElementById('indicators');
+
+        // Generar indicadores
+        function generateIndicators() {
+            indicatorsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = `indicator ${i === 0 ? 'active' : ''}`;
+                indicator.onclick = () => goToSlide(i);
+                indicatorsContainer.appendChild(indicator);
+            }
+        }
         <div id="productsContainer">
             <!-- Cuidado Facial -->
             <div class="category-section" data-category="Cuidado-Facial">
@@ -1225,7 +1539,9 @@
                         <span style="position: absolute; left: 0; color: #2ecc71;">✓</span>
                         Plazo de reclamación: Cuentas con 2 días calendario a partir de la recepción del producto para reportar cualquier inconveniente (producto defectuoso, dañado, incompleto, etc.)
                         </li>
-                    <li        .product-card {
+                    <li ></li>
+	
+	 .product-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 25px;
@@ -1466,7 +1782,136 @@ updateCartUI();
                 toggleCart();
             }
         });
+  // Actualizar posición del carrusel
+        function updateCarousel() {
+            const translateX = -(currentSlide * (100 / totalSlides));
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            // Actualizar indicadores
+            document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
 
+        // Ir a slide específico
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+
+        // Slide anterior
+        function prevSlide() {
+            currentSlide = currentSlide > 0 ? currentSlide - 1 : totalSlides - 1;
+            updateCarousel();
+        }
+
+        // Slide siguiente
+        function nextSlide() {
+            currentSlide = currentSlide < totalSlides - 1 ? currentSlide + 1 : 0;
+            updateCarousel();
+        }
+
+        // Seleccionar categoría
+        function selectCategory(category) {
+            // Agregar efecto visual al item seleccionado
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('pulse-animation');
+            });
+            
+            event.currentTarget.classList.add('pulse-animation');
+            
+            // Simular navegación a categoría
+            setTimeout(() => {
+                alert(`Navegando a la categoría: ${category.replace('-', ' ').toUpperCase()}`);
+                event.currentTarget.classList.remove('pulse-animation');
+            }, 500);
+            
+            console.log(`Categoría seleccionada: ${category}`);
+        }
+	    
+	    // Auto-play del carrusel
+        let autoplayInterval;
+        
+        function startAutoplay() {
+            autoplayInterval = setInterval(() => {
+                nextSlide();
+            }, 4000);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+
+	    
+/ Event listeners para pausar autoplay al interactuar
+        document.querySelector('.carousel-container').addEventListener('mouseenter', stopAutoplay);
+        document.querySelector('.carousel-container').addEventListener('mouseleave', startAutoplay);
+
+        // Soporte para touch/swipe en móviles
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            stopAutoplay();
+        });
+
+        track.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+        });
+
+        track.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            
+            const diffX = startX - currentX;
+            
+            if (Math.abs(diffX) > 50) { // Mínimo desplazamiento para activar
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            
+            isDragging = false;
+            startAutoplay();
+        });
+
+        // Inicializar carrusel
+        document.addEventListener('DOMContentLoaded', () => {
+            generateIndicators();
+            updateCarousel();
+            startAutoplay();
+            
+            // Agregar efecto de aparición escalonada
+            document.querySelectorAll('.category-item').forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+                item.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Agregar animación de entrada
+        const fadeInUpAnimation = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+
+        // Agregar la animación al CSS
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = fadeInUpAnimation;
+        document.head.appendChild(styleSheet);
         // Initialize cart UI
         updateCartUI();
     </script>
