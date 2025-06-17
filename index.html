@@ -8,6 +8,7 @@
 </head>
 <body>
     <header>
+        <img src="imagenes/logo.jpg" alt="Logo AROM" class="logo-img">
         <div class="logo">AROM</div>
         <div class="subtitle">Tienda Virtual - Maquillaje y Cuidado Personal</div>
     </header>
@@ -20,8 +21,13 @@
                 🛒 Carrito <span id="cartCount" class="cart-count">0</span>
             </button>
         </section>
+        <div class="indice-categorias-wrapper">
+            <button class="flecha-categorias izquierda" id="btnCatIzq" aria-label="Categoría anterior">&#8592;</button>
+            <nav id="indiceCategorias" class="indice-categorias"></nav>
+            <button class="flecha-categorias derecha" id="btnCatDer" aria-label="Categoría siguiente">&#8594;</button>
+        </div>
         <section>
-            <div class="products-grid" id="productsGrid"></div>
+            <div id="productsGrid"></div>
         </section>
     </main>
     <div id="cartModal" class="cart-modal">
@@ -40,14 +46,18 @@
     <script>
     let productos = [];
     let carrito = [];
+    let categorias = [];
 
     function cargarProductos() {
         fetch('productos.json')
             .then(res => res.json())
             .then(data => {
                 productos = data;
+                categorias = [...new Set(productos.map(p => p.categoria))];
                 poblarCategorias();
+                renderIndiceCategorias();
                 mostrarProductos(productos);
+                setTimeout(updateArrows, 600);
             })
             .catch(err => {
                 document.getElementById('productsGrid').innerHTML = '<p>Error cargando productos.</p>';
@@ -57,34 +67,53 @@
 
     function poblarCategorias() {
         const select = document.getElementById('categorySelect');
-        const categorias = [...new Set(productos.map(p => p.categoria))];
         select.innerHTML = `<option value="">Todas las categorías</option>`;
         categorias.forEach(cat => {
             select.innerHTML += `<option value="${cat}">${cat}</option>`;
         });
     }
 
+    function renderIndiceCategorias() {
+        const indice = document.getElementById('indiceCategorias');
+        indice.innerHTML = categorias.map(cat =>
+            `<a href="#cat-${cat.replace(/\s+/g, '-').replace(/[^\w-]/g, '')}">${cat}</a>`
+        ).join('');
+    }
+
+    // Mostrar productos agrupados por categoría
     function mostrarProductos(lista) {
         const grid = document.getElementById('productsGrid');
         if (lista.length === 0) {
             grid.innerHTML = '<p>No se encontraron productos.</p>';
             return;
         }
-        grid.innerHTML = '';
+        // Agrupa productos por categoría
+        const agrupadas = {};
         lista.forEach(prod => {
-            grid.innerHTML += `
-                <div class="product-card">
-                    <img src="${prod.imagen}" alt="${prod.nombre}" class="product-image">
-                    <div class="product-content">
-                        <div class="product-name">${prod.nombre}</div>
-                        <div class="product-description">${prod.descripcion}</div>
+            if (!agrupadas[prod.categoria]) agrupadas[prod.categoria] = [];
+            agrupadas[prod.categoria].push(prod);
+        });
+
+        // Renderiza por categoría
+        grid.innerHTML = '';
+        categorias.forEach(cat => {
+            if (!agrupadas[cat] || agrupadas[cat].length === 0) return;
+            grid.innerHTML += `<h2 class="categoria-titulo" id="cat-${cat.replace(/\s+/g,'-').replace(/[^\w-]/g,'')}">${cat}</h2>
+            <div class="products-grid">
+                ${agrupadas[cat].map(prod => `
+                    <div class="product-card">
+                        <img src="${prod.imagen}" alt="${prod.nombre}" class="product-image">
+                        <div class="product-content">
+                            <div class="product-name">${prod.nombre}</div>
+                            <div class="product-description">${prod.descripcion}</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">$${prod.precio}</div>
+                            <button class="add-to-cart" onclick="agregarAlCarrito('${prod.nombre.replace(/'/g, "\\'")}')">Añadir</button>
+                        </div>
                     </div>
-                    <div class="product-footer">
-                        <div class="product-price">$${prod.precio}</div>
-                        <button class="add-to-cart" onclick="agregarAlCarrito('${prod.nombre.replace(/'/g, "\\'")}')">Añadir</button>
-                    </div>
-                </div>
-            `;
+                `).join('')}
+            </div>`;
         });
     }
 
@@ -99,7 +128,7 @@
     function filtrarYMostrar() {
         const query = document.getElementById('searchInput').value.toLowerCase();
         const categoria = document.getElementById('categorySelect').value;
-        const filtrados = productos.filter(p =>
+        let filtrados = productos.filter(p =>
             (p.nombre.toLowerCase().includes(query) || p.descripcion.toLowerCase().includes(query)) &&
             (categoria === "" || p.categoria === categoria)
         );
@@ -155,7 +184,7 @@
             return;
         }
         // Cambia este número por el tuyo
-        const numeroWhatsApp = "573054328798";
+        const numeroWhatsApp = "573001234567";
         let mensaje = "*🛍️ Pedido desde la tienda virtual AROM*%0A";
         mensaje += "----------------------------------%0A";
         mensaje += "*Productos solicitados:*%0A";
@@ -172,6 +201,34 @@
         actualizarCarrito();
         document.getElementById('cartModal').style.display = 'none';
     };
+
+    // Flechitas animadas para el índice de categorías
+    document.addEventListener("DOMContentLoaded", function(){
+        const nav = document.getElementById('indiceCategorias');
+        const btnIzq = document.getElementById('btnCatIzq');
+        const btnDer = document.getElementById('btnCatDer');
+        function scrollCategorias(dx, btn) {
+            nav.scrollBy({ left: dx, behavior: 'smooth' });
+            // Efecto rebote en la flecha
+            btn.classList.remove('bounce');
+            void btn.offsetWidth; // trigger reflow
+            btn.classList.add('bounce');
+        }
+        if(btnIzq && btnDer){
+            btnIzq.onclick = () => scrollCategorias(-150, btnIzq);
+            btnDer.onclick = () => scrollCategorias(150, btnDer);
+        }
+        window.updateArrows = function updateArrows() {
+            if(!nav || !btnIzq || !btnDer) return;
+            if(nav.scrollWidth <= nav.clientWidth){
+                btnIzq.style.display = btnDer.style.display = 'none';
+            } else {
+                btnIzq.style.display = btnDer.style.display = '';
+            }
+        };
+        window.addEventListener('resize', updateArrows);
+        setTimeout(updateArrows, 800); // dale tiempo a que se rendericen las categorías
+    });
 
     cargarProductos();
     </script>
