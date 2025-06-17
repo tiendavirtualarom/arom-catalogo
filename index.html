@@ -1,236 +1,50 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AROM Tienda Virtual</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <img src="imagenes/logo.jpg" alt="Logo AROM" class="logo-img">
-        <div class="logo">AROM</div>
-        <div class="subtitle">Tienda Virtual - Maquillaje y Cuidado Personal</div>
-    </header>
-    <main>
-        <section class="search-section">
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar producto...">
-            <select id="categorySelect" class="category-select"></select>
-            <button id="searchBtn" class="search-btn">Buscar</button>
-            <button id="cartBtn" class="cart-btn">
-                🛒 Carrito <span id="cartCount" class="cart-count">0</span>
-            </button>
-        </section>
-        <div class="indice-categorias-wrapper">
-            <button class="flecha-categorias izquierda" id="btnCatIzq" aria-label="Categoría anterior">&#8592;</button>
-            <nav id="indiceCategorias" class="indice-categorias"></nav>
-            <button class="flecha-categorias derecha" id="btnCatDer" aria-label="Categoría siguiente">&#8594;</button>
-        </div>
-        <section>
-            <div id="productsGrid"></div>
-        </section>
-    </main>
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <span class="cart-title">Tu Carrito</span>
-                <button class="close-cart" id="closeCartBtn">&times;</button>
-            </div>
-            <div id="cartItems"></div>
-            <div class="cart-total">
-                Total: <span class="total-amount" id="cartTotal">$0</span>
-            </div>
-            <button class="checkout-btn" id="checkoutBtn">Finalizar compra</button>
-        </div>
+<!-- ...dentro del <body>... -->
+<header>
+    <img src="imagenes/logo.jpg" alt="Logo AROM" class="logo-img">
+    <div class="logo">AROM</div>
+    <div class="subtitle">Tienda Virtual - Maquillaje y Cuidado Personal</div>
+</header>
+<main>
+    <section class="search-section">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar producto...">
+        <select id="categorySelect" class="category-select"></select>
+        <button id="searchBtn" class="search-btn">Buscar</button>
+        <button id="cartBtn" class="cart-btn">
+            🛒 Carrito <span id="cartCount" class="cart-count">0</span>
+        </button>
+    </section>
+    <div class="indice-categorias-wrapper">
+        <button class="flecha-categorias izquierda" id="btnCatIzq" aria-label="Categoría anterior">&#8592;</button>
+        <nav id="indiceCategorias" class="indice-categorias"></nav>
+        <button class="flecha-categorias derecha" id="btnCatDer" aria-label="Categoría siguiente">&#8594;</button>
     </div>
-    <script>
-    let productos = [];
-    let carrito = [];
-    let categorias = [];
+    <section>
+        <div id="productsGrid"></div>
+    </section>
+</main>
+<!-- ...el resto igual... -->
+<script>
+/* ...tu JS existente arriba... */
 
-    function cargarProductos() {
-        fetch('productos.json')
-            .then(res => res.json())
-            .then(data => {
-                productos = data;
-                categorias = [...new Set(productos.map(p => p.categoria))];
-                poblarCategorias();
-                renderIndiceCategorias();
-                mostrarProductos(productos);
-                setTimeout(updateArrows, 600);
-            })
-            .catch(err => {
-                document.getElementById('productsGrid').innerHTML = '<p>Error cargando productos.</p>';
-                console.error(err);
-            });
+/* Scroll con flechitas en el índice */
+document.addEventListener("DOMContentLoaded", function(){
+    const nav = document.getElementById('indiceCategorias');
+    const btnIzq = document.getElementById('btnCatIzq');
+    const btnDer = document.getElementById('btnCatDer');
+    function scrollCategorias(dx) {
+        nav.scrollBy({ left: dx, behavior: 'smooth' });
     }
-
-    function poblarCategorias() {
-        const select = document.getElementById('categorySelect');
-        select.innerHTML = `<option value="">Todas las categorías</option>`;
-        categorias.forEach(cat => {
-            select.innerHTML += `<option value="${cat}">${cat}</option>`;
-        });
-    }
-
-    function renderIndiceCategorias() {
-        const indice = document.getElementById('indiceCategorias');
-        indice.innerHTML = categorias.map(cat =>
-            `<a href="#cat-${cat.replace(/\s+/g, '-').replace(/[^\w-]/g, '')}">${cat}</a>`
-        ).join('');
-    }
-
-    // Mostrar productos agrupados por categoría
-    function mostrarProductos(lista) {
-        const grid = document.getElementById('productsGrid');
-        if (lista.length === 0) {
-            grid.innerHTML = '<p>No se encontraron productos.</p>';
-            return;
-        }
-        // Agrupa productos por categoría
-        const agrupadas = {};
-        lista.forEach(prod => {
-            if (!agrupadas[prod.categoria]) agrupadas[prod.categoria] = [];
-            agrupadas[prod.categoria].push(prod);
-        });
-
-        // Renderiza por categoría
-        grid.innerHTML = '';
-        categorias.forEach(cat => {
-            if (!agrupadas[cat] || agrupadas[cat].length === 0) return;
-            grid.innerHTML += `<h2 class="categoria-titulo" id="cat-${cat.replace(/\s+/g,'-').replace(/[^\w-]/g,'')}">${cat}</h2>
-            <div class="products-grid">
-                ${agrupadas[cat].map(prod => `
-                    <div class="product-card">
-                        <img src="${prod.imagen}" alt="${prod.nombre}" class="product-image">
-                        <div class="product-content">
-                            <div class="product-name">${prod.nombre}</div>
-                            <div class="product-description">${prod.descripcion}</div>
-                        </div>
-                        <div class="product-footer">
-                            <div class="product-price">$${prod.precio}</div>
-                            <button class="add-to-cart" onclick="agregarAlCarrito('${prod.nombre.replace(/'/g, "\\'")}')">Añadir</button>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>`;
-        });
-    }
-
-    document.getElementById('searchBtn').onclick = function() {
-        filtrarYMostrar();
-    };
-    document.getElementById('searchInput').onkeyup = function(e) {
-        if (e.key === 'Enter') filtrarYMostrar();
-    };
-    document.getElementById('categorySelect').onchange = filtrarYMostrar;
-
-    function filtrarYMostrar() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const categoria = document.getElementById('categorySelect').value;
-        let filtrados = productos.filter(p =>
-            (p.nombre.toLowerCase().includes(query) || p.descripcion.toLowerCase().includes(query)) &&
-            (categoria === "" || p.categoria === categoria)
-        );
-        mostrarProductos(filtrados);
-    }
-
-    window.agregarAlCarrito = function(nombre) {
-        const prod = productos.find(p => p.nombre === nombre);
-        if (!prod) return;
-        const item = carrito.find(i => i.nombre === prod.nombre);
-        if (item) {
-            item.cantidad++;
+    btnIzq.onclick = () => scrollCategorias(-150);
+    btnDer.onclick = () => scrollCategorias(150);
+    // Opcional: Oculta flechas si no hace falta scroll
+    function updateArrows() {
+        if(nav.scrollWidth <= nav.clientWidth){
+            btnIzq.style.display = btnDer.style.display = 'none';
         } else {
-            carrito.push({ ...prod, cantidad: 1 });
+            btnIzq.style.display = btnDer.style.display = '';
         }
-        actualizarCarrito();
-    };
-
-    function actualizarCarrito() {
-        document.getElementById('cartCount').textContent = carrito.reduce((a, i) => a + i.cantidad, 0);
-        const cartItems = document.getElementById('cartItems');
-        if (carrito.length === 0) {
-            cartItems.innerHTML = '<div class="empty-cart">Tu carrito está vacío 🛒</div>';
-        } else {
-            cartItems.innerHTML = carrito.map(item => `
-                <div class="cart-item">
-                    <span>${item.nombre} x ${item.cantidad}</span>
-                    <span>$${item.precio * item.cantidad}</span>
-                    <button class="remove-item" onclick="eliminarDelCarrito('${item.nombre.replace(/'/g, "\\'")}')">Eliminar</button>
-                </div>
-            `).join('');
-        }
-        document.getElementById('cartTotal').textContent = '$' + carrito.reduce((a, i) => a + i.precio * i.cantidad, 0);
     }
-
-    window.eliminarDelCarrito = function(nombre) {
-        carrito = carrito.filter(i => i.nombre !== nombre);
-        actualizarCarrito();
-    };
-
-    document.getElementById('cartBtn').onclick = function() {
-        document.getElementById('cartModal').style.display = 'block';
-        actualizarCarrito();
-    };
-    document.getElementById('closeCartBtn').onclick = function() {
-        document.getElementById('cartModal').style.display = 'none';
-    };
-
-    // Finalizar compra con formato mejorado
-    document.getElementById('checkoutBtn').onclick = function() {
-        if(carrito.length === 0){
-            alert('Tu carrito está vacío.');
-            return;
-        }
-        // Cambia este número por el tuyo
-        const numeroWhatsApp = "573001234567";
-        let mensaje = "*🛍️ Pedido desde la tienda virtual AROM*%0A";
-        mensaje += "----------------------------------%0A";
-        mensaje += "*Productos solicitados:*%0A";
-        carrito.forEach(item => {
-            mensaje += `• ${item.nombre} x${item.cantidad} ............................ $${item.precio * item.cantidad}%0A`;
-        });
-        mensaje += "----------------------------------%0A";
-        mensaje += `*Total a pagar:* $${carrito.reduce((a, i) => a + i.precio * i.cantidad, 0)}%0A%0A`;
-        mensaje += "*Datos para entrega:*%0A";
-        mensaje += "- Nombre:%0A- Dirección:%0A- Ciudad:%0A";
-        mensaje += "%0A¡Gracias por tu pedido! Por favor confirma tus datos y te contactaremos para el pago y envío.";
-        window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, "_blank");
-        carrito = [];
-        actualizarCarrito();
-        document.getElementById('cartModal').style.display = 'none';
-    };
-
-    // Flechitas animadas para el índice de categorías
-    document.addEventListener("DOMContentLoaded", function(){
-        const nav = document.getElementById('indiceCategorias');
-        const btnIzq = document.getElementById('btnCatIzq');
-        const btnDer = document.getElementById('btnCatDer');
-        function scrollCategorias(dx, btn) {
-            nav.scrollBy({ left: dx, behavior: 'smooth' });
-            // Efecto rebote en la flecha
-            btn.classList.remove('bounce');
-            void btn.offsetWidth; // trigger reflow
-            btn.classList.add('bounce');
-        }
-        if(btnIzq && btnDer){
-            btnIzq.onclick = () => scrollCategorias(-150, btnIzq);
-            btnDer.onclick = () => scrollCategorias(150, btnDer);
-        }
-        window.updateArrows = function updateArrows() {
-            if(!nav || !btnIzq || !btnDer) return;
-            if(nav.scrollWidth <= nav.clientWidth){
-                btnIzq.style.display = btnDer.style.display = 'none';
-            } else {
-                btnIzq.style.display = btnDer.style.display = '';
-            }
-        };
-        window.addEventListener('resize', updateArrows);
-        setTimeout(updateArrows, 800); // dale tiempo a que se rendericen las categorías
-    });
-
-    cargarProductos();
-    </script>
-</body>
-</html>
+    window.addEventListener('resize', updateArrows);
+    setTimeout(updateArrows, 500); // actualiza al cargar categorías
+});
+</script>
