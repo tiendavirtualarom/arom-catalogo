@@ -1,0 +1,72 @@
+[
+  {
+    "nombre": "Labial Matte",
+    "descripcion": "Color intenso y textura suave.",
+    "precio": 4500,
+    "imagen": "img/labial-matte.jpg",
+    "categoria": "Maquillaje"
+  },
+  {
+    "nombre": "Crema Hidratante",
+    "descripcion": "Hidrata tu piel durante 24h.",
+    "precio": 8000,
+    "imagen": "img/crema-hidratante.jpg",
+    "categoria": "Cuidado Personal"
+  },
+  {
+    "nombre": "Set de Brochas",
+    "descripcion": "Incluye 10 brochas profesionales.",
+    "precio": 12000,
+    "imagen": "img/brochas.jpg",
+    "categoria": "Accesorios"
+  },
+  {
+    "nombre": "Esmalte Rosa",
+    "descripcion": "Secado rápido y larga duración.",
+    "precio": 3500,
+    "imagen": "img/esmalte-rosa.jpg",
+    "categoria": "Uñas"
+  },
+  {
+    "nombre": "Paleta de Sombras",
+    "descripcion": "12 tonos vibrantes para cualquier ocasión.",
+    "precio": 15000,
+    "imagen": "img/paleta-sombras.jpg",
+    "categoria": "Maquillaje"
+  },
+  {
+    "nombre": "Desmaquillante Bifásico",
+    "descripcion": "Elimina maquillaje a prueba de agua.",
+    "precio": 6500,
+    "imagen": "img/desmaquillante.jpg",
+    "categoria": "Cuidado Personal"
+  },
+  {
+    "nombre": "Rímel Volumen",
+    "descripcion": "Pestañas más largas y con volumen.",
+    "precio": 7000,
+    "imagen": "img/rimel.jpg",
+    "categoria": "Maquillaje"
+  },
+  {
+    "nombre": "Crema para Manos",
+    "descripcion": "Con extracto de almendras.",
+    "precio": 4800,
+    "imagen": "img/crema-manos.jpg",
+    "categoria": "Cuidado Personal"
+  },
+  {
+    "nombre": "Cortaúñas Profesional",
+    "descripcion": "Acero inoxidable, alta precisión.",
+    "precio": 2200,
+    "imagen": "img/cortaunas.jpg",
+    "categoria": "Uñas"
+  },
+  {
+    "nombre": "Neceser Viaje",
+    "descripcion": "Ideal para llevar tus cosméticos.",
+    "precio": 9500,
+    "imagen": "img/neceser.jpg",
+    "categoria": "Accesorios"
+  }
+]
