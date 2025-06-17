@@ -1,0 +1,9 @@
+.category-select {
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-size: 16px;
+    margin: 0 10px;
+    border: 1px solid #DDA0DD;
+    background: #fff;
+    color: #4B0082;
+}
