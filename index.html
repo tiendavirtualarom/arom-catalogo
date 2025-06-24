@@ -533,49 +533,111 @@
     </style>
 </head>
 <body>
+  <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+        <p>Cargando productos...</p>
+    </div>
+
     <div class="container">
         <header>
-            <div class="header-decoration"></div>
             <div class="logo">Tienda Virtual AROM</div>
-            <div class="subtitle"> 💄Maquillaje y Accesorios 💄</div>
+            <div class="subtitle">💄 Maquillaje y Accesorios 💄</div>
             
             <div class="contact-info">
-                <div class="contact-item">
-                    📱 AROM_TIENDAVIRTUAL
+                <div class="contact-item" onclick="copyToClipboard('AROM_TIENDAVIRTUAL')">
+                    <i class="fab fa-instagram"></i> AROM_TIENDAVIRTUAL
                 </div>
-                <div class="contact-item">
-                    📞 305-4328-798
+                <div class="contact-item" onclick="copyToClipboard('305-4328-798')">
+                    <i class="fas fa-phone"></i> 305-4328-798
                 </div>
-                <div class="contact-item">
-                    📧 TIENDAVIRTUALAROM
+                <div class="contact-item" onclick="copyToClipboard('TIENDAVIRTUALAROM')">
+                    <i class="fas fa-envelope"></i> TIENDAVIRTUALAROM
                 </div>
             </div>
         </header>
-
-        <div class="search-section">
+<div class="search-section">
             <div class="search-bar">
                 <input type="text" class="search-input" placeholder="Buscar productos..." id="searchInput">
-                <button class="search-btn" onclick="searchProducts()">🔍</button>
+                <button class="search-btn" onclick="searchProducts()">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
             
-            <div class="cart-btn-container">
-                <button class="cart-btn" onclick="toggleCart()">
-                    🛒 Carrito
-                    <span class="cart-count" id="cartCount">0</span>
-                </button>
+            <button class="clear-btn" id="clearBtn" onclick="clearSearch()">
+                <i class="fas fa-times"></i> Limpiar
+            </button>
+            
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i> Carrito
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+            <div class="filter-title"><i class="fas fa-filter"></i> Filtros</div>
+            <div class="filter-group">
+                <label>Rango de precio:</label>
+                <div class="price-range">
+                    <input type="number" class="price-input" id="minPrice" placeholder="Min" min="0">
+                    <span>-</span>
+                    <input type="number" class="price-input" id="maxPrice" placeholder="Max" min="0">
+                    <button class="search-btn" onclick="filterByPrice()" style="position: static; transform: none;">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
         <div class="categories">
-            <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
-            <button class="category-btn" onclick="filterCategory('Cuidado-Facial')">Cuidado Facial</button>
-            <button class="category-btn" onclick="filterCategory('Labios')">Labios</button>
-            <button class="category-btn" onclick="filterCategory('Rubores')">Rubores</button>
-            <button class="category-btn" onclick="filterCategory('Sombras')">Sombras</button>
-            <button class="category-btn" onclick="filterCategory('Pestañas')">Pestañas</button>
-            <button class="category-btn" onclick="filterCategory('Delineadores')">Delineadores</button>
-            <button class="category-btn" onclick="filterCategory('Cabello')">Cabello</button>
-            <button class="category-btn" onclick="filterCategory('Otros')">Otros</button>
+            <button class="category-btn active" onclick="filterCategory('all')">
+                <i class="fas fa-th"></i> Todos
+            </button>
+            <button class="category-btn" onclick="filterCategory('Cuidado-Facial')">
+                <i class="fas fa-spa"></i> Cuidado Facial
+            </button>
+            <button class="category-btn" onclick="filterCategory('Labios')">
+                <i class="fas fa-kiss"></i> Labios
+            </button>
+            <button class="category-btn" onclick="filterCategory('Rubores')">
+                <i class="fas fa-palette"></i> Rubores
+            </button>
+            <button class="category-btn" onclick="filterCategory('Sombras')">
+                <i class="fas fa-eye"></i> Sombras
+            </button>
+            <button class="category-btn" onclick="filterCategory('Pestañas')">
+                <i class="fas fa-magic"></i> Pestañas
+            </button>
+            <button class="category-btn" onclick="filterCategory('Delineadores')">
+                <i class="fas fa-pen"></i> Delineadores
+            </button>
+            <button class="category-btn" onclick="filterCategory('Cabello')">
+                <i class="fas fa-cut"></i> Cabello
+            </button>
+            <button class="category-btn" onclick="filterCategory('Otros')">
+                <i class="fas fa-plus"></i> Otros
+            </button>
+        </div>
+
+        <div class="products-header">
+            <div class="sort-options">
+                <label>Ordenar por:</label>
+                <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+                    <option value="name">Nombre</option>
+                    <option value="price-low">Precio: Menor a Mayor</option>
+                    <option value="price-high">Precio: Mayor a Menor</option>
+                    <option value="rating">Calificación</option>
+                </select>
+            </div>
+            
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="toggleView('grid')" id="gridView">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="view-btn" onclick="toggleView('list')" id="listView">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
         </div>
 
         <div id="productsContainer">
