@@ -993,161 +993,86 @@
     </div>
 
     <script>
-        let cart = [];
+     let cart = [];
+    let currentView = 'grid';
+    let allProducts = [];
 
-        function addToCart(id, name, price) {
-            const existingItem = cart.find(item => item.id === id);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ id, name, price, quantity: 1 });
-            }
-            
-            updateCartUI();
-            showNotification('Producto agregado al carrito', 'success');
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        document.getElementById('loadingScreen').classList.add('hidden');
+        collectAllProducts();
+        setupScrollListener();
+      }, 1500);
+    });
 
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-        }
+    function collectAllProducts() {
+      allProducts = Array.from(document.querySelectorAll('.product-card')).map(card => ({
+        element: card,
+        id: parseInt(card.dataset.id),
+        name: card.querySelector('.product-name').textContent,
+        price: parseInt(card.dataset.price),
+        rating: parseFloat(card.dataset.rating),
+        category: card.closest('.category-section').dataset.category,
+        description: card.querySelector('.product-description').textContent
+      }));
+    }
 
-        function updateQuantity(id, change) {
-            const item = cart.find(item => item.id === id);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(id);
-                } else {
-                    updateCartUI();
-                }
-            }
-        }
+    function applyFilters() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
+      const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
+      const clearBtn = document.getElementById('clearBtn');
 
-        function updateCartUI() {
-            const cartCount = document.getElementById('cartCount');
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            cartCount.textContent = totalItems;
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <p>Tu carrito está vacío</p>
-                    </div>
-                `;
-                cartTotal.style.display = 'none';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">$${item.price.toLocaleString()}</div>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <span>${item.quantity}</span>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                            </div>
-                        </div>
-                        <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
-                    </div>
-                `).join('');
-                
-                cartTotal.innerHTML = `
-                    <div class="total-amount">Total: $${totalPrice.toLocaleString()}</div>
-                    <button class="checkout-btn" onclick="checkout()">Finalizar Compra</button>
-                `;
-                cartTotal.style.display = 'block';
-            }
-        }
+      let filteredCount = 0;
 
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-        }
+      allProducts.forEach(product => {
+        const matchesSearch = product.name.toLowerCase().includes(query) || 
+                              product.description.toLowerCase().includes(query);
+        const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
 
-        function filterCategory(category) {
-            const sections = document.querySelectorAll('.category-section');
-            const buttons = document.querySelectorAll('.category-btn');
-            
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            sections.forEach(section => {
-                if (category === 'all' || section.dataset.category === category) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-        }
+        const isVisible = matchesSearch && matchesPrice;
+        product.element.style.display = isVisible ? 'block' : 'none';
 
-        function searchProducts() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const products = document.querySelectorAll('.product-card');
-            
-            products.forEach(product => {
-                const name = product.querySelector('.product-name').textContent.toLowerCase();
-                const description = product.querySelector('.product-description').textContent.toLowerCase();
-                
-                if (name.includes(query) || description.includes(query)) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        }
+        if (isVisible) filteredCount++;
+      });
 
-        function checkout() {
-            if (cart.length === 0) return;
-            
-            const message = cart.map(item => 
-                `${item.name} - Cantidad: ${item.quantity} - $${(item.price * item.quantity).toLocaleString()}`
-            ).join('\n');
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const whatsappMessage = encodeURIComponent(
-                `¡Hola! Me interesa realizar esta compra:\n\n${message}\n\nTotal: $${total.toLocaleString()}`
-            );
-            
-            window.open(`https://wa.me/573054328798?text=${whatsappMessage}`, '_blank');
-        }
+      document.querySelectorAll('.category-section').forEach(section => {
+        const hasVisible = Array.from(section.querySelectorAll('.product-card')).some(card => card.style.display !== 'none');
+        section.style.display = hasVisible ? 'block' : 'none';
+      });
 
-        function openWhatsApp() {
-            window.open('https://wa.me/573054328798?text=¡Hola! Me interesa conocer más sobre sus productos', '_blank');
-        }
+      if (query || minPrice || (maxPrice !== Infinity)) {
+        clearBtn.classList.add('show');
+      } else {
+        clearBtn.classList.remove('show');
+      }
 
-        function showNotification(message, type = '') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
+      checkNoResults();
+    }
 
-        // Close modal when clicking outside
-        document.getElementById('cartModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleCart();
-            }
-        });
+    function clearFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('minPrice').value = '';
+      document.getElementById('maxPrice').value = '';
+      document.getElementById('clearBtn').classList.remove('show');
 
-        // Search on Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchProducts();
-            }
-        });
-    </script>
+      allProducts.forEach(product => product.element.style.display = 'block');
+      document.querySelectorAll('.category-section').forEach(section => section.style.display = 'block');
+
+      document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector('.category-btn').classList.add('active');
+
+      checkNoResults();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') applyFilters();
+    });
+    document.getElementById('minPrice').addEventListener('input', applyFilters);
+    document.getElementById('maxPrice').addEventListener('input', applyFilters);
+  </script>
 </body>
 </html>
+ 
         
