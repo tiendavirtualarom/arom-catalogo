@@ -902,17 +902,20 @@
                 <div id="cartItems"></div>
                 <div class="cart-total">
                     <div class="total-amount" id="totalAmount">$0</div>
-                    <div style="margin-top: 20px;">
-                <label>Nombre del Cliente:</label>
-                <input type="text" id="customerName" placeholder="Tu nombre" oninput="saveCustomerData()" style="width:100%;padding:5px;" />
-        
-                <label style="margin-top:10px;">Dirección de Envío:</label>
-                <input type="text" id="shippingAddress" placeholder="Tu dirección" oninput="saveCustomerData()" style="width:100%;padding:5px;" />
-              </div>
                     <button class="checkout-btn" onclick="checkout()">Realizar Pedido por WhatsApp</button>
                 </div>
             </div>
-        </div>      
+        </div> 
+    !-- Modal Datos Cliente -->
+<div class="data-modal" id="dataModal" onclick="closeDataIfOutside(event)">
+  <div class="modal-content">
+    <h2>📄 Datos de Envío</h2>
+    <button class="close-btn" onclick="closeDataModal()">×</button>
+    <input type="text" id="customerName" placeholder="Tu nombre" />
+    <input type="text" id="shippingAddress" placeholder="Tu dirección" />
+    <button onclick="checkout()">Confirmar Pedido</button>
+  </div>
+</div>
         <!-- Payment & Info Section -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px;">
             <div class="payment-info">
@@ -964,8 +967,10 @@
       cart = JSON.parse(storedCart);
       updateCartUI();
     }
-    loadCustomerData();
     loadFavorites();
+
+    document.getElementById('customerName').value = localStorage.getItem('customerName') || '';
+    document.getElementById('shippingAddress').value = localStorage.getItem('shippingAddress') || '';
   });
         function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -1042,14 +1047,32 @@ function toggleCart() {
       toggleCart();
     }
   }
-
-  function checkout() {
+function openDataModal() {
     if (cart.length === 0) {
       showNotification('Tu carrito está vacío');
       return;
     }
-    const name = document.getElementById('customerName').value;
-    const address = document.getElementById('shippingAddress').value;
+    document.getElementById('dataModal').style.display = 'flex';
+  }
+
+  function closeDataModal() {
+    document.getElementById('dataModal').style.display = 'none';
+  }
+  function closeDataIfOutside(event) {
+    if (event.target === event.currentTarget) closeDataModal();
+  }
+
+        
+  function checkout() {
+   const name = document.getElementById('customerName').value.trim();
+    const address = document.getElementById('shippingAddress').value.trim();
+
+    if (!name || !address) {
+      showNotification('Por favor completa tus datos');
+      return;
+    }
+    localStorage.setItem('customerName', name);
+    localStorage.setItem('shippingAddress', address); 
       
     let message = '¡Hola! Me interesa hacer el siguiente pedido:\n\nCliente: ${name}\nDireccion: ${address}\n\n';
     let total = 0;
@@ -1065,17 +1088,18 @@ function toggleCart() {
 
     const whatsappUrl = `https://wa.me/573054328798?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+
+      
 // Limpiar carrito al finalizar
     cart = [];
     saveCart();
     updateCartUI();
-    showNotification('¡Gracias por tu pedido! Tu carrito ha sido limpiado.');
+    showNotification('Pedido enviado. ¡Gracias!');
   }
       
 function openWhatsApp() {
     const message = '¡Hola! Me interesa conocer más sobre sus productos.';
-    const whatsappUrl = `https://wa.me/573054328798?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(`https://wa.me/573054328798?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
   function showNotification(msg) {
@@ -1086,20 +1110,6 @@ function openWhatsApp() {
       notification.style.display = 'none';
     }, 3000);
   }   
-    function saveCustomerData() {
-    const name = document.getElementById('customerName').value;
-    const address = document.getElementById('shippingAddress').value;
-    localStorage.setItem('customerName', name);
-    localStorage.setItem('shippingAddress', address);
-  }
-
-  function loadCustomerData() {
-    const name = localStorage.getItem('customerName') || '';
-    const address = localStorage.getItem('shippingAddress') || '';
-    document.getElementById('customerName').value = name;
-    document.getElementById('shippingAddress').value = address;
-  }
-
   function toggleFavorite(productId) {
     if (favorites.includes(productId)) {
       favorites = favorites.filter(id => id !== productId);
@@ -1109,16 +1119,14 @@ function openWhatsApp() {
     localStorage.setItem('favorites', JSON.stringify(favorites));
     updateFavoriteIcons();
   }
-
   function loadFavorites() {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      favorites = JSON.parse(storedFavorites);
+    const stored = localStorage.getItem('favorites');
+    if (stored) {
+      favorites = JSON.parse(stored);
       updateFavoriteIcons();
     }
   }
-
-  function updateFavoriteIcons() {
+function updateFavoriteIcons() {
     document.querySelectorAll('.product-card').forEach(card => {
       const id = parseInt(card.dataset.id);
       const favIcon = card.querySelector('.favorite-icon');
@@ -1131,4 +1139,3 @@ function openWhatsApp() {
 </body>
 </html>
  
-        
