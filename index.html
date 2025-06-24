@@ -533,6 +533,7 @@
     </style>
 </head>
 <body>
+    
   <div class="loading-screen" id="loadingScreen">
         <div class="spinner"></div>
         <p>Cargando productos...</p>
@@ -889,6 +890,8 @@
                 </div>
             </div>
         </div>
+ <!-- Botón carrito -->
+<button onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>       
  <!-- Cart Modal -->
         <div class="cart-modal" id="cartModal">
             <div class="cart-content">
@@ -899,6 +902,13 @@
                 <div id="cartItems"></div>
                 <div class="cart-total">
                     <div class="total-amount" id="totalAmount">$0</div>
+                    <div style="margin-top: 20px;">
+                <label>Nombre del Cliente:</label>
+                <input type="text" id="customerName" placeholder="Tu nombre" oninput="saveCustomerData()" style="width:100%;padding:5px;" />
+        
+                <label style="margin-top:10px;">Dirección de Envío:</label>
+                <input type="text" id="shippingAddress" placeholder="Tu dirección" oninput="saveCustomerData()" style="width:100%;padding:5px;" />
+              </div>
                     <button class="checkout-btn" onclick="checkout()">Realizar Pedido por WhatsApp</button>
                 </div>
             </div>
@@ -946,7 +956,7 @@
 
     <script>
      let cart = [];
-
+     let favorites = [];
 // Cargar carrito al iniciar
   document.addEventListener('DOMContentLoaded', function() {
     const storedCart = localStorage.getItem('cart');
@@ -954,6 +964,8 @@
       cart = JSON.parse(storedCart);
       updateCartUI();
     }
+    loadCustomerData();
+    loadFavorites();
   });
         function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -1036,7 +1048,10 @@ function toggleCart() {
       showNotification('Tu carrito está vacío');
       return;
     }
-let message = '¡Hola! Me interesa hacer el siguiente pedido:\n\n';
+    const name = document.getElementById('customerName').value;
+    const address = document.getElementById('shippingAddress').value;
+      
+    let message = '¡Hola! Me interesa hacer el siguiente pedido:\n\nCliente: ${name}\nDireccion: ${address}\n\n';
     let total = 0;
 
     cart.forEach(item => {
@@ -1050,7 +1065,13 @@ let message = '¡Hola! Me interesa hacer el siguiente pedido:\n\n';
 
     const whatsappUrl = `https://wa.me/573054328798?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+// Limpiar carrito al finalizar
+    cart = [];
+    saveCart();
+    updateCartUI();
+    showNotification('¡Gracias por tu pedido! Tu carrito ha sido limpiado.');
   }
+      
 function openWhatsApp() {
     const message = '¡Hola! Me interesa conocer más sobre sus productos.';
     const whatsappUrl = `https://wa.me/573054328798?text=${encodeURIComponent(message)}`;
@@ -1064,7 +1085,48 @@ function openWhatsApp() {
     setTimeout(() => {
       notification.style.display = 'none';
     }, 3000);
-  }         
+  }   
+    function saveCustomerData() {
+    const name = document.getElementById('customerName').value;
+    const address = document.getElementById('shippingAddress').value;
+    localStorage.setItem('customerName', name);
+    localStorage.setItem('shippingAddress', address);
+  }
+
+  function loadCustomerData() {
+    const name = localStorage.getItem('customerName') || '';
+    const address = localStorage.getItem('shippingAddress') || '';
+    document.getElementById('customerName').value = name;
+    document.getElementById('shippingAddress').value = address;
+  }
+
+  function toggleFavorite(productId) {
+    if (favorites.includes(productId)) {
+      favorites = favorites.filter(id => id !== productId);
+    } else {
+      favorites.push(productId);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    updateFavoriteIcons();
+  }
+
+  function loadFavorites() {
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      favorites = JSON.parse(storedFavorites);
+      updateFavoriteIcons();
+    }
+  }
+
+  function updateFavoriteIcons() {
+    document.querySelectorAll('.product-card').forEach(card => {
+      const id = parseInt(card.dataset.id);
+      const favIcon = card.querySelector('.favorite-icon');
+      if (favIcon) {
+        favIcon.textContent = favorites.includes(id) ? '❤️' : '🤍';
+      }
+    });
+  }
   </script>
 </body>
 </html>
