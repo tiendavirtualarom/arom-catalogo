@@ -545,13 +545,13 @@
             
             <div class="contact-info">
                 <div class="contact-item" onclick="copyToClipboard('AROM_TIENDAVIRTUAL')">
-                    <i class="fab fa-instagram"></i> AROM_TIENDAVIRTUAL
+                    <i class="fab fa-instagram"></i>  📷 AROM_TIENDAVIRTUAL
                 </div>
                 <div class="contact-item" onclick="copyToClipboard('305-4328-798')">
-                    <i class="fas fa-phone"></i> 305-4328-798
+                    <i class="fas fa-phone"></i>  📞 305-4328-798
                 </div>
                 <div class="contact-item" onclick="copyToClipboard('TIENDAVIRTUALAROM')">
-                    <i class="fas fa-envelope"></i> TIENDAVIRTUALAROM
+                    <i class="fas fa-envelope"></i> ✉️TIENDAVIRTUALAROM
                 </div>
             </div>
         </header>
@@ -559,87 +559,45 @@
             <div class="search-bar">
                 <input type="text" class="search-input" placeholder="Buscar productos..." id="searchInput">
                 <button class="search-btn" onclick="searchProducts()">
-                    <i class="fas fa-search"></i>
+                     🔍
                 </button>
             </div>
-            
-            <button class="clear-btn" id="clearBtn" onclick="clearSearch()">
-                <i class="fas fa-times"></i> Limpiar
-            </button>
-            
-            <button class="cart-btn" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart"></i> Carrito
+ <button class="cart-btn" onclick="toggleCart()">
+                🛒 Carrito
                 <span class="cart-count" id="cartCount">0</span>
             </button>
-        </div>
-
-        <!-- Filter Panel -->
-        <div class="filter-panel">
-            <div class="filter-title"><i class="fas fa-filter"></i> Filtros</div>
-            <div class="filter-group">
-                <label>Rango de precio:</label>
-                <div class="price-range">
-                    <input type="number" class="price-input" id="minPrice" placeholder="Min" min="0">
-                    <span>-</span>
-                    <input type="number" class="price-input" id="maxPrice" placeholder="Max" min="0">
-                    <button class="search-btn" onclick="filterByPrice()" style="position: static; transform: none;">
-                        <i class="fas fa-filter"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
+        </div>           
+                   
         <div class="categories">
             <button class="category-btn active" onclick="filterCategory('all')">
-                <i class="fas fa-th"></i> Todos
+                🔥 Todos
             </button>
             <button class="category-btn" onclick="filterCategory('Cuidado-Facial')">
-                <i class="fas fa-spa"></i> Cuidado Facial
+                ✨ Cuidado Facial
             </button>
             <button class="category-btn" onclick="filterCategory('Labios')">
-                <i class="fas fa-kiss"></i> Labios
+                💋 Labios
             </button>
             <button class="category-btn" onclick="filterCategory('Rubores')">
-                <i class="fas fa-palette"></i> Rubores
+                🎨 Rubores
             </button>
             <button class="category-btn" onclick="filterCategory('Sombras')">
-                <i class="fas fa-eye"></i> Sombras
+                👁️ Sombras
             </button>
             <button class="category-btn" onclick="filterCategory('Pestañas')">
-                <i class="fas fa-magic"></i> Pestañas
+                ✨ Pestañas
             </button>
             <button class="category-btn" onclick="filterCategory('Delineadores')">
-                <i class="fas fa-pen"></i> Delineadores
+                ✏️ Delineadores
             </button>
             <button class="category-btn" onclick="filterCategory('Cabello')">
-                <i class="fas fa-cut"></i> Cabello
+                ✂️ Cabello
             </button>
             <button class="category-btn" onclick="filterCategory('Otros')">
-                <i class="fas fa-plus"></i> Otros
+                ➕ Otros
             </button>
         </div>
-
-        <div class="products-header">
-            <div class="sort-options">
-                <label>Ordenar por:</label>
-                <select class="sort-select" id="sortSelect" onchange="sortProducts()">
-                    <option value="name">Nombre</option>
-                    <option value="price-low">Precio: Menor a Mayor</option>
-                    <option value="price-high">Precio: Mayor a Menor</option>
-                    <option value="rating">Calificación</option>
-                </select>
-            </div>
-            
-            <div class="view-toggle">
-                <button class="view-btn active" onclick="toggleView('grid')" id="gridView">
-                    <i class="fas fa-th"></i>
-                </button>
-                <button class="view-btn" onclick="toggleView('list')" id="listView">
-                    <i class="fas fa-list"></i>
-                </button>
-            </div>
-        </div>
-
+      
         <div id="productsContainer">
             <!-- Cuidado Facial -->
             <div class="category-section" data-category="Cuidado-Facial">
@@ -935,22 +893,16 @@
         <div class="cart-modal" id="cartModal">
             <div class="cart-content">
                 <div class="cart-header">
-                    <h2 class="cart-title">Tu Carrito</h2>
-                    <button class="close-cart" onclick="toggleCart()">&times;</button>
+                    <h2 class="cart-title">🛒 Mi Carrito</div>
+            <button class="close-cart" onclick="toggleCart()">×</button>
                 </div>
-                <div id="cartItems">
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <p>Tu carrito está vacío</p>
-                    </div>
-                </div>
-                <div class="cart-total" id="cartTotal" style="display: none;">
-                    <div class="total-amount">Total: $0</div>
-                    <button class="checkout-btn" onclick="checkout()">Finalizar Compra</button>
+                <div id="cartItems"></div>
+                <div class="cart-total">
+                    <div class="total-amount" id="totalAmount">$0</div>
+                    <button class="checkout-btn" onclick="checkout()">Realizar Pedido por WhatsApp</button>
                 </div>
             </div>
-        </div>
-
+        </div>      
         <!-- Payment & Info Section -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px;">
             <div class="payment-info">
@@ -994,16 +946,11 @@
 
     <script>
      let cart = [];
-    let currentView = 'grid';
-    let allProducts = [];
-
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(() => {
-        document.getElementById('loadingScreen').classList.add('hidden');
-        collectAllProducts();
-        setupScrollListener();
-      }, 1500);
-    });
+  document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1500);
+        });
 
     function collectAllProducts() {
       allProducts = Array.from(document.querySelectorAll('.product-card')).map(card => ({
@@ -1016,61 +963,175 @@
         description: card.querySelector('.product-description').textContent
       }));
     }
+function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const productCards = document.querySelectorAll('.product-card');
+            const sections = document.querySelectorAll('.category-section');
 
-    function applyFilters() {
-      const query = document.getElementById('searchInput').value.toLowerCase().trim();
-      const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
-      const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
-      const clearBtn = document.getElementById('clearBtn');
+            if (!query) {
+                // Show all products and sections
+                productCards.forEach(card => card.style.display = 'block');
+                sections.forEach(section => section.style.display = 'block');
+                return;
+            }
 
-      let filteredCount = 0;
+            // Hide all sections first
+            sections.forEach(section => section.style.display = 'none');
 
-      allProducts.forEach(product => {
-        const matchesSearch = product.name.toLowerCase().includes(query) || 
-                              product.description.toLowerCase().includes(query);
-        const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
+            let hasResults = false;
+            productCards.forEach(card => {
+                const name = card.querySelector('.product-name').textContent.toLowerCase();
+                const description = card.querySelector('.product-description').textContent.toLowerCase();
+                
+                if (name.includes(query) || description.includes(query)) {
+                    card.style.display = 'block';
+                    card.closest('.category-section').style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
 
-        const isVisible = matchesSearch && matchesPrice;
-        product.element.style.display = isVisible ? 'block' : 'none';
+            if (!hasResults) {
+                showNotification('No se encontraron productos');
+            }
+        }
 
-        if (isVisible) filteredCount++;
-      });
+        // Enable search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
 
-      document.querySelectorAll('.category-section').forEach(section => {
-        const hasVisible = Array.from(section.querySelectorAll('.product-card')).some(card => card.style.display !== 'none');
-        section.style.display = hasVisible ? 'block' : 'none';
-      });
+        function filterCategory(category) {
+            const sections = document.querySelectorAll('.category-section');
+            const buttons = document.querySelectorAll('.category-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (category === 'all') {
+                sections.forEach(section => section.style.display = 'block');
+            } else {
+                sections.forEach(section => {
+                    if (section.dataset.category === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Clear search when filtering
+            document.getElementById('searchInput').value = '';
+        }
 
-      if (query || minPrice || (maxPrice !== Infinity)) {
-        clearBtn.classList.add('show');
-      } else {
-        clearBtn.classList.remove('show');
-      }
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            
+            updateCartUI();
+            showNotification(`${name} agregado al carrito`);
+        }
 
-      checkNoResults();
-    }
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+            showNotification('Producto eliminado del carrito');
+        }
 
-    function clearFilters() {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('minPrice').value = '';
-      document.getElementById('maxPrice').value = '';
-      document.getElementById('clearBtn').classList.remove('show');
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
 
-      allProducts.forEach(product => product.element.style.display = 'block');
-      document.querySelectorAll('.category-section').forEach(section => section.style.display = 'block');
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const totalAmount = document.getElementById('totalAmount');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            totalAmount.textContent = `$${totalPrice.toLocaleString()}`;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                `;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price.toLocaleString()}</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
+                    </div>
+                `).join('');
+            }
+        }
 
-      document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelector('.category-btn').classList.add('active');
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        }
 
-      checkNoResults();
-    }
+        function closeCartIfOutside(event) {
+            if (event.target === event.currentTarget) {
+                toggleCart();
+            }
+        }
 
-    document.getElementById('searchInput').addEventListener('input', applyFilters);
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') applyFilters();
-    });
-    document.getElementById('minPrice').addEventListener('input', applyFilters);
-    document.getElementById('maxPrice').addEventListener('input', applyFilters);
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Tu carrito está vacío');
+                return;
+            }
+            
+            let message = '¡Hola! Me interesa hacer el siguiente pedido:\n\n';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                message += `• ${item.name}\n  Cantidad: ${item.quantity}\n  Precio: $${item.price.toLocaleString()}\n  Subtotal: $${subtotal.toLocaleString()}\n\n`;
+                total += subtotal;
+            });
+            
+            message += `TOTAL: $${total.toLocaleString()}\n\n`;
+            message += 'Por favor, confirme disponibilidad y método de pago.';
+            
+            const whatsappUrl = `https://wa.me/573054328798?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function openWhatsApp() {
+            const message = '¡Hola! Me interesa conocer más sobre sus productos.';
+            const whatsappUrl = `https://wa.me/573054328798?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
   </script>
 </body>
 </html>
