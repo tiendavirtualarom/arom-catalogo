@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+si<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -534,11 +534,6 @@
 </head>
 <body>
     
-  <div class="loading-screen" id="loadingScreen">
-        <div class="spinner"></div>
-        <p>Cargando productos...</p>
-    </div>
-
     <div class="container">
         <header>
             <div class="logo">Tienda Virtual AROM</div>
@@ -890,8 +885,7 @@
                 </div>
             </div>
         </div>
- <!-- Botón carrito -->
-<button onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>       
+        
  <!-- Cart Modal -->
         <div class="cart-modal" id="cartModal">
             <div class="cart-content">
@@ -906,16 +900,7 @@
                 </div>
             </div>
         </div> 
-    !-- Modal Datos Cliente -->
-<div class="data-modal" id="dataModal" onclick="closeDataIfOutside(event)">
-  <div class="modal-content">
-    <h2>📄 Datos de Envío</h2>
-    <button class="close-btn" onclick="closeDataModal()">×</button>
-    <input type="text" id="customerName" placeholder="Tu nombre" />
-    <input type="text" id="shippingAddress" placeholder="Tu dirección" />
-    <button onclick="checkout()">Confirmar Pedido</button>
-  </div>
-</div>
+
         <!-- Payment & Info Section -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px;">
             <div class="payment-info">
@@ -960,18 +945,15 @@
     <script>
      let cart = [];
      let favorites = [];
-// Cargar carrito al iniciar
-  document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function () {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
       cart = JSON.parse(storedCart);
       updateCartUI();
     }
     loadFavorites();
-
-    document.getElementById('customerName').value = localStorage.getItem('customerName') || '';
-    document.getElementById('shippingAddress').value = localStorage.getItem('shippingAddress') || '';
   });
+
         function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
@@ -1043,62 +1025,34 @@ function toggleCart() {
   }
 
   function closeCartIfOutside(event) {
-    if (event.target === event.currentTarget) {
-      toggleCart();
-    }
+    if (event.target === event.currentTarget) toggleCart();
   }
-function openDataModal() {
+    function checkout() {
     if (cart.length === 0) {
       showNotification('Tu carrito está vacío');
       return;
     }
-    document.getElementById('dataModal').style.display = 'flex';
-  }
-
-  function closeDataModal() {
-    document.getElementById('dataModal').style.display = 'none';
-  }
-  function closeDataIfOutside(event) {
-    if (event.target === event.currentTarget) closeDataModal();
-  }
-
-        
-  function checkout() {
-   const name = document.getElementById('customerName').value.trim();
-    const address = document.getElementById('shippingAddress').value.trim();
-
-    if (!name || !address) {
-      showNotification('Por favor completa tus datos');
-      return;
-    }
-    localStorage.setItem('customerName', name);
-    localStorage.setItem('shippingAddress', address); 
-      
-    let message = '¡Hola! Me interesa hacer el siguiente pedido:\n\nCliente: ${name}\nDireccion: ${address}\n\n';
+    let message = '¡Hola! Me interesa hacer el siguiente pedido:\n\n';
     let total = 0;
 
     cart.forEach(item => {
       const subtotal = item.price * item.quantity;
-      message += `• ${item.name}\n  Cantidad: ${item.quantity}\n  Precio: $${item.price.toLocaleString()}\n  Subtotal: $${subtotal.toLocaleString()}\n\n`;
+      message += `• ${item.name}\nCantidad: ${item.quantity}\nPrecio: $${item.price.toLocaleString()}\nSubtotal: $${subtotal.toLocaleString()}\n\n`;
       total += subtotal;
     });
 
-    message += `TOTAL: $${total.toLocaleString()}\n\n`;
-    message += 'Por favor, confirme disponibilidad y método de pago.';
+    message += `TOTAL: $${total.toLocaleString()}\n\nPor favor confirme disponibilidad.`;
 
     const whatsappUrl = `https://wa.me/573054328798?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-
-      
-// Limpiar carrito al finalizar
-    cart = [];
+   cart = [];
     saveCart();
     updateCartUI();
     showNotification('Pedido enviado. ¡Gracias!');
   }
-      
-function openWhatsApp() {
-    const message = '¡Hola! Me interesa conocer más sobre sus productos.';
+
+  function openWhatsApp() {
+    const msg = '¡Hola! Me interesa conocer más sobre sus productos.';
     window.open(`https://wa.me/573054328798?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
@@ -1106,10 +1060,9 @@ function openWhatsApp() {
     const notification = document.getElementById('notification');
     notification.textContent = msg;
     notification.style.display = 'block';
-    setTimeout(() => {
-      notification.style.display = 'none';
-    }, 3000);
-  }   
+    setTimeout(() => { notification.style.display = 'none'; }, 3000);
+  }
+
   function toggleFavorite(productId) {
     if (favorites.includes(productId)) {
       favorites = favorites.filter(id => id !== productId);
@@ -1119,6 +1072,7 @@ function openWhatsApp() {
     localStorage.setItem('favorites', JSON.stringify(favorites));
     updateFavoriteIcons();
   }
+
   function loadFavorites() {
     const stored = localStorage.getItem('favorites');
     if (stored) {
@@ -1126,7 +1080,8 @@ function openWhatsApp() {
       updateFavoriteIcons();
     }
   }
-function updateFavoriteIcons() {
+
+  function updateFavoriteIcons() {
     document.querySelectorAll('.product-card').forEach(card => {
       const id = parseInt(card.dataset.id);
       const favIcon = card.querySelector('.favorite-icon');
@@ -1135,7 +1090,21 @@ function updateFavoriteIcons() {
       }
     });
   }
-  </script>
+
+  function searchProducts() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+      const name = card.querySelector('.product-name').textContent.toLowerCase();
+      const description = card.querySelector('.product-description').textContent.toLowerCase();
+
+      card.style.display = (name.includes(query) || description.includes(query)) ? 'block' : 'none';
+    });
+  }
+</script>
 </body>
-</html>
- 
+</html>     
+
+
+        
