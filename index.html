@@ -978,15 +978,14 @@ function saveCart() {
                     quantity: 1
                 });
             }
-            
-            loadCart();
-updateCartUI();
-            showNotification(`${name} agregado al carrito`, 'success');
+        saveCart(); // Corregido: era 'loadCart()'
+        updateCartUI();
+        showNotification(`${name} agregado al carrito`, 'success');
         }
         
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
-            loadCart();
+            saveCart(); // Corregido: era 'loadCart()'
             updateCartUI();
             showNotification('Producto eliminado del carrito', 'success');
         }
@@ -998,8 +997,8 @@ updateCartUI();
                 if (item.quantity <= 0) {
                     removeFromCart(id);
                 } else {
-                    loadCart();
-updateCartUI();
+            saveCart(); // Corregido: era 'loadCart()'
+            updateCartUI();
                 }
             }
         }
@@ -1012,7 +1011,9 @@ updateCartUI();
             
             // Update cart count
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+             if (cartCount) { // Verificar que el elemento existe
             cartCount.textContent = totalItems;
+    }
             
             // Update cart items
             if (cart.length === 0) {
@@ -1151,21 +1152,27 @@ updateCartUI();
         }
 
         // Allow search on Enter key
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 searchProducts();
             }
         });
-
-        // Close cart when clicking outside
-        document.getElementById('cartModal').addEventListener('click', function(e) {
+    }
+});
+// Close cart when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+        cartModal.addEventListener('click', function(e) {
             if (e.target === this) {
                 toggleCart();
             }
         });
-
-        // Initialize cart UI
-        updateCartUI();
+    }
+});
     </script>
 </body>
 </html>
