@@ -953,27 +953,18 @@ si<!DOCTYPE html>
     <script>
      let cart = [];
  // Cargar carrito desde localStorage
-function loadCart() {
-    const savedCart = localStorage.getItem('aromCart');
+   document.addEventListener('DOMContentLoaded', function(){     
+    const storedCart= localStorage.getItem('aromCart');
     if (savedCart) {
-        try {
-            cart = JSON.parse(savedCart);
-        } catch (e) {
-            console.error('Error al cargar el carrito:', e);
-            cart = [];
-        }
+        cart = JSON.parse(storedCart);
+        updateCartUI();
     }
-}
+  });
+      
 // Guardar carrito en localStorage
 function saveCart() {
-    try {
         localStorage.setItem('aromCart', JSON.stringify(cart));
-    } catch (e) {
-        console.error('Error al guardar el carrito:', e);
-    }
-}
-
-        
+    }    
         function addToCart(id, name, price) {
             const existingItem = cart.find(item => item.id === id);
             
@@ -996,7 +987,7 @@ updateCartUI();
         function removeFromCart(id) {
             cart = cart.filter(item => item.id !== id);
             loadCart();
-updateCartUI();
+            updateCartUI();
             showNotification('Producto eliminado del carrito', 'success');
         }
         
@@ -1060,7 +1051,11 @@ updateCartUI();
             const cartModal = document.getElementById('cartModal');
             cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
         }
-        
+        function closeCartIfOutside(event) {
+    if (event.target === event.currentTarget) {
+      toggleCart();
+    }
+  }
         function checkout() {
             if (cart.length === 0) {
                 showNotification('Tu carrito está vacío', 'error');
