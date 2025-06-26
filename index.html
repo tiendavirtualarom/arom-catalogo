@@ -929,14 +929,14 @@ function addToCart(id, name, price) {
         cart.push({ id, name, price, quantity: 1 });
     }
     saveCart();
-    updateCartUI();
+    refreshWaLink();
     showNotification(`${name} agregado al carrito`);
 }
 
 function removeFromCart(id) {
     cart = cart.filter(item => item.id !== id);
     saveCart();
-    updateCartUI();
+    refreshWaLink();
     showNotification('Producto eliminado del carrito');
 }
 
@@ -948,7 +948,7 @@ function updateQuantity(id, change) {
         removeFromCart(id);
     } else {
         saveCart();
-        updateCartUI();
+        refreshWaLink();
     }
 }
 
@@ -976,7 +976,7 @@ document.addEventListener('DOMContentLoaded', refreshWaLink);
 
 
     
-function updateCartUI() {
+function refreshWaLink() {
     const cartCount   = document.getElementById('cartCount');
     const cartItems   = document.getElementById('cartItems');
     const cartTotalBox= document.getElementById('cartTotal');
@@ -1107,8 +1107,9 @@ function contactWhatsApp() {
 }
 
 /* ----------------  INICIALIZACIÓN  ---------------- */
-updateCartUI();    
+    refreshWaLink();    
     </script>
+    
     <!-- Botón flotante de WhatsApp -->
 <a id="waFloat"
    class="wa-float"
