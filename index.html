@@ -640,16 +640,17 @@
         </header>
 
         <!-- ---------- SEARCH / CART ---------- -->
-        <section class="search-section">
-            <div class="search-bar">
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos..." />
-                <button class="search-btn" onclick="searchProducts()">🔍</button>
-            </div>
-            <button class="cart-btn" onclick="toggleCart()">
-                🛒 Carrito <span id="cartCount" class="cart-count">0</span>
-            </button>
-        </section>
+<section class="search-section">
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
+        <button class="search-btn" onclick="searchProducts()">🔍</button>
+    </div>
 
+    <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
+    <button class="cart-btn" onclick="toggleCart()">
+        🛒 Carrito <span id="cartCount" class="cart-count">0</span>
+    </button>
+</section>
         <!-- ---------- CATEGORIES ---------- -->
         <nav class="categories" id="categoriesNav">
             <button class="category-btn active" onclick="filterCategory('all', this)">🔥 Todos</button>
@@ -977,24 +978,23 @@
             </div>
         </div>
 <!-- ---------- CART MODAL ---------- -->
-        <div id="cartModal" class="cart-modal" onclick="closeCartIfOutside(event)">
-            <div class="cart-content">
-                <div class="cart-header">
-                    <h2 class="cart-title">🛒 Mi Carrito</h2>
-                    <button class="close-cart" onclick="toggleCart()">&times;</button>
-                </div>
-                <div id="cartItems">
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon" style="font-size: 3rem; text-align:center;">🛒</div>
-                        <p style="text-align:center;">Tu carrito está vacío<br />¡Agrega algunos productos increíbles! ✨</p>
-                    </div>
-                </div>
-                <div id="cartTotal" class="cart-total" style="display: none;">
-                    <span class="total-amount">Total: $<span id="totalAmount">0</span></span>
-                    <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
-                </div>
-            </div>
+<div id="cartModal" class="cart-modal" onclick="closeCartIfOutside(event)">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h2 class="cart-title">🛒 Mi Carrito</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
         </div>
+
+        <!-- 👇 Aquí va la lista de productos -->
+        <div id="cartItems"></div>
+
+        <!-- 👇 Caja de total y pagar -->
+        <div id="cartTotal" class="cart-total" style="display:none">
+            Total: $<span id="totalAmount">0</span>
+            <button class="checkout-btn" onclick="checkout()">Proceder al pago</button>
+        </div>
+    </div>
+</div>
 
         <!-- ---------- EXTRA INFO ---------- -->
         <section class="grid-info">
