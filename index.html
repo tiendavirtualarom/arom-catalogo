@@ -11,226 +11,6 @@
 
     <!-- Styles (kept inline for single‑file demo, move to .css on production) -->
     <style>
-        /* ---------- Botón flotante Carrito ---------- */
-.cart-float {
-    position: fixed;
-    right: 30px;        /* mismo eje X que WhatsApp para alinearlos */
-    bottom: 100px;      /* separado 70 px arriba del WhatsApp */
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    z-index: 998;       /* un nivel debajo de WhatsApp para clics fáciles */
-    box-shadow: 0 8px 20px rgba(0,0,0,.25);
-    cursor: pointer;
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-.cart-float:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 24px rgba(0,0,0,.35);
-}
-
-/* Contador sobre el ícono */
-.cart-float .cart-count {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    background: #fff;
-    color: var(--accent);
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 50%;
-    font-weight: 700;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-}
-
-/* -------- Tablet: un poco más chico -------- */
-@media (max-width: 768px) {
-    .cart-float {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        right: 20px;
-        bottom: 90px; /* conserva separación con WhatsApp */
-    }
-}
-
-/* -------- Móvil pequeño: muévelo más arriba para no tapar barra inferior -------- */
-@media (max-width: 480px) {
-    .cart-float {
-        bottom: 80px;
-    }
-}
-
-
-    .logo-image {
-        width: 70px;
-        height: 70px;
-    }
-
-    .logo-text {
-        font-size: 1.8rem;
-        letter-spacing: 0.5px;
-    }
-
-    .subtitle {
-        font-size: 0.9rem;
-        margin-bottom: 15px;
-    }
-
-    .contact-info {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .contact-item {
-        padding: 8px 16px;
-    }
-
-    .contact-icon {
-        font-size: 0.9rem;
-    }
-
-    .contact-text {
-        font-size: 0.8rem;
-    }
-
-    .search-section {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .search-bar {
-    background: var(--glass);
-    border-radius: 50px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    max-width: 300px;
-    box-shadow: var(--shadow);
-    }
-
-    .search-input {
-    flex: 1;
-    padding: 10px 14px;
-    border: none;
-    outline: none;
-    font-size: 0.9rem;
-    border-radius: 50px 0 0 50px;
-    }
-    .search-btn-icon {
-    background: var(--secondary);
-    border: none;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    cursor: pointer;
-    border-radius: 50%;
-    margin-right: 8px;
-    transition: var(--transition);
-}
-.search-btn-icon:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-hover);
-}
-    .search-btn {
-        font-size: 1rem;
-        padding: 0 14px;
-    }
-/* Botón carrito redondo */
-.cart-btn-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    transition: var(--transition);
-}
-.cart-btn-icon:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-hover);
-}
-
-    
-    .cart-btn {
-        width: 100%;
-        justify-content: center;
-        font-size: 0.85rem;
-        padding: 10px 14px;
-    }
-
-    .cart-count {
-   position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #fff;
-    color: var(--accent);
-    padding: 2px 6px;
-    font-size: 0.7rem;
-    border-radius: 50px;
-    font-weight: 700;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-}
-
-/* ---------- Botón flotante WhatsApp ---------- */
-.whatsapp-float {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    width: 64px;
-    height: 64px;
-    background: #25d366;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 34px;         /* ícono más grande */
-    z-index: 999;
-    box-shadow: 0 8px 20px rgba(0,0,0,.25);
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-.whatsapp-float:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 24px rgba(0,0,0,.35);
-}
-
-/* ---------- Tablet (reduce tamaño) ---------- */
-@media (max-width: 768px) {
-    .whatsapp-float {
-        width: 52px;
-        height: 52px;
-        right: 20px;
-        bottom: 20px;
-        font-size: 28px;
-    }
-}
-
-/* ---------- Móvil pequeño (opción A = ocultar) ---------- */
-/* Si prefieres que el botón siga visible, comenta o elimina este bloque */
-@media (max-width: 480px) {
-    .whatsapp-float {
-        display: none;
-    }
-}
-        
-        
         /* --------------------------------------------------
            COLOR SYSTEM & BASIC RESET
         -------------------------------------------------- */
@@ -303,9 +83,16 @@
             margin-bottom: 15px;
         }
         .logo-image {
-            width: 90px;
-            height: 90px;
-            
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid transparent;
+            background: var(--secondary);
+            padding: 3px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: float 3s ease-in-out infinite;
         }
         .logo-image:hover {
             transform: scale(1.08) rotate(5deg);
@@ -320,9 +107,15 @@
             }
         }
         .logo-text {
-            font-size: 2.2rem;
-            letter-spacing: 1px;
-            
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(139, 76, 184, 0.35);
+            position: relative;
         }
         .logo-text::after {
             content: '✨';
@@ -342,9 +135,12 @@
             }
         }
         .subtitle {
-            font-size: 1rem;
-            margin-bottom: 20px;
-           
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
         }
         .subtitle::before,
         .subtitle::after {
@@ -378,7 +174,18 @@
             gap: 25px;
         }
         .contact-item {
-            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            background: rgba(255, 182, 193, 0.2);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
         .contact-item:hover {
             transform: translateY(-5px) scale(1.05);
@@ -398,14 +205,17 @@
             transform: translateX(100%);
         }
         .contact-icon {
-            font-size: 1rem;
+            font-size: 1.2rem;
+            color: #FF69B4;
+            transition: var(--transition);
         }
         .contact-item:hover .contact-icon {
             transform: scale(1.2) rotate(10deg);
         }
         .contact-text {
-            font-size: 0.85rem;
-           
+            font-size: 0.95rem;
+            color: var(--accent);
+            font-weight: 700;
         }
         /* globito de “copiado” */
         .copy-tooltip {
@@ -433,49 +243,65 @@
         /* --------------------------------------------------
            SEARCH / CART
         -------------------------------------------------- */
-    header {
-        padding: 20px;
-        margin-bottom: 30px;
-}
-        
         .search-section {
-            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
         }
         .search-bar {
-    background: var(--glass);
-    border-radius: 50px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    max-width: 300px;
-    box-shadow: var(--shadow);
+            flex: 1 1 300px;
+            display: flex;
+            background: var(--glass);
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
         .search-input {
-    flex: 1;
-    padding: 10px 14px;
-    border: none;
-    outline: none;
-    font-size: 0.9rem;
-    border-radius: 50px 0 0 50px;
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
         }
         .search-btn {
-            font-size: 1rem;
-            padding: 0 16px;
+            background: var(--secondary);
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
         }
         .search-btn:hover {
             filter: brightness(1.1);
         }
         .cart-btn {
-            padding: 10px 18px;
-            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
         }
         .cart-btn:hover {
             box-shadow: var(--shadow-hover);
             transform: translateY(-2px);
         }
         .cart-count {
-            font-size: 0.75rem;
-            padding: 1px 6px;
+            background: #fff;
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
         }
         /* ---------- CATEGORÍAS ---------- */
         .categories-wrapper{position:relative;margin-bottom:40px}
@@ -657,13 +483,14 @@
 <section class="search-section">
     <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
-        <button class="search-btn-icon"><i class="fas fa-search"></i></button>
+        <button class="search-btn" onclick="searchProducts()">🔍</button>
     </div>
-    <button class="cart-btn-icon">
-    <i class="fas fa-shopping-cart"></i>
-    <span class="cart-count">9</span>
-  </button>
-</div>
+
+    <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
+    <button class="cart-btn" onclick="toggleCart()">
+        🛒 Carrito <span id="cartCount" class="cart-count">0</span>
+    </button>
+</section>
 <!-- CATEGORÍAS CON DESPLAZAMIENTO -->
         <div class="categories-wrapper">
             <button class="scroll-btn scroll-left" onclick="scrollCategories('left')">‹</button>
@@ -1042,7 +869,10 @@
             </div>
         </section>
 
-        
+        <!-- ---------- WHATSAPP + NOTIFICATION ---------- -->
+        <div class="floating-whatsapp" onclick="contactWhatsApp()">📱</div>
+        <div id="notification" class="notification"></div>
+    </div>
 
 <!-- ==================================================
          JAVASCRIPT
@@ -1214,14 +1044,9 @@ function contactWhatsApp() {
     window.open('https://wa.me/573054328798', '_blank');
 }
 
-
 /* ----------------  INICIALIZACIÓN  ---------------- */
 updateCartUI();    
     </script>
-    <!-- Botón flotante WhatsApp -->
-<a href="https://wa.me/573054328798" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
-   <i class="fab fa-whatsapp"></i>
-</a>
 </body>
 </html>
 
