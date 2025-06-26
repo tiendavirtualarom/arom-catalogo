@@ -212,9 +212,10 @@
             transform: scale(1.2) rotate(10deg);
         }
         .contact-text {
+            user-select:text; 
             font-size: 0.95rem;
             color: var(--accent);
-            font-weight: 700;
+            font-weight: 500;
         }
         /* globito de “copiado” */
         .copy-tooltip {
@@ -226,12 +227,13 @@
             color: #fff;
             padding: 6px 12px;
             border-radius: 18px;
-            font-size: 0.8rem;
+            font-size: .75rem;
             font-weight: 600;
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
             pointer-events: none;
+             margin-left:.5rem;
         }
         .copy-tooltip.show {
             opacity: 1;
@@ -472,7 +474,21 @@
                 </div>
             </div>
         </header>
-
+    <!-- Instagram: copia al portapapeles -->
+<div class="contact-item"
+     onclick="copyToClipboard('AROM_TIENDAVIRTUAL', this)">
+  <i class="fab fa-instagram contact-icon"></i>
+  <span class="contact-text">AROM_TIENDAVIRTUAL</span>
+  <span class="copy-tooltip">¡Copiado!</span>
+</div>
+<!-- TikTok: abre el enlace -->
+<a class="contact-item"
+   href="https://www.tiktok.com/@tienda_virtual_arom?_t=ZS-8xXWXVVT0J5&_r=1"
+   target="_blank" rel="noopener noreferrer">
+  <i class="fab fa-tiktok contact-icon"></i>
+  <span class="contact-text">@tienda_virtual_arom</span>
+</a>
+        
         <!-- ---------- SEARCH / CART ---------- -->
 <section class="search-section">
     <div class="search-bar">
@@ -1028,11 +1044,17 @@ function showNotification(msg, error = false) {
     setTimeout(() => n.classList.remove('show'), 3000);
 }
 function copyToClipboard(text, el) {
+ /* 1️⃣  Si el usuario está seleccionando texto, no forzamos la copia */
+  if(window.getSelection().toString().length) return;
+    
     navigator.clipboard.writeText(text).then(() => {
-        const tooltip = el.querySelector('.copy-tooltip');
-        tooltip.classList.add('show');
-        setTimeout(() => tooltip.classList.remove('show'), 1200);
-    });
+         const tip = el.querySelector('.copy-tooltip');
+    if(!tip) return;
+    tip.classList.add('show');
+    setTimeout(()=>tip.classList.remove('show'),1500);
+  }).catch(err=>{
+    console.error('No se pudo copiar: ', err);
+  });
 }
 function contactWhatsApp() {
     window.open('https://wa.me/573054328798', '_blank');
