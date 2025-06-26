@@ -878,8 +878,7 @@
          JAVASCRIPT
     ================================================== -->
  <script>
-        /* ---------------- CART STATE ---------------- */
-        let cart = [];
+        
 function filterCategory(cat, btn) {
     /* –– 1. Marcar botón activo –– */
     document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -899,7 +898,7 @@ function filterCategory(cat, btn) {
     }
 }
 
-        // Guardar estado en localStorage cada vez que cambie
+// Guardar estado en localStorage cada vez que cambie
         const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
 
         function addToCart(id, name, price) {
