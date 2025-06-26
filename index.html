@@ -11,12 +11,63 @@
 
     <!-- Styles (kept inline for single‑file demo, move to .css on production) -->
     <style>
+        /* ---------- Botón flotante Carrito ---------- */
+.cart-float {
+    position: fixed;
+    right: 30px;        /* mismo eje X que WhatsApp para alinearlos */
+    bottom: 100px;      /* separado 70 px arriba del WhatsApp */
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    z-index: 998;       /* un nivel debajo de WhatsApp para clics fáciles */
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    cursor: pointer;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+.cart-float:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 24px rgba(0,0,0,.35);
+}
 
+/* Contador sobre el ícono */
+.cart-float .cart-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #fff;
+    color: var(--accent);
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* -------- Tablet: un poco más chico -------- */
 @media (max-width: 768px) {
-    header {
-        padding: 15px;
-        margin-bottom: 20px;
+    .cart-float {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        right: 20px;
+        bottom: 90px; /* conserva separación con WhatsApp */
     }
+}
+
+/* -------- Móvil pequeño: muévelo más arriba para no tapar barra inferior -------- */
+@media (max-width: 480px) {
+    .cart-float {
+        bottom: 80px;
+    }
+}
+
 
     .logo-image {
         width: 70px;
@@ -985,10 +1036,7 @@
             </div>
         </section>
 
-        <!-- ---------- WHATSAPP + NOTIFICATION ---------- -->
-        <div class="floating-whatsapp" onclick="contactWhatsApp()">📱</div>
-        <div id="notification" class="notification"></div>
-    </div>
+        
 
 <!-- ==================================================
          JAVASCRIPT
@@ -1159,6 +1207,13 @@ function copyToClipboard(text, el) {
 function contactWhatsApp() {
     window.open('https://wa.me/573054328798', '_blank');
 }
+<!-- Botón flotante Carrito -->
+<button class="cart-float" aria-label="Ver carrito">
+  <i class="fas fa-shopping-cart"></i>
+  <span class="cart-count">9</span>
+</button>
+
+    
 
 /* ----------------  INICIALIZACIÓN  ---------------- */
 updateCartUI();    
