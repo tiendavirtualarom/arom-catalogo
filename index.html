@@ -41,7 +41,6 @@
             margin: 0 auto;
             padding: 20px;
         }
-
         /* --------------------------------------------------
            HEADER (logo + contacto)
         -------------------------------------------------- */
@@ -1035,10 +1034,8 @@
     <!-- ==================================================
          JAVASCRIPT
     ================================================== -->
-    <script>
+        <script>
         /* ---------------- CART STATE ---------------- */
-        let cart = [];
-
         let cart = [];
 
         // Cargar carrito desde localStorage (o iniciar vacío) al cargar la página
@@ -1051,6 +1048,19 @@
             updateCartUI(); // Siempre refrescamos la interfaz
         });
 
+        // Mantener el carrito sincronizado entre pestañas / ventanas
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'aromCart') {
+                try {
+                    cart = JSON.parse(e.newValue) || [];
+                } catch (err) {
+                    cart = [];
+                }
+                updateCartUI();
+            }
+        });
+
+        // Guardar estado en localStorage cada vez que cambie
         const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
 
         function addToCart(id, name, price) {
