@@ -56,19 +56,65 @@
     }
 
     .search-bar {
-        flex: 1 1 100%;
+    background: var(--glass);
+    border-radius: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    max-width: 300px;
+    box-shadow: var(--shadow);
     }
 
     .search-input {
-        font-size: 0.85rem;
-        padding: 10px 14px;
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    border-radius: 50px 0 0 50px;
     }
-
+    .search-btn-icon {
+    background: var(--secondary);
+    border: none;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-right: 8px;
+    transition: var(--transition);
+}
+.search-btn-icon:hover {
+    filter: brightness(1.1);
+}
     .search-btn {
         font-size: 1rem;
         padding: 0 14px;
     }
+/* Botón carrito redondo */
+.cart-btn-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.cart-btn-icon:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
+}
 
+    
     .cart-btn {
         width: 100%;
         justify-content: center;
@@ -77,8 +123,16 @@
     }
 
     .cart-count {
-        font-size: 0.75rem;
-        padding: 2px 6px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #fff;
+    color: var(--accent);
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    border-radius: 50px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 }
 
@@ -546,14 +600,13 @@
 <section class="search-section">
     <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
-        <button class="search-btn" onclick="searchProducts()">🔍</button>
+        <button class="search-btn-icon"><i class="fas fa-search"></i></button>
     </div>
-
-    <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
-    <button class="cart-btn" onclick="toggleCart()">
-        🛒 Carrito <span id="cartCount" class="cart-count">0</span>
-    </button>
-</section>
+    <button class="cart-btn-icon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count">9</span>
+  </button>
+</div>
 <!-- CATEGORÍAS CON DESPLAZAMIENTO -->
         <div class="categories-wrapper">
             <button class="scroll-btn scroll-left" onclick="scrollCategories('left')">‹</button>
