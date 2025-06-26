@@ -877,7 +877,7 @@
     <!-- ==================================================
          JAVASCRIPT
     ================================================== -->
-        <script>
+ <script>
         /* ---------------- CART STATE ---------------- */
         let cart = [];
 function filterCategory(cat, btn) {
@@ -889,15 +889,36 @@ function filterCategory(cat, btn) {
     document.querySelectorAll('.category-section').forEach(sec => {
         const show = (cat === 'all') || (sec.dataset.category === cat);
         sec.style.display = show ? 'block' : 'none';
+      if (show) {
+                sec.classList.add('fade-in');
+                setTimeout(() => sec.classList.remove('fade-in'), 500);
+            }  
     });
 
-    /* –– 3. Asegurarnos de que TODAS las tarjetas vuelvan a verse –– */
-    if (cat === 'all') {
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.style.display = 'flex';   // restablece las que el buscador ocultó
-        });
+      // 3. Mostrar todas las tarjetas si se selecciona "Todos"
+        if (cat === 'all') {
+            document.getElementById('searchInput').value = '';
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.style.display = 'flex';
+            });
+        }
+ // 4. Auto-scroll hacia productos
+        const productos = document.getElementById('productsContainer');
+        if (productos) {
+            productos.scrollIntoView({ behavior: 'smooth' });
+        }
+ }
+<style>
+            
+.fade-in {
+        animation: fadeIn 0.5s ease;
     }
-}
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
 
         // Mantener el carrito sincronizado entre pestañas / ventanas
         window.addEventListener('storage', (e) => {
