@@ -880,16 +880,24 @@
         <script>
         /* ---------------- CART STATE ---------------- */
         let cart = [];
+function filterCategory(cat, btn) {
+    /* –– 1. Marcar botón activo –– */
+    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-        // Cargar carrito desde localStorage (o iniciar vacío) al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                cart = JSON.parse(localStorage.getItem('aromCart')) || [];
-            } catch (err) {
-                cart = [];
-            }
-            updateCartUI(); // Siempre refrescamos la interfaz
+    /* –– 2. Mostrar/ocultar secciones –– */
+    document.querySelectorAll('.category-section').forEach(sec => {
+        const show = (cat === 'all') || (sec.dataset.category === cat);
+        sec.style.display = show ? 'block' : 'none';
+    });
+
+    /* –– 3. Asegurarnos de que TODAS las tarjetas vuelvan a verse –– */
+    if (cat === 'all') {
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.display = 'flex';   // restablece las que el buscador ocultó
         });
+    }
+}
 
         // Mantener el carrito sincronizado entre pestañas / ventanas
         window.addEventListener('storage', (e) => {
