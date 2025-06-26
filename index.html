@@ -617,10 +617,10 @@
         <!-- ---------- HEADER ---------- -->
         <header>
             <div class="logo-section">
-                <img class="logo-image" src="imagenes/29.jpg" alt="Logo Tienda Virtual AROM" />
+                <img class="logo-image" src="logo.jpg" alt="Logo Tienda Virtual AROM" />
                 <h1 class="logo-text">Tienda Virtual AROM</h1>
             </div>
-            <p class="subtitle">Maquillaje y Accesorios de Belleza</p>
+            <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
             <div class="contact-info">
                 <div class="contact-item" onclick="copyToClipboard('AROM_TIENDAVIRTUAL', this)">
                     <i class="fab fa-instagram contact-icon"></i>
@@ -1039,14 +1039,18 @@
         /* ---------------- CART STATE ---------------- */
         let cart = [];
 
-        // Cargar carrito desde localStorage al iniciar
+        let cart = [];
+
+        // Cargar carrito desde localStorage (o iniciar vacío) al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
-            const storedCart = localStorage.getItem('aromCart');
-            if (storedCart) {
-                cart = JSON.parse(storedCart);
-                updateCartUI();
+            try {
+                cart = JSON.parse(localStorage.getItem('aromCart')) || [];
+            } catch (err) {
+                cart = [];
             }
+            updateCartUI(); // Siempre refrescamos la interfaz
         });
+
         const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
 
         function addToCart(id, name, price) {
