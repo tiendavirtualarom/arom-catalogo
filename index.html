@@ -139,7 +139,8 @@
     transition: var(--transition);
 }
 .search-btn-icon:hover {
-    filter: brightness(1.1);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
 }
     .search-btn {
         font-size: 1rem;
@@ -174,7 +175,7 @@
     }
 
     .cart-count {
-    position: absolute;
+   position: absolute;
     top: -5px;
     right: -5px;
     background: #fff;
@@ -441,16 +442,21 @@
             margin-bottom: 20px;
         }
         .search-bar {
-            flex: 1 1 300px;
-            display: flex;
-            background: var(--glass);
-            border-radius: 50px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+    background: var(--glass);
+    border-radius: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    max-width: 300px;
+    box-shadow: var(--shadow);
         }
         .search-input {
-            font-size: 0.9rem;
-            padding: 10px 16px;
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    border-radius: 50px 0 0 50px;
         }
         .search-btn {
             font-size: 1rem;
@@ -1207,13 +1213,7 @@ function copyToClipboard(text, el) {
 function contactWhatsApp() {
     window.open('https://wa.me/573054328798', '_blank');
 }
-<!-- Botón flotante Carrito -->
-<button class="cart-float" aria-label="Ver carrito">
-  <i class="fas fa-shopping-cart"></i>
-  <span class="cart-count">9</span>
-</button>
 
-    
 
 /* ----------------  INICIALIZACIÓN  ---------------- */
 updateCartUI();    
