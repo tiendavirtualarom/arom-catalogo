@@ -144,7 +144,6 @@
         }
         .subtitle::before,
         .subtitle::after {
-            content: '💄';
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -399,7 +398,7 @@
         }
         .floating-whatsapp:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
         }
         .notification {
             position: fixed;
@@ -870,7 +869,7 @@
         </section>
 
         <!-- ---------- WHATSAPP + NOTIFICATION ---------- -->
-        <div class="floating-whatsapp" onclick="contactWhatsApp()">📱Hola,Necesito ayuda para comprar...</div>
+        <div class="floating-whatsapp" onclick="contactWhatsApp()">📱</div>
         <div id="notification" class="notification"></div>
     </div>
 
