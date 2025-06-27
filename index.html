@@ -1,16 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AROM Tienda Virtual – Maquillaje y Cuidado Personal</title>
-
-    <!-- Fonts & Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AROM Tienda Virtual – Maquillaje y Cuidado Personal</title>
+  <!-- Fonts & Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <!-- Styles (kept inline for single‑file demo, move to .css on production) -->
     <style>
         /* --------------------------------------------------
@@ -457,67 +453,58 @@
 <body>
     <div class="container">
   <!-- ---------- HEADER ---------- -->
-  <header>
-    <div class="logo-section">
-      <img src="imagenes/logo.jpg" alt="logo" width="200" style="border-radius: 10px;" />
-      <h1></h1> <!-- Corrige el cierre de h1 -->
-    </div>
-    <p class="subtitle">Maquillaje y Accesorios de Belleza</p>
-
-    <!-- ---------- CONTACTOS ---------- -->
-    <div class="contact-section">
-      <!-- TikTok -->
-      <a class="contact-item"
-         href="https://www.tiktok.com/@tienda_virtual_arom?_t=ZS-8xXWXVVT0J5&_r=1"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-tiktok contact-icon"></i>
-        <span class="contact-text">@tienda_virtual_arom</span>
-      </a>
-
-      <!-- Teléfono -->
-      <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
-        <i class="fas fa-phone contact-icon" style="color:#c2185b;"></i>
-        <span class="contact-text">305&nbsp;432&nbsp;8798</span>
-        <span class="copy-tooltip">¡Copiado!</span>
+<header>
+      <div class="logo-section">
+        <img src="imagenes/logo.jpg" alt="logo" class="logo-image" width="200" />
+        <h1 class="logo-text">AROM</h1>
       </div>
-    </div>
-  </header>
-</div>
-
-        <!-- ---------- SEARCH / CART ---------- -->
-<section class="search-section">
-    <div class="search-bar">
+      <p class="subtitle">Maquillaje y Accesorios de Belleza</p>
+      <!-- Contactos -->
+      <div class="contact-section contact-info">
+        <a class="contact-item" href="https://www.tiktok.com/@tienda_virtual_arom" target="_blank" rel="noopener">
+          <i class="fab fa-tiktok contact-icon"></i>
+          <span class="contact-text">@tienda_virtual_arom</span>
+        </a>
+        <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
+          <i class="fas fa-phone contact-icon" style="color:#c2185b;"></i>
+          <span class="contact-text">305 432 8798</span>
+          <span class="copy-tooltip">¡Copiado!</span>
+        </div>
+      </div>
+    </header>
+ <!-- SEARCH + CART -->
+    <section class="search-section">
+      <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
         <button class="search-btn" onclick="searchProducts()">🔍</button>
-    </div>
-
-    <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
-    <button class="cart-btn" onclick="toggleCart()">
+      </div>
+      <button id="openCartBtn" class="cart-btn" onclick="toggleCart()" aria-haspopup="dialog" aria-controls="cartModal">
         🛒 Carrito <span id="cartCount" class="cart-count">0</span>
-    </button>
-</section>
-<!-- CATEGORÍAS CON DESPLAZAMIENTO -->
-        <div class="categories-wrapper">
-            <button class="scroll-btn scroll-left" onclick="scrollCategories('left')">‹</button>
-            <nav class="categories" id="categoriesNav">
-            <button class="category-btn active" onclick="filterCategory('all',this)">🔥 Todos</button>
-            <button class="category-btn" onclick="filterCategory('Cuidado-Facial', this)">✨ Cuidado Facial</button>
-            <button class="category-btn" onclick="filterCategory('Labios', this)">💋 Labios</button>
-            <button class="category-btn" onclick="filterCategory('Rubores', this)">🎨 Rubores</button>
-            <button class="category-btn" onclick="filterCategory('Sombras', this)">👁️ Sombras</button>
-            <button class="category-btn" onclick="filterCategory('Pestañas', this)">✨ Pestañas</button>
-            <button class="category-btn" onclick="filterCategory('Delineadores', this)">✏️ Delineadores</button>
-            <button class="category-btn" onclick="filterCategory('Cabello', this)">✂️ Cabello</button>
-            <button class="category-btn" onclick="filterCategory('Otros', this)">➕ Otros</button>
-        </nav>
-        <button class="scroll-btn scroll-right" onclick="scrollCategories('right')">›</button>
-       </div>
+      </button>
+    </section>
+  <!-- CATEGORÍAS -->
+    <div class="categories-wrapper">
+      <button class="scroll-btn scroll-left" onclick="scrollCategories('left')">‹</button>
+      <nav class="categories" id="categoriesNav">
+        <button class="category-btn active" onclick="filterCategory('all',this)">🔥 Todos</button>
+        <button class="category-btn" onclick="filterCategory('Cuidado-Facial', this)">✨ Cuidado Facial</button>
+        <button class="category-btn" onclick="filterCategory('Labios', this)">💋 Labios</button>
+        <button class="category-btn" onclick="filterCategory('Rubores', this)">🎨 Rubores</button>
+        <button class="category-btn" onclick="filterCategory('Sombras', this)">👁️ Sombras</button>
+        <button class="category-btn" onclick="filterCategory('Pestañas', this)">✨ Pestañas</button>
+        <button class="category-btn" onclick="filterCategory('Delineadores', this)">✏️ Delineadores</button>
+        <button class="category-btn" onclick="filterCategory('Cabello', this)">✂️ Cabello</button>
+        <button class="category-btn" onclick="filterCategory('Otros', this)">➕ Otros</button>
+      </nav>
+      <button class="scroll-btn scroll-right" onclick="scrollCategories('right')">›</button>
+    </div>
          <!-- ---------- PRODUCTS ---------- -->
         <main id="productsContainer">
   <!-- ✨ Cuidado Facial -->
   <section class="category-section" aria-labelledby="cat-cuidado-facial">
     <h2 id="cat-cuidado-facial" class="category-title">✨ Cuidado Facial</h2>
     <ul class="products-grid" role="list">
+        
       <!-- Producto 1 -->
       <li class="product-card" role="listitem" data-id="1">
         <article aria-labelledby="prod-1-name" aria-describedby="prod-1-desc">
@@ -742,278 +729,183 @@
     </ul>
   </section>
 
-  <!-- Sombras e Iluminadores -->
-  <section class="category-section" aria-labelledby="cat-sombras">
-    <h2 id="cat-sombras" class="category-title">Sombras e Iluminadores</h2>
-    <ul class="products-grid" role="list">
-      <!-- Productos 19–22 -->
-    </ul>
-  </section>
+          <!-- Sombras e Iluminadores -->
+          <section class="category-section" aria-labelledby="cat-sombras">
+            <h2 id="cat-sombras" class="category-title">Sombras e Iluminadores</h2>
+            <ul class="products-grid" role="list">
+              <!-- Productos 19–22 -->
+            </ul>
+          </section>
+        
+          <!-- Pestañas -->
+          <section class="category-section" aria-labelledby="cat-pestanas">
+            <h2 id="cat-pestanas" class="category-title">Pestañas</h2>
+            <ul class="products-grid" role="list">
+              <!-- Productos 23–26 -->
+            </ul>
+          </section>
+        </main>
 
-  <!-- Pestañas -->
-  <section class="category-section" aria-labelledby="cat-pestanas">
-    <h2 id="cat-pestanas" class="category-title">Pestañas</h2>
-    <ul class="products-grid" role="list">
-      <!-- Productos 23–26 -->
-    </ul>
-  </section>
-</main>
-
-                         <!-- Cart Modal -->
-        <div class="cart-modal" id="cartModal">
-            <div class="cart-content">
-                <div class="cart-header">
-                    <h2 class="cart-title">🛒 Mi Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()">&times;</button>
-                </div>
-                <div id="cartItems">
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <p>Tu carrito está vacío</p>
-                        <p>¡Agrega algunos productos increíbles!</p>
+                          <!-- CART MODAL -->
+                <div id="cartModal" class="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cartTitle" tabindex="-1" onclick="closeCartIfOutside(event)">
+                  <div class="cart-content">
+                    <div class="cart-header">
+                      <h2 id="cartTitle" class="cart-title">🛒 Mi Carrito</h2>
+                      <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">&times;</button>
                     </div>
+                    <div id="cartItems"></div>
+                    <div id="cartTotal" class="cart-total" style="display:none">
+                      Total: $<span id="totalAmount">0</span>
+                      <button class="checkout-btn" onclick="checkout()">Proceder al pago</button>
+                    </div>
+                  </div>
                 </div>
-                
-                <div class="cart-total" id="cartTotal" style="display: none;">
-                    <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
-                    <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
-                </div>
-            </div>
+
+
+       <!-- INFO EXTRA -->
+    <section class="grid-info">
+      <div class="payment-info">
+        <h3 class="payment-title">💳 Medios de Pago</h3>
+        <p>El pago es por transferencia o consignación</p>
+        <div class="payment-methods">
+          <span class="payment-method">BANCOLOMBIA</span>
+          <span class="payment-method">NEQUI</span>
+          <span class="payment-method">DAVIPLATA</span>
         </div>
-<!-- ---------- CART MODAL ---------- -->
-<div id="cartModal" class="cart-modal" onclick="closeCartIfOutside(event)">
-    <div class="cart-content">
-        <div class="cart-header">
-            <h2 class="cart-title">🛒 Mi Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()">&times;</button>
-        </div>
+        <p style="margin-top:15px;font-style:italic;color:var(--text);">
+          Siempre preguntar por el método y esperar confirmación antes de realizar el pago.
+        </p>
+      </div>
+      <div class="payment-info">
+        <h3 class="payment-title">🚚 Envíos</h3>
+        <ul class="info-list">
+          <li>Envíos a todo el país</li>
+          <li>Entrega 2‑5 días hábiles</li>
+        </ul>
+      </div>
+      <div class="payment-info">
+        <h3 class="payment-title">🎁 Garantías</h3>
+        <ul class="info-list">
+          <li>Plazo de reclamación: 2 días calendario desde la recepción</li>
+          <li>Reportar cualquier inconveniente (defectuoso, dañado, incompleto)</li>
+        </ul>
+      </div>
+    </section>
 
-        <!-- 👇 Aquí va la lista de productos -->
-        <div id="cartItems"></div>
+    <!-- WHATSAPP + NOTIFICATION -->
+    <div class="floating-whatsapp" onclick="contactWhatsApp()">📱</div>
+    <div id="notification" class="notification"></div>
+  </div>
 
-        <!-- 👇 Caja de total y pagar -->
-        <div id="cartTotal" class="cart-total" style="display:none">
-            Total: $<span id="totalAmount">0</span>
-            <button class="checkout-btn" onclick="checkout()">Proceder al pago</button>
-        </div>
-    </div>
-</div>
+    <!-- JAVASCRIPT -->
+  <script>
+    let cart = JSON.parse(localStorage.getItem('aromCart')) || [];
+    const openCartBtn = document.getElementById('openCartBtn');
+    const cartModal = document.getElementById('cartModal');
 
-        <!-- ---------- EXTRA INFO ---------- -->
-        <section class="grid-info">
-            <div class="payment-info">
-                <h3 class="payment-title">💳 Medios de Pago</h3>
-                <p>El pago es por transferencia o consignación</p>
-                <div class="payment-methods">
-                    <span class="payment-method">BANCOLOMBIA</span>
-                    <span class="payment-method">NEQUI</span>
-                    <span class="payment-method">DAVIPLATA</span>
-                </div>
-                <p style="margin-top: 15px; font-style: italic; color: var(--text);">
-                    Siempre preguntar por el método de pago y esperar confirmación antes de realizar el pago.
-                </p>
-            </div>
-            <div class="payment-info">
-                <h3 class="payment-title">🚚 Envíos</h3>
-                <ul class="info-list">
-                    <li>Envíos a todo el país</li>
-                    <li>Entrega 2‑5 días hábiles</li>
-                </ul>
-            </div>
-            <div class="payment-info">
-                <h3 class="payment-title">🎁 Garantías</h3>
-                <ul class="info-list">
-                    <li>Plazo de reclamación: 2 días calendario desde la recepción</li>
-                    <li>Reportar cualquier inconveniente (defectuoso, dañado, incompleto)</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- ---------- WHATSAPP + NOTIFICATION ---------- -->
-        <div class="floating-whatsapp" onclick="contactWhatsApp()">📱</div>
-        <div id="notification" class="notification"></div>
-    </div>
-
-<!-- ==================================================
-         JAVASCRIPT
-================================================== -->
-<script>
-/* ----------------  CARRITO & STORAGE  ---------------- */
-let cart = JSON.parse(localStorage.getItem('aromCart')) || [];
-
-const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
-
-function addToCart(id, name, price) {
-    const existing = cart.find(item => item.id === id);
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push({ id, name, price, quantity: 1 });
+    const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
+    function showNotification(msg, error = false) {
+      const n = document.getElementById('notification');
+      n.textContent = msg;
+      n.className = `notification${error ? ' error' : ''} show`;
+      setTimeout(() => n.classList.remove('show'), 3000);
     }
-    saveCart();
-    updateCartUI();
-    showNotification(`${name} agregado al carrito`);
-}
 
-function removeFromCart(id) {
-    cart = cart.filter(item => item.id !== id);
-    saveCart();
-    updateCartUI();
-    showNotification('Producto eliminado del carrito');
-}
-
-function updateQuantity(id, change) {
-    const item = cart.find(i => i.id === id);
-    if (!item) return;
-    item.quantity += change;
-    if (item.quantity <= 0) {
-        removeFromCart(id);
-    } else {
-        saveCart();
-        updateCartUI();
+    function addToCart(id,name,price) {
+      const existing = cart.find(i => i.id === id);
+      existing ? existing.quantity++ : cart.push({id,name,price,quantity:1});
+      saveCart(); updateCartUI(); showNotification(`${name} agregado`);
     }
-}
+    function removeFromCart(id) {
+      const item = cart.find(i => i.id===id);
+      cart = cart.filter(i=>i.id!==id);
+      saveCart(); updateCartUI(); showNotification(`${item.name} eliminado`);
+    }
+    function updateQuantity(id,change) {
+      const item = cart.find(i=>i.id===id);
+      if(!item) return;
+      item.quantity += change;
+      item.quantity<=0 ? removeFromCart(id) : (saveCart(), updateCartUI());
+    }
 
-function updateCartUI() {
-    const cartCount   = document.getElementById('cartCount');
-    const cartItems   = document.getElementById('cartItems');
-    const cartTotalBox= document.getElementById('cartTotal');
-    const totalAmount = document.getElementById('totalAmount');
-
-    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-    cartCount.textContent = totalItems;
-
-    if (!cart.length) {
-        cartItems.innerHTML = `
-            <div class="empty-cart">
-                <div class="empty-cart-icon" style="font-size:3rem;text-align:center;">🛒</div>
-                <p style="text-align:center;">Tu carrito está vacío<br/>¡Agrega algunos productos increíbles! ✨</p>
-            </div>`;
+    function updateCartUI() {
+      const cartCount = document.getElementById('cartCount'), cartItems = document.getElementById('cartItems'), cartTotalBox = document.getElementById('cartTotal'), totalAmount = document.getElementById('totalAmount');
+      cartCount.textContent = cart.reduce((sum,i)=>sum+i.quantity, 0);
+      if(!cart.length) {
+        cartItems.innerHTML = `<div class="empty-cart"><div class="empty-cart-icon" style="font-size:3rem;">🛒</div><p style="text-align:center;">Tu carrito está vacío<br>¡Agrega productos increíbles! ✨</p></div>`;
         cartTotalBox.style.display = 'none';
         return;
-    }
-
-    cartItems.innerHTML = cart.map(item => `
+      }
+      cartItems.innerHTML = cart.map(item => `
         <div class="cart-item">
-            <div class="cart-item-info">
-                <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">$${(item.price * item.quantity).toLocaleString()}</div>
-                <div class="quantity-controls">
-                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                </div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">$${(item.price*item.quantity).toLocaleString()}</div>
+            <div class="quantity-controls">
+              <button aria-label="Disminuir ${item.name}" class="quantity-btn" onclick="updateQuantity(${item.id},-1)">−</button>
+              <span aria-live="assertive">${item.quantity}</span>
+              <button aria-label="Aumentar ${item.name}" class="quantity-btn" onclick="updateQuantity(${item.id},1)">+</button>
             </div>
-            <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
-        </div>`
-    ).join('');
-
-    const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-    totalAmount.textContent = total.toLocaleString();
-    cartTotalBox.style.display = 'flex';
-}
-
-/* ----------------  MODAL / CHECKOUT  ---------------- */
-function toggleCart() {
-    const modal = document.getElementById('cartModal');
-    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-}
-function closeCartIfOutside(e) {
-    if (e.target === e.currentTarget) toggleCart();
-}
-function checkout() {
-    if (!cart.length) {
-        showNotification('Tu carrito está vacío', true);
-        return;
-    }
-    let msg   = '¡Hola! Me interesa comprar los siguientes productos:%0A%0A';
-    let total = 0;
-    cart.forEach(i => {
-        msg  += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price * i.quantity).toLocaleString()}%0A`;
-        total += i.price * i.quantity;
-    });
-    msg += `%0ATotal: $${total.toLocaleString()}%0A%0A`;
-    window.open(`https://wa.me/573054328798?text=${msg}`, '_blank');
-}
-
-/* ----------------  FILTRO DE CATEGORÍA  ---------------- */
-function filterCategory(cat, btn = null) {
-    /* 1. Botón activo */
-    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-
-    /* 2. Mostrar / ocultar secciones */
-    document.querySelectorAll('.category-section').forEach(sec => {
-        const show = (cat === 'all') || (sec.dataset.category === cat);
-        sec.style.display = show ? 'block' : 'none';
-
-        /* 3. Si la sección está visible, asegúrate de que TODAS sus tarjetas se vean */
-        if (show) {
-            sec.querySelectorAll('.product-card')
-               .forEach(card => card.style.display = 'flex');
-        }
-    });
-}
-
-/* ----------------  BÚSQUEDA  ---------------- */
-function searchProducts() {
-    const term = document.getElementById('searchInput').value.toLowerCase().trim();
-    if (!term) {
-        filterCategory('all');   // restablece todo
-        return;
+          </div>
+          <button class="remove-item" aria-label="Eliminar ${item.name}" onclick="removeFromCart(${item.id})">Eliminar</button>
+        </div>`).join('');
+      const total=cart.reduce((s,i)=>s+i.price*i.quantity,0);
+      totalAmount.textContent = total.toLocaleString();
+      cartTotalBox.style.display = 'flex';
     }
 
-    let found = false;
-    document.querySelectorAll('.category-section').forEach(section => {
-        let sectionFound = false;
-        section.querySelectorAll('.product-card').forEach(card => {
-            const name = card.querySelector('.product-name').textContent.toLowerCase();
-            const desc = card.querySelector('.product-description').textContent.toLowerCase();
-            const match = name.includes(term) || desc.includes(term);
-            card.style.display = match ? 'flex' : 'none';
-            if (match) {
-                sectionFound = true;
-                found = true;
-            }
+    function toggleCart() {
+      const open = cartModal.style.display !== 'flex';
+      cartModal.style.display = open ? 'flex' : 'none';
+      if(open) {
+        cartModal.focus();
+        document.addEventListener('keydown', handleKeyDown);
+        document.body.style.overflow='hidden';
+      } else {
+        openCartBtn.focus();
+        document.removeEventListener('keydown',handleKeyDown);
+        document.body.style.overflow='';
+      }
+    }
+    function closeCartIfOutside(e) { if(e.target===e.currentTarget) toggleCart(); }
+    function handleKeyDown(e) { if(e.key==='Escape') toggleCart(); }
+    function checkout() {
+      if(!cart.length) return showNotification('Tu carrito está vacío', true);
+      let msg='¡Hola! Me interesa comprar:\n\n', total=0;
+      cart.forEach(i => {
+        msg += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price*i.quantity).toLocaleString()}\n`;
+        total += i.price*i.quantity;
+      });
+      msg += `\nTotal: $${total.toLocaleString()}`;
+      window.open(`https://wa.me/573054328798?text=${encodeURIComponent(msg)}`,'_blank');
+    }
+
+    function searchProducts() {
+      const term = document.getElementById('searchInput').value.toLowerCase().trim();
+      if(!term) return filterCategory('all');
+      let found=false;
+      document.querySelectorAll('.category-section').forEach(sec=>{
+        let secFound=false;
+        sec.querySelectorAll('.product-card').forEach(card=>{
+          const nm=card.querySelector('.product-name').textContent.toLowerCase();
+          const ds=card.querySelector('.product-description').textContent.toLowerCase();
+          const match = nm.includes(term)||ds.includes(term);
+          card.style.display = match ? 'flex' : 'none';
+          if(match) secFound=true, found=true;
         });
-        section.style.display = sectionFound ? 'block' : 'none';
+        sec.style.display = secFound ? 'block' : 'none';
+      });
+      if(!found) showNotification('No se encontraron productos.', true);
+    }
+    document.getElementById('searchInput').addEventListener('keydown', e=>{
+      if(e.key==='Enter') searchProducts();
     });
 
-    if (!found) showNotification('No se encontraron productos que coincidan con tu búsqueda.', true);
-}
-
-/* Enter = buscar */
-document.getElementById('searchInput')
-        .addEventListener('keydown', e => { if (e.key === 'Enter') searchProducts(); });
-
-/* ----------------  UTILIDADES  ---------------- */
-function showNotification(msg, error = false) {
-    const n = document.getElementById('notification');
-    n.textContent = msg;
-    n.className = `notification${error ? ' error' : ''} show`;
-    setTimeout(() => n.classList.remove('show'), 3000);
-}
-function copyToClipboard(text, el) {
- /* 1️⃣  Si el usuario está seleccionando texto, no forzamos la copia */
-  if(window.getSelection().toString().length) return;
-    
-    navigator.clipboard.writeText(text).then(() => {
-         const tip = el.querySelector('.copy-tooltip');
-    if(!tip) return;
-    tip.classList.add('show');
-    setTimeout(()=>tip.classList.remove('show'),1500);
-  }).catch(err=>{
-    console.error('No se pudo copiar: ', err);
-  });
-}
-function contactWhatsApp() {
-    window.open('https://wa.me/573054328798', '_blank');
-}
-
-/* ----------------  INICIALIZACIÓN  ---------------- */
-updateCartUI();    
-    </script>
+    function contactWhatsApp() { window.open('https://wa.me/573054328798','_blank'); }
+    function scrollCategories(dir) {
+      document.getElementById('categoriesNav').scrollBy({left: dir==='left'?-200:200, behavior:'smooth'});
+    }
+    updateCartUI();
+  </script>
 </body>
 </html>
-
-      
