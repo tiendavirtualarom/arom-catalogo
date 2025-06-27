@@ -375,6 +375,34 @@
             font-weight: 600;
         }
 
+              /* Contenedor de los swatches */
+      .color-swatches {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      
+      /* Estilos para cada swatch */
+      .swatch {display: none;}
+      
+      .swatch-label {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #fff;
+       transition: transform 0.2s;
+      }
+      
+      .swatch-label:hover {
+        transform: scale(1.1);
+      }
+      
+      .swatch:checked + .swatch-label {
+        border: 2px solid #000;
+      }
+
+
         /* --------------------------------------------------
            FLOATING WHATSAPP BUTTON / NOTIFICATIONS
         -------------------------------------------------- */
@@ -518,7 +546,7 @@
           <div class="product-footer">
             <div class="product-price">$7.500</div>
             <div class="product-stock" aria-live="polite">
-              En stock: 8 unidades
+              Stock Disponible:8
             </div>
             <button class="add-to-cart" onclick="addToCart(1, 'Crema Hidratante de Arroz BIOAQUA', 7500)" aria-label="Agregar Crema Hidratante de Arroz BIOAQUA al carrito">Agregar</button>
           </div>
@@ -646,21 +674,38 @@
         </article>
       </li>
       <!-- Productos 10-14 similar... -->
-      <li class="product-card" role="listitem" data-id="10">
-        <article aria-labelledby="prod-10-name" aria-describedby="prod-10-desc">
-          <header>
-            <img src="imagenes/29.jpg" alt="Lip Gloss NICOR" width="300"/>
-            <h3 id="prod-10-name" class="product-name">Lip Gloss NICOR</h3>
-          </header>
-          <p id="prod-10-desc" class="product-description">
-            Brillo labial con acabado glossy de larga duración.
-          </p>
-          <div class="product-footer">
-            <div class="product-price">$4.000</div>
-            <button class="add-to-cart" onclick="addToCart(10, 'Lip Gloss NICOR', 4000)" aria-label="Agregar Lip Gloss NICOR al carrito">Agregar</button>
-          </div>
-        </article>
-      </li>
+     <li class="product-card" role="listitem" data-id="10">
+  <article aria-labelledby="prod-10-name" aria-describedby="prod-10-desc">
+    <header>
+      <img src="imagenes/29.jpg" alt="Lip Gloss NICOR" width="300"/>
+      <h3 id="prod-10-name" class="product-name">Lip Gloss NICOR</h3>
+    </header>
+    <p id="prod-10-desc" class="product-description">
+      Brillo labial con acabado glossy de larga duración.
+    </p>
+
+    <!-- Selector de tonos -->
+    <div class="color-swatches">
+      <label for="tono1" class="swatch-label" style="background-color: #e91e63;" title="Tono 1"></label>
+      <label for="tono2" class="swatch-label" style="background-color: #9c27b0;" title="Tono 2"></label>
+      <label for="tono3" class="swatch-label" style="background-color: #3f51b5;" title="Tono 3"></label>
+      <label for="tono4" class="swatch-label" style="background-color: #2196f3;" title="Tono 4"></label>
+      <label for="tono5" class="swatch-label" style="background-color: #4caf50;" title="Tono 5"></label>
+
+      <input type="radio" id="tono1" name="tono" value="tono1" class="swatch" />
+      <input type="radio" id="tono2" name="tono" value="tono2" class="swatch" />
+      <input type="radio" id="tono3" name="tono" value="tono3" class="swatch" />
+      <input type="radio" id="tono4" name="tono" value="tono4" class="swatch" />
+      <input type="radio" id="tono5" name="tono" value="tono5" class="swatch" />
+    </div>
+
+    <div class="product-footer">
+      <div class="product-price">$4.000</div>
+      <button class="add-to-cart" onclick="addToCart(10, 'Lip Gloss NICOR', 4000)" aria-label="Agregar Lip Gloss NICOR al carrito">Agregar</button>
+    </div>
+  </article>
+</li>
+    
       <li class="product-card" role="listitem" data-id="11">
         <article aria-labelledby="prod-11-name" aria-describedby="prod-11-desc">
           <header>
@@ -815,16 +860,25 @@
       setTimeout(() => n.classList.remove('show'), 3000);
     }
 
-    function addToCart(id,name,price) {
-      const existing = cart.find(i => i.id === id);
-      existing ? existing.quantity++ : cart.push({id,name,price,quantity:1});
-      saveCart(); updateCartUI(); showNotification(`${name} agregado`);
-    }
-    function removeFromCart(id) {
-      const item = cart.find(i => i.id===id);
-      cart = cart.filter(i=>i.id!==id);
-      saveCart(); updateCartUI(); showNotification(`${item.name} eliminado`);
-    }
+   function addToCart(id, name, price) {
+  const productCard = document.querySelector(`.product-card[data-id="${id}"]`);
+  
+  // Busca selector de tonos solo si está presente
+  const selectedTonoInput = productCard?.querySelector(`input[name="tono-${id}"]:checked`);
+  const tono = selectedTonoInput ? selectedTonoInput.value : null;
+
+  const existing = cart.find(i => i.id === id && i.tono === tono);
+  if (existing) {
+    existing.quantity++;
+  } else {
+    cart.push({ id, name, price, quantity: 1, tono });
+  }
+
+  saveCart();
+  updateCartUI();
+  showNotification(`${name}${tono ? ` (${tono})` : ''} agregado`);
+}
+
     function updateQuantity(id,change) {
       const item = cart.find(i=>i.id===id);
       if(!item) return;
@@ -843,7 +897,7 @@
       cartItems.innerHTML = cart.map(item => `
         <div class="cart-item">
           <div class="cart-item-info">
-            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-name">${item.name}${item.tono ? ` (${item.tono})` : ''}</div>
             <div class="cart-item-price">$${(item.price*item.quantity).toLocaleString()}</div>
             <div class="quantity-controls">
               <button aria-label="Disminuir ${item.name}" class="quantity-btn" onclick="updateQuantity(${item.id},-1)">−</button>
