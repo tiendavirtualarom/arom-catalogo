@@ -455,19 +455,8 @@
         /* --------------------------------------------------
            RESPONSIVE
         -------------------------------------------------- */
-        @media (max-width: 768px) {
-            .logo-text {
-                font-size: 2.5rem;
-            }
-            .search-section {
-                justify-content: center;
-            }
-            .subtitle::before,
-            .subtitle::after {
-                display: none;
-            }
-        }
         @media (max-width: 480px) {
+           /* Ajustes existentes */
             .logo-image {
                 width: 100px;
                 height: 100px;
@@ -475,7 +464,41 @@
             .logo-text {
                 font-size: 2rem;
             }
-        }
+           /* NUEVOS ajustes para productos */
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+    }
+    .product-card {
+        padding: 8px;
+    }
+    .product-card img {
+        aspect-ratio: 1 / 1;
+        height: auto;
+    }
+    .product-name {
+        font-size: 0.95rem;
+    }
+    .product-description {
+        font-size: 0.75rem;
+    }
+    .product-price {
+        font-size: 0.9rem;
+    }
+    .add-to-cart {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+    .color-swatches {
+        gap: 6px;
+        margin-top: 8px;
+    }
+    .swatch-label {
+        width: 24px;
+        height: 24px;
+    }
+}
+       
     </style>
 </head>
 <body>
