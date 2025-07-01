@@ -242,6 +242,47 @@
             bottom: -48px;
         }
 
+/*_______________________________________
+        /* CATEGORÍAS */
+.category-menu {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.category-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark, #333);
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.category-btn {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.category-btn:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.category-btn.active {
+  background-color: #333;
+  color: #fff;
+}
+        
+
         /* --------------------------------------------------
            SEARCH / CART
         -------------------------------------------------- */
