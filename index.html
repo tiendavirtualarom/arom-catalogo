@@ -307,34 +307,35 @@
 </head>
 <body>
     <div class="container">
-        <!-- ---------- HEADER ---------- -->
+              <!-- HEADER -->
         <header>
             <div class="logo-section">
                 <img src="imagenes/logo.jpg" alt="logo" width="200" style="border-radius: 10px;" />
-                <h1></h1></h1>
+                 <h1 class="logo-text">AROM</h1>
             </div>
-                   <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
+            <p class="subtitle">Maquillaje y Accesorios de Belleza</p>
             <div class="contact-info">
-                <div class="contact-item">
+                <div class="contact-item" onclick="copyToClipboard('@tienda_virtual_arom', this)">
                     <i class="fab fa-tiktok contact-icon"></i>
-                    <a href="https://www.tiktok.com/@tienda_virtual_arom?_t=ZS-8xXWXVVT0J5&_r=1" target="_blank" class="contact-text" style="text-decoration: none; color: inherit;">
-                        @tienda_virtual_arom
-                    </a>
+                    <span class="contact-text">@tienda_virtual_arom</span>
+                    <div class="copy-tooltip">¡Copiado!</div>
                 </div>
-                <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
+                <div class="contact-item" onclick="copyToClipboard('305 432 8798', this)">
                     <i class="fas fa-phone contact-icon"></i>
-                    <span class="contact-text">305&nbsp;432&nbsp;8798</span>
-                    <span class="copy-tooltip">¡Copiado!</span>
+                    <span class="contact-text">305 432 8798</span>
+                    <div class="copy-tooltip">¡Copiado!</div>
                 </div>
             </div>
         </header>
 
         <!-- ---------- SEARCH / CART ---------- -->
-<section class="search-section">
-    <div class="search-bar">
-        <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
-        <button class="search-btn" onclick="searchProducts()">🔍</button>
-    </div>
+ <div class="search-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Buscar productos..." />
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
 
     <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
     <button class="cart-btn" onclick="toggleCart()">
@@ -974,12 +975,14 @@ function showNotification(msg, error = false) {
                 notification.classList.remove('show');
             }, 5000);
 }
-function copyToClipboard(text, el) {
-    navigator.clipboard.writeText(text).then(() => {
-        const tooltip = el.querySelector('.copy-tooltip');
-        tooltip.classList.add('show');
-        setTimeout(() => tooltip.classList.remove('show'), 1200);
-    });
+function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const tooltip = element.querySelector('.copy-tooltip');
+                tooltip.classList.add('show');
+                setTimeout(() => {
+                    tooltip.classList.remove('show');
+                }, 2000);
+            });
 }
 function contactWhatsApp() {
    const phoneNumber = '+573054328798'; // Cambia por tu número
