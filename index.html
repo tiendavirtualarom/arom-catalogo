@@ -459,21 +459,17 @@
                 <img src="imagenes/logo.jpg" alt="logo" width="200" style="border-radius: 10px;" />
                 <h1></h1></h1>
             </div>
-            <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
+                   <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
             <div class="contact-info">
-                <div class="contact-item" onclick="copyToClipboard('AROM_TIENDAVIRTUAL', this)">
-                    <i class="fab fa-instagram contact-icon"></i>
-                    <span class="contact-text">AROM_TIENDAVIRTUAL</span>
-                    <span class="copy-tooltip">¡Copiado!</span>
+                <div class="contact-item">
+                    <i class="fab fa-tiktok contact-icon"></i>
+                    <a href="https://www.tiktok.com/@tienda_virtual_arom?_t=ZS-8xXWXVVT0J5&_r=1" target="_blank" class="contact-text" style="text-decoration: none; color: inherit;">
+                        @tienda_virtual_arom
+                    </a>
                 </div>
                 <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
                     <i class="fas fa-phone contact-icon"></i>
                     <span class="contact-text">305&nbsp;432&nbsp;8798</span>
-                    <span class="copy-tooltip">¡Copiado!</span>
-                </div>
-                <div class="contact-item" onclick="copyToClipboard('TIENDAVIRTUALAROM', this)">
-                    <i class="fas fa-envelope contact-icon"></i>
-                    <span class="contact-text">TIENDAVIRTUALAROM</span>
                     <span class="copy-tooltip">¡Copiado!</span>
                 </div>
             </div>
@@ -799,27 +795,6 @@
             </div>
         </div>
         
- <!-- Cart Modal -->
-        <div class="cart-modal" id="cartModal">
-            <div class="cart-content">
-                <div class="cart-header">
-                    <h2 class="cart-title">🛒 Mi Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()">&times;</button>
-                </div>
-                <div id="cartItems">
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <p>Tu carrito está vacío</p>
-                        <p>¡Agrega algunos productos increíbles!</p>
-                    </div>
-                </div>
-                
-                <div class="cart-total" id="cartTotal" style="display: none;">
-                    <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
-                    <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
-                </div>
-            </div>
-        </div>
 <!-- ---------- CART MODAL ---------- -->
 <div id="cartModal" class="cart-modal" onclick="closeCartIfOutside(event)">
     <div class="cart-content">
