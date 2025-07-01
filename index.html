@@ -1238,30 +1238,6 @@ function contactWhatsApp() {
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
-// Mostrar notificación después de 3 segundos
-        setTimeout(showNotification, 3000);
-
-        // Mostrar notificación periódicamente cada 30 segundos
-        setInterval(showNotification, 30000);
-
-        // Ocultar notificación al hacer clic en WhatsApp
-        document.querySelector('.floating-whatsapp').addEventListener('click', () => {
-            const notification = document.getElementById('notification');
-            notification.classList.remove('show');
-        });
-
-        // Mostrar notificación al hacer hover sobre el botón de WhatsApp
-        document.querySelector('.floating-whatsapp').addEventListener('mouseenter', () => {
-            const notification = document.getElementById('notification');
-            notification.classList.add('show');
-        });
-
-        // Opcional: Ocultar notificación cuando el mouse sale del botón
-        document.querySelector('.floating-whatsapp').addEventListener('mouseleave', () => {
-            // Comentado para que no se oculte inmediatamente
-            // const notification = document.getElementById('notification');
-            // notification.classList.remove('show');
-        });
 
 /* ----------------  INICIALIZACIÓN  ---------------- */
 updateCartUI();    
