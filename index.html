@@ -466,8 +466,6 @@
                   <a class="contact-item"
                      href="https://www.tiktok.com/@tienda_virtual_arom?_t=ZS-8xXWXVVT0J5&_r=1"
                      target="_blank"           <!-- abre en nueva pestaña -->
-                     rel="noopener noreferrer" <!-- seguridad -->
-                  >
                     <i class="fab fa-tiktok contact-icon"></i>
                     <span class="contact-text">@tienda_virtual_arom</span>
                   </a>
@@ -1114,29 +1112,21 @@ document.getElementById('searchInput')
 /* ----------------  UTILIDADES  ---------------- */
 function showNotification(msg, error = false) {
     const n = document.getElementById('notification');
-    const notification = document.getElementById('notification');
-     notification.classList.add('show');
     n.textContent = msg;
     n.className = `notification${error ? ' error' : ''} show`;
     setTimeout(() => n.classList.remove('show'), 3000);
-    setTimeout(() => {
-                notification.classList.remove('show');
-            }, 5000);
 }
-function copyToClipboard(text, element) {
-            navigator.clipboard.writeText(text).then(() => {
-                const tooltip = element.querySelector('.copy-tooltip');
-                tooltip.classList.add('show');
-                setTimeout(() => {
-                    tooltip.classList.remove('show');
-                }, 2000);
-            });
+function copyToClipboard(text, el) {
+    navigator.clipboard.writeText(text).then(() => {
+        const tooltip = el.querySelector('.copy-tooltip');
+        tooltip.classList.add('show');
+        setTimeout(() => tooltip.classList.remove('show'), 1200);
+    });
 }
 function contactWhatsApp() {
-   const phoneNumber = '+573054328798'; // Cambia por tu número
+    window.open('https://wa.me/573054328798', '_blank');
             const message = 'Hola, necesito ayuda para comprar';
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+            
         }
 
 /* ----------------  INICIALIZACIÓN  ---------------- */
