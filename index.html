@@ -314,6 +314,199 @@
         .scroll-left{left:-5px}
         .scroll-right{right:-5px}   
 
+         /* ---------- PRODUCTOS ---------- */
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
+        .product-card{background:var(--glass);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:var(--transition)}
+        .product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover)}
+        .product-card img{width:100%;aspect-ratio:1/1;object-fit:cover}
+        .product-name{font-size:1.1rem;font-weight:700;padding:12px 18px 0;color:var(--accent)}
+        .product-description{font-size:.9rem;padding:8px 18px 16px;color:#333;flex-grow:1}
+        .product-footer{display:flex;justify-content:space-between;align-items:center;padding:12px 18px 18px;gap:10px}
+        .product-price{font-weight:800;color:var(--accent)}
+        .add-to-cart{border:none;background:var(--secondary);color:#fff;padding:8px 16px;border-radius:30px;cursor:pointer;font-weight:600;transition:var(--transition)}
+        .add-to-cart:hover{filter:brightness(1.1)}  
+        /* --------------------------------------------------
+           CARRITO (modal)
+        -------------------------------------------------- */
+        .cart-modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:9999}
+        .cart-content{background:#fff;width:95%;max-width:500px;border-radius:var(--radius);max-height:90vh;display:flex;flex-direction:column}
+        .cart-header{padding:18px 24px;background:var(--accent);color:#fff;display:flex;justify-content:space-between;align-items:center;border-top-left-radius:var(--radius);border-top-right-radius:var(--radius)}
+        .cart-title{font-size:1.4rem;font-weight:700}
+        .close-cart{background:transparent;border:none;color:#fff;font-size:1.8rem;line-height:1;cursor:pointer}
+        #cartItems{flex:1;overflow-y:auto;padding:20px}
+        .cart-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #eee;gap:15px}
+        .quantity-btn{width:26px;height:26px;border:none;background:var(--secondary);color:#fff;border-radius:50%;cursor:pointer;font-weight:700;transition:var(--transition)}
+        .remove-item{border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:6px 10px;cursor:pointer;font-size:.85rem;transition:var(--transition)}
+        .cart-total{padding:18px 24px;background:var(--glass);border-bottom-left-radius:var(--radius);border-bottom-right-radius:var(--radius);display:flex;justify-content:space-between;align-items:center;gap:20px}
+        .checkout-btn{border:none;background:var(--accent);color:#fff;padding:10px 20px;border-radius:30px;cursor:pointer;font-weight:700;transition:var(--transition)}
+
+        /* --------------------------------------------------
+           INFO EXTRA (pago / envíos / garantías)
+        -------------------------------------------------- */
+        .grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .payment-info {
+            background: var(--glass);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+        .payment-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+        .payment-methods,
+        .info-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .payment-method,
+        .info-list li {
+            background: rgba(255, 182, 193, 0.22);
+            padding: 6px 12px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* --------------------------------------------------
+           FLOATING WHATSAPP BUTTON / NOTIFICATIONS
+        -------------------------------------------------- */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #25d366;
+            color: #fff;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 100;
+        }
+        .floating-whatsapp:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2ecc71;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 100;
+        }
+        .notification.error {
+            background: #e74c3c;
+        }
+        .notification.show {
+            opacity: 1;
+            visibility: visible;
+            bottom: 80px;
+        }
+
+        /* --------------------------------------------------
+           RESPONSIVE
+        -------------------------------------------------- */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2.5rem;
+            }
+            .search-section {
+                justify-content: center;
+            }
+            .subtitle::before,
+            .subtitle::after {
+                display: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .logo-image {
+                width: 100px;
+                height: 100px;
+            }
+            .logo-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ---------- HEADER ---------- -->
+        <header>
+            <div class="logo-section">
+                <img src="imagenes/logo.jpg" alt="logo" width="200" style="border-radius: 10px;" />
+                <h1></h1></h1>
+            </div>
+            <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
+            <div class="contact-info">
+                <div class="contact-item" onclick="copyToClipboard('AROM_TIENDAVIRTUAL', this)">
+                    <i class="fab fa-instagram contact-icon"></i>
+                    <span class="contact-text">AROM_TIENDAVIRTUAL</span>
+                    <span class="copy-tooltip">¡Copiado!</span>
+                </div>
+                <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <span class="contact-text">305&nbsp;432&nbsp;8798</span>
+                    <span class="copy-tooltip">¡Copiado!</span>
+                </div>
+                <div class="contact-item" onclick="copyToClipboard('TIENDAVIRTUALAROM', this)">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span class="contact-text">TIENDAVIRTUALAROM</span>
+                    <span class="copy-tooltip">¡Copiado!</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ---------- SEARCH / CART ---------- -->
+<section class="search-section">
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
+        <button class="search-btn" onclick="searchProducts()">🔍</button>
+    </div>
+
+    <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
+    <button class="cart-btn" onclick="toggleCart()">
+        🛒 Carrito <span id="cartCount" class="cart-count">0</span>
+    </button>
+</section>
+<!-- CATEGORÍAS CON DESPLAZAMIENTO -->
+        <div class="categories-wrapper">
+            <button class="scroll-btn scroll-left" onclick="scrollCategories('left')">‹</button>
+            <nav class="categories" id="categoriesNav">
+            <button class="category-btn active" onclick="filterCategory('all',this)">🔥 Todos</button>
+            <button class="category-btn" onclick="filterCategory('Cuidado-Facial', this)">✨ Cuidado Facial</button>
+            <button class="category-btn" onclick="filterCategory('Labios', this)">💋 Labios</button>
+            <button class="category-btn" onclick="filterCategory('Rubores', this)">🎨 Rubores</button>
+            <button class="category-btn" onclick="filterCategory('Sombras', this)">👁️ Sombras</button>
+            <button class="category-btn" onclick="filterCategory('Pestañas', this)">✨ Pestañas</button>
+            <button class="category-btn" onclick="filterCategory('Delineadores', this)">✏️ Delineadores</button>
+            <button class="category-btn" onclick="filterCategory('Cabello', this)">✂️ Cabello</button>
+            <button class="category-btn" onclick="filterCategory('Otros', this)">➕ Otros</button>
+        </nav>
+        <button class="scroll-btn scroll-right" onclick="scrollCategories('right')">›</button>
+       </div>
  <!-- ---------- PRODUCTS ---------- -->
         <main id="productsContainer">
             <!-- ✨ Cuidado Facial -->
