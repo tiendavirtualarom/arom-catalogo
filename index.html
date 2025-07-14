@@ -9,13 +9,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-
-
-    <!-- Styles (kept inline for single‑file demo, move to .css on production) -->
     <style>
-        /* --------------------------------------------------
-           COLOR SYSTEM & BASIC RESET
-        -------------------------------------------------- */
+    /* -----------------COLOR SYSTEM & BASIC RESET-------------------------------------------------- */
         :root {
             --primary: linear-gradient(135deg, #E8D8F5, #DDA0DD);
             --secondary: linear-gradient(135deg, #FFB6C1, #FF69B4);
@@ -44,9 +39,7 @@
             padding: 20px;
         }
         
-        /* --------------------------------------------------
-           HEADER (logo + contacto)
-        -------------------------------------------------- */
+        /* --------------------------HEADER (logo + contacto)  -------------------------------------------------- */
         header {
             background: var(--glass);
             backdrop-filter: blur(20px);
@@ -241,51 +234,40 @@
             visibility: visible;
             bottom: -48px;
         }
-
-/*_______________________________________
         /* CATEGORÍAS */
-.category-menu {
-  text-align: center;
-  padding: 2rem 1rem;
-}
-
-.category-title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: var(--text-dark, #333);
-}
-
-.category-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-.category-btn {
-  background-color: #f0f0f0;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.category-btn:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.05);
-}
-
-.category-btn.active {
-  background-color: #333;
-  color: #fff;
-}
-        
-
-        /* --------------------------------------------------
-           SEARCH / CART
-        -------------------------------------------------- */
+        .category-menu {
+          text-align: center;
+          padding: 2rem 1rem;
+        }
+        .category-title {
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+          color: var(--text-dark, #333);
+        }
+        .category-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.75rem;
+        }
+        .category-btn {
+          background-color: #f0f0f0;
+          border: none;
+          padding: 0.6rem 1.2rem;
+          border-radius: 20px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .category-btn:hover {
+          background-color: #e0e0e0;
+          transform: scale(1.05);
+        }
+        .category-btn.active {
+          background-color: #333;
+          color: #fff;
+        }
+ /* ---------------------- SEARCH / CART-------------------------------------------------- */
         .search-section {
             display: flex;
             flex-wrap: wrap;
@@ -368,9 +350,7 @@
         .product-price{font-weight:800;color:var(--accent)}
         .add-to-cart{border:none;background:var(--secondary);color:#fff;padding:8px 16px;border-radius:30px;cursor:pointer;font-weight:600;transition:var(--transition)}
         .add-to-cart:hover{filter:brightness(1.1)}  
-        /* --------------------------------------------------
-           CARRITO (modal)
-        -------------------------------------------------- */
+        /* ------------------- CARRITO (modal)-------------------------------------------------- */
         .cart-modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:9999}
         .cart-content{background:#fff;width:95%;max-width:500px;border-radius:var(--radius);max-height:90vh;display:flex;flex-direction:column}
         .cart-header{padding:18px 24px;background:var(--accent);color:#fff;display:flex;justify-content:space-between;align-items:center;border-top-left-radius:var(--radius);border-top-right-radius:var(--radius)}
@@ -382,10 +362,7 @@
         .remove-item{border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:6px 10px;cursor:pointer;font-size:.85rem;transition:var(--transition)}
         .cart-total{padding:18px 24px;background:var(--glass);border-bottom-left-radius:var(--radius);border-bottom-right-radius:var(--radius);display:flex;justify-content:space-between;align-items:center;gap:20px}
         .checkout-btn{border:none;background:var(--accent);color:#fff;padding:10px 20px;border-radius:30px;cursor:pointer;font-weight:700;transition:var(--transition)}
-
-        /* --------------------------------------------------
-           INFO EXTRA (pago / envíos / garantías)
-        -------------------------------------------------- */
+ /* -------------------------INFO EXTRA (pago / envíos / garantías)------------------------------ */
         .grid-info {
             display: grid;
               gap: 2rem;
@@ -406,7 +383,6 @@
               margin-bottom: 1rem;
             color: var(--accent);
         }
-       
         .payment-method,
         background-color: #e0e0e0;
           padding: 0.4rem 0.8rem;
@@ -417,10 +393,7 @@
           list-style: disc inside;
           padding-left: 0;
         }
- 
-        /* --------------------------------------------------
-           FLOATING WHATSAPP BUTTON / NOTIFICATIONS
-        -------------------------------------------------- */
+        /* ------------------------ FLOATING WHATSAPP BUTTON / NOTIFICATIONS----------------------- */
         .floating-whatsapp {
             position: fixed;
             bottom: 24px;
@@ -467,10 +440,7 @@
             visibility: visible;
             bottom: 80px;
         }
-
-        /* --------------------------------------------------
-           RESPONSIVE
-        -------------------------------------------------- */
+        /* ----------------------------- RESPONSIVE-------------------- */
         @media (max-width: 768px) {
             .logo-text {
                 font-size: 2.5rem;
@@ -518,14 +488,12 @@
     </div>
   </div>
 </header>
-
         <!-- ---------- SEARCH / CART ---------- -->
 <section class="search-section">
     <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
         <button class="search-btn" onclick="searchProducts()">🔍</button>
     </div>
-
     <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
     <button class="cart-btn" onclick="toggleCart()">
         🛒 Carrito <span id="cartCount" class="cart-count">0</span>
@@ -547,7 +515,6 @@
         </nav>
         <button class="scroll-btn scroll-left" onclick="scrollCategories('left')" aria-label="Scroll izquierdo">‹</button>
         <button class="scroll-btn scroll-right" onclick="scrollCategories('right')" aria-label="Scroll derecho">›</button>
-
  <!-- ---------- PRODUCTS ---------- -->
         <main id="productsContainer">
             <!-- ✨ Cuidado Facial -->
@@ -1294,8 +1261,6 @@
         <div id="notification" class="notification">
           Hola 👋, ¿Necesitas ayuda para comprar?
         </div>
-
-
 <!-- ================================================== JAVASCRIPT================================================== -->
 <script>
 /* ----------------  CARRITO & STORAGE  ---------------- */
@@ -1468,7 +1433,6 @@ function contactWhatsApp(defaultMsg = 'Hola, necesito ayuda para comprar') {
   const url = `https://wa.me/573054328798?text=${encodeURIComponent(defaultMsg)}`;
   window.open(url, '_blank');
 }
-
 /* ----------------  INICIALIZACIÓN  ---------------- */
 document.addEventListener('DOMContentLoaded', updateCartUI);
 </script>
