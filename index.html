@@ -170,10 +170,8 @@
 
         /* CONTACTO (insta / tel / mail) */
         .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
+            flex-direction: column;
+            gap: 15px;
         }
         .contact-item {
             display: flex;
@@ -246,20 +244,27 @@
         /* CATEGORÍAS */
 .category-menu {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 3rem 1rem 1.5rem;
+  background: var(--glass);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
 }
 
 .category-title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: var(--text-dark, #333);
+  font-size: 2rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .category-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
 .category-btn {
@@ -287,12 +292,8 @@
            SEARCH / CART
         -------------------------------------------------- */
         .search-section {
-            display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 15px;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 35px;
         }
         .search-bar {
             flex: 1 1 300px;
@@ -412,6 +413,8 @@
           padding: 0.4rem 0.8rem;
           border-radius: 20px;
           font-size: 0.9rem;
+          display: inline-block;
+          margin: 0.3rem 0;
         }
         .info-list {
           list-style: disc inside;
@@ -471,9 +474,10 @@
         /* --------------------------------------------------
            RESPONSIVE
         -------------------------------------------------- */
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .logo-text {
-                font-size: 2.5rem;
+                flex-direction: column;
+                gap: 10px;
             }
             .search-section {
                 justify-content: center;
@@ -497,12 +501,12 @@
 <body>
     <div class="container">
         <!-- ---------- HEADER ---------- -->
-      <header>
+      <header role="banner">
   <div class="logo-section">
     <img src="imagenes/logo.jpg" alt="logo" class="logo-image" />
-    <h1 class="logo-text">AROM</h1>
+    <h1 class="logo-text" aria-label="AROM">AROM</h1>
   </div>
-  <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
+   <p class="subtitle" aria-label="Maquillaje y Accesorios de Belleza">Maquillaje y Accesorios de Belleza</p>
 
   <div class="contact-info">
     <a class="contact-item"
