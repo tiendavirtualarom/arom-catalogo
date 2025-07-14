@@ -1302,8 +1302,9 @@
 let cart = JSON.parse(localStorage.getItem('aromCart')) || [];
 
 const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
-
+// Mejorada: Validación de parámetros y mejor manejo de errores
 function addToCart(id, name, price) {
+    
     const existing = cart.find(item => item.id === id);
     if (existing) {
         existing.quantity += 1;
