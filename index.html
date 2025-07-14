@@ -461,45 +461,45 @@
             .logo-text {
                 font-size: 2rem;
             }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
         <!-- ---------- HEADER ---------- -->
-      <header>
-  <div class="logo-section">
-    <img src="imagenes/logo.jpg" alt="logo" class="logo-image" />
-    <h1 class="logo-text">AROM</h1>
-  </div>
-  <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
-
-  <div class="contact-info">
-    <a class="contact-item"
-       href="https://www.tiktok.com/@tienda_virtual_arom?_t=ZS-8xXWXVVT0J5&_r=1"
-       target="_blank">
-        <i class="fab fa-tiktok contact-icon"></i>
-        <span class="contact-text">@tienda_virtual_arom</span>
-    </a>
-
-    <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
-        <i class="fas fa-phone contact-icon"></i>
-        <span class="contact-text">305 432 8798</span>
-    </div>
-  </div>
-</header>
-        <!-- ---------- SEARCH / CART ---------- -->
-<section class="search-section">
-    <div class="search-bar">
-        <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
-        <button class="search-btn" onclick="searchProducts()">🔍</button>
-    </div>
-    <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
-    <button class="cart-btn" onclick="toggleCart()">
-        🛒 Carrito <span id="cartCount" class="cart-count">0</span>
-    </button>
-</section>
-<!-- CATEGORÍAS CON DESPLAZAMIENTO -->
+              <header>
+          <div class="logo-section">
+            <img src="imagenes/logo.jpg" alt="logo" class="logo-image" />
+            <h1 class="logo-text">AROM</h1>
+          </div>
+          <p class="subtitle"> Maquillaje y Accesorios de Belleza </p>
+        
+          <div class="contact-info">
+            <a class="contact-item"
+               href="https://www.tiktok.com/@tienda_virtual_arom?_t=ZS-8xXWXVVT0J5&_r=1"
+               target="_blank">
+                <i class="fab fa-tiktok contact-icon"></i>
+                <span class="contact-text">@tienda_virtual_arom</span>
+            </a>
+        
+            <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
+                <i class="fas fa-phone contact-icon"></i>
+                <span class="contact-text">305 432 8798</span>
+            </div>
+          </div>
+        </header>
+                <!-- ---------- SEARCH / CART ---------- -->
+                <section class="search-section">
+            <div class="search-bar">
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
+                <button class="search-btn" onclick="searchProducts()">🔍</button>
+            </div>
+            <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 Carrito <span id="cartCount" class="cart-count">0</span>
+            </button>
+        </section>
+        <!-- CATEGORÍAS CON DESPLAZAMIENTO -->
         <div class="categories-wrapper">
             <button class="scroll-btn scroll-left" onclick="scrollCategories('left')">‹</button>
             <nav class="categories" id="categoriesNav">
@@ -1198,24 +1198,24 @@
             </div>
         </div>
         
-<!-- ---------- CART MODAL ---------- -->
-<div id="cartModal" class="cart-modal" onclick="closeCartIfOutside(event)">
-    <div class="cart-content">
-        <div class="cart-header">
-            <h2 class="cart-title">🛒 Mi Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        <!-- ---------- CART MODAL ---------- -->
+        <div id="cartModal" class="cart-modal" onclick="closeCartIfOutside(event)">
+            <div class="cart-content">
+                <div class="cart-header">
+                    <h2 class="cart-title">🛒 Mi Carrito</h2>
+                    <button class="close-cart" onclick="toggleCart()">&times;</button>
+                </div>
+        
+                <!-- 👇 Aquí va la lista de productos -->
+                <div id="cartItems"></div>
+        
+                <!-- 👇 Caja de total y pagar -->
+                <div id="cartTotal" class="cart-total" style="display:none">
+                    Total: $<span id="totalAmount">0</span>
+                    <button class="checkout-btn" onclick="checkout()">Proceder al pago</button>
+                </div>
+            </div>
         </div>
-
-        <!-- 👇 Aquí va la lista de productos -->
-        <div id="cartItems"></div>
-
-        <!-- 👇 Caja de total y pagar -->
-        <div id="cartTotal" class="cart-total" style="display:none">
-            Total: $<span id="totalAmount">0</span>
-            <button class="checkout-btn" onclick="checkout()">Proceder al pago</button>
-        </div>
-    </div>
-</div>
 
       <!-- ---------- EXTRA INFO ---------- -->
         <section class="grid-info">
@@ -1261,182 +1261,182 @@
         <div id="notification" class="notification">
           Hola 👋, ¿Necesitas ayuda para comprar?
         </div>
-<!-- ================================================== JAVASCRIPT================================================== -->
-<script>
-/* ----------------  CARRITO & STORAGE  ---------------- */
-let cart = JSON.parse(localStorage.getItem('aromCart')) || [];
+            <!-- ================================================== JAVASCRIPT================================================== -->
+            <script>
+            /* ----------------  CARRITO & STORAGE  ---------------- */
+            let cart = JSON.parse(localStorage.getItem('aromCart')) || [];
+            
+            const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
+            // Mejorada: Validación de parámetros y mejor manejo de errores
+            function addToCart(id, name, price) {
+                
+                const existing = cart.find(item => item.id === id);
+                if (existing) {
+                    existing.quantity += 1;
+                } else {
+                    cart.push({ id, name, price, quantity: 1 });
+                }
+                saveCart();
+                updateCartUI();
+                showNotification(`${name} agregado al carrito`);
+            }
+            
+            function removeFromCart(id) {
+                cart = cart.filter(item => item.id !== id);
+                saveCart();
+                updateCartUI();
+                showNotification('Producto eliminado del carrito');
+            }
+            
+            function updateQuantity(id, change) {
+                const item = cart.find(i => i.id === id);
+                if (!item) return;
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    saveCart();
+                    updateCartUI();
+                }
+            }
+            
+            function updateCartUI() {
+                const cartCount   = document.getElementById('cartCount');
+                const cartItems   = document.getElementById('cartItems');
+                const cartTotalBox= document.getElementById('cartTotal');
+                const totalAmount = document.getElementById('totalAmount');
+                if (!cartCount || !cartItems) return;   // Evita romper si los nodos no existen
+                
+                const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+                cartCount.textContent = totalItems;
+            
+                if (!cart.length) {
+                    cartItems.innerHTML = `
+                        <div class="empty-cart">
+                            <div class="empty-cart-icon" style="font-size:3rem;text-align:center;">🛒</div>
+                            <p style="text-align:center;">Tu carrito está vacío<br/>¡Agrega algunos productos increíbles! ✨</p>
+                        </div>`;
+                    cartTotalBox.style.display = 'none';
+                    return;
+                }
 
-const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
-// Mejorada: Validación de parámetros y mejor manejo de errores
-function addToCart(id, name, price) {
+             cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">$${(item.price * item.quantity).toLocaleString()}</div>
+            <div class="quantity-controls">
+              <button class="quantity-btn"
+                      aria-label="Quitar uno"
+                      onclick="updateQuantity(${item.id}, -1)">-</button>
+              <span>${item.quantity}</span>
+              <button class="quantity-btn"
+                      aria-label="Agregar uno"
+                      onclick="updateQuantity(${item.id}, 1)">+</button>
+            </div>
+          </div>
+          <button class="remove-item"
+                  aria-label="Eliminar producto"
+                  onclick="removeFromCart(${item.id})">Eliminar</button>
+        </div>`).join('');
     
-    const existing = cart.find(item => item.id === id);
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push({ id, name, price, quantity: 1 });
-    }
-    saveCart();
-    updateCartUI();
-    showNotification(`${name} agregado al carrito`);
-}
-
-function removeFromCart(id) {
-    cart = cart.filter(item => item.id !== id);
-    saveCart();
-    updateCartUI();
-    showNotification('Producto eliminado del carrito');
-}
-
-function updateQuantity(id, change) {
-    const item = cart.find(i => i.id === id);
-    if (!item) return;
-    item.quantity += change;
-    if (item.quantity <= 0) {
-        removeFromCart(id);
-    } else {
-        saveCart();
-        updateCartUI();
-    }
-}
-
-function updateCartUI() {
-    const cartCount   = document.getElementById('cartCount');
-    const cartItems   = document.getElementById('cartItems');
-    const cartTotalBox= document.getElementById('cartTotal');
-    const totalAmount = document.getElementById('totalAmount');
-    if (!cartCount || !cartItems) return;   // Evita romper si los nodos no existen
-    
-    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-    cartCount.textContent = totalItems;
-
-    if (!cart.length) {
-        cartItems.innerHTML = `
-            <div class="empty-cart">
-                <div class="empty-cart-icon" style="font-size:3rem;text-align:center;">🛒</div>
-                <p style="text-align:center;">Tu carrito está vacío<br/>¡Agrega algunos productos increíbles! ✨</p>
-            </div>`;
-        cartTotalBox.style.display = 'none';
-        return;
-    }
-
-         cartItems.innerHTML = cart.map(item => `
-    <div class="cart-item">
-      <div class="cart-item-info">
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">$${(item.price * item.quantity).toLocaleString()}</div>
-        <div class="quantity-controls">
-          <button class="quantity-btn"
-                  aria-label="Quitar uno"
-                  onclick="updateQuantity(${item.id}, -1)">-</button>
-          <span>${item.quantity}</span>
-          <button class="quantity-btn"
-                  aria-label="Agregar uno"
-                  onclick="updateQuantity(${item.id}, 1)">+</button>
-        </div>
-      </div>
-      <button class="remove-item"
-              aria-label="Eliminar producto"
-              onclick="removeFromCart(${item.id})">Eliminar</button>
-    </div>`).join('');
-
-     const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-      if (totalAmount) totalAmount.textContent = total.toLocaleString();
-      if (cartTotalBox) cartTotalBox.style.display = 'flex';
-    }
-
-/* ----------------  MODAL / CHECKOUT  ---------------- */
-        function toggleCart() {
-  const modal = document.getElementById('cartModal');
-  if (modal) modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-}
-function closeCartIfOutside(e) {
-  if (e.target === e.currentTarget) toggleCart();
-}
-
-function checkout() {
-  if (!cart.length) {
-    showNotification('Tu carrito está vacío', true);
-    return;
-  }
-
-  let msg = '¡Hola! Me interesa comprar los siguientes productos:\n\n';
-  let total = 0;
-  cart.forEach(i => {
-    msg += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price * i.quantity).toLocaleString()}\n`;
-    total += i.price * i.quantity;
-  });
-  msg += `\nTotal: $${total.toLocaleString()}\n\n`;
-
-  // Codificamos TODO el mensaje
-  const url = `https://wa.me/573054328798?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
-}
-
-/* ----------------  FILTRO DE CATEGORÍA  ---------------- */
-function filterCategory(cat, btn = null) {
-  document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
-  document.querySelectorAll('.category-section').forEach(sec => {
-    const show = cat === 'all' || sec.dataset.category === cat;
-    sec.style.display = show ? 'block' : 'none';
-    if (show) {
-      sec.querySelectorAll('.product-card').forEach(card => card.style.display = 'flex');
-    }
-  });
-}
-
-/* ----------------  BÚSQUEDA  ---------------- */
-function searchProducts() {
-  const term = document.getElementById('searchInput')?.value.toLowerCase().trim();
-  if (!term) { filterCategory('all'); return; }
-
-  let found = false;
-  document.querySelectorAll('.category-section').forEach(section => {
-    let sectionFound = false;
-    section.querySelectorAll('.product-card').forEach(card => {
-      const name = card.querySelector('.product-name').textContent.toLowerCase();
-      const desc = card.querySelector('.product-description').textContent.toLowerCase();
-      const match = name.includes(term) || desc.includes(term);
-      card.style.display = match ? 'flex' : 'none';
-      if (match) { sectionFound = true; found = true; }
-    });
-    section.style.display = sectionFound ? 'block' : 'none';
-  });
-
-  if (!found) showNotification('No se encontraron productos que coincidan con tu búsqueda.', true);
-}
-
-/* Enter = buscar */
-document.getElementById('searchInput')
-        ?.addEventListener('keydown', e => { if (e.key === 'Enter') searchProducts(); });
-
-/* ----------------  UTILIDADES  ---------------- */
-function showNotification(msg, error = false) {
-  const n = document.getElementById('notification');
-  if (!n) return;
-  n.textContent = msg;
-  n.className = `notification${error ? ' error' : ''} show`;
-  setTimeout(() => n.classList.remove('show'), 3000);
-}
-
-function copyToClipboard(text, el) {
-  navigator.clipboard.writeText(text).then(() => {
-    const tooltip = el.querySelector('.copy-tooltip');
-    tooltip?.classList.add('show');
-    setTimeout(() => tooltip?.classList.remove('show'), 1200);
-  });
-}
-
-function contactWhatsApp(defaultMsg = 'Hola, necesito ayuda para comprar') {
-  const url = `https://wa.me/573054328798?text=${encodeURIComponent(defaultMsg)}`;
-  window.open(url, '_blank');
-}
-/* ----------------  INICIALIZACIÓN  ---------------- */
-document.addEventListener('DOMContentLoaded', updateCartUI);
-</script>
-</body>
-</html>
+         const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+          if (totalAmount) totalAmount.textContent = total.toLocaleString();
+          if (cartTotalBox) cartTotalBox.style.display = 'flex';
+        }
+        
+        /* ----------------  MODAL / CHECKOUT  ---------------- */
+                function toggleCart() {
+          const modal = document.getElementById('cartModal');
+          if (modal) modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+        function closeCartIfOutside(e) {
+          if (e.target === e.currentTarget) toggleCart();
+        }
+        
+        function checkout() {
+          if (!cart.length) {
+            showNotification('Tu carrito está vacío', true);
+            return;
+          }
+        
+          let msg = '¡Hola! Me interesa comprar los siguientes productos:\n\n';
+          let total = 0;
+          cart.forEach(i => {
+            msg += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price * i.quantity).toLocaleString()}\n`;
+            total += i.price * i.quantity;
+          });
+          msg += `\nTotal: $${total.toLocaleString()}\n\n`;
+        
+          // Codificamos TODO el mensaje
+          const url = `https://wa.me/573054328798?text=${encodeURIComponent(msg)}`;
+          window.open(url, '_blank');
+        }
+        
+        /* ----------------  FILTRO DE CATEGORÍA  ---------------- */
+        function filterCategory(cat, btn = null) {
+          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+          if (btn) btn.classList.add('active');
+        
+          document.querySelectorAll('.category-section').forEach(sec => {
+            const show = cat === 'all' || sec.dataset.category === cat;
+            sec.style.display = show ? 'block' : 'none';
+            if (show) {
+              sec.querySelectorAll('.product-card').forEach(card => card.style.display = 'flex');
+            }
+          });
+        }
+        
+        /* ----------------  BÚSQUEDA  ---------------- */
+        function searchProducts() {
+          const term = document.getElementById('searchInput')?.value.toLowerCase().trim();
+          if (!term) { filterCategory('all'); return; }
+        
+          let found = false;
+          document.querySelectorAll('.category-section').forEach(section => {
+            let sectionFound = false;
+            section.querySelectorAll('.product-card').forEach(card => {
+              const name = card.querySelector('.product-name').textContent.toLowerCase();
+              const desc = card.querySelector('.product-description').textContent.toLowerCase();
+              const match = name.includes(term) || desc.includes(term);
+              card.style.display = match ? 'flex' : 'none';
+              if (match) { sectionFound = true; found = true; }
+            });
+            section.style.display = sectionFound ? 'block' : 'none';
+          });
+        
+          if (!found) showNotification('No se encontraron productos que coincidan con tu búsqueda.', true);
+        }
+        
+        /* Enter = buscar */
+        document.getElementById('searchInput')
+                ?.addEventListener('keydown', e => { if (e.key === 'Enter') searchProducts(); });
+        
+        /* ----------------  UTILIDADES  ---------------- */
+        function showNotification(msg, error = false) {
+          const n = document.getElementById('notification');
+          if (!n) return;
+          n.textContent = msg;
+          n.className = `notification${error ? ' error' : ''} show`;
+          setTimeout(() => n.classList.remove('show'), 3000);
+        }
+        
+        function copyToClipboard(text, el) {
+          navigator.clipboard.writeText(text).then(() => {
+            const tooltip = el.querySelector('.copy-tooltip');
+            tooltip?.classList.add('show');
+            setTimeout(() => tooltip?.classList.remove('show'), 1200);
+          });
+        }
+        
+        function contactWhatsApp(defaultMsg = 'Hola, necesito ayuda para comprar') {
+          const url = `https://wa.me/573054328798?text=${encodeURIComponent(defaultMsg)}`;
+          window.open(url, '_blank');
+        }
+        /* ----------------  INICIALIZACIÓN  ---------------- */
+        document.addEventListener('DOMContentLoaded', updateCartUI);
+        </script>
+        </body>
+        </html>
 
       
