@@ -6,12 +6,8 @@
     <title>AROM Tienda Virtual – Maquillaje y Cuidado Personal</title>
 
     <!-- Fonts & Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-
-
-    <!-- Styles (kept inline for single‑file demo, move to .css on production) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <style>
         /* --------------------------------------------------
            COLOR SYSTEM & BASIC RESET
@@ -127,14 +123,8 @@
             animation: pulse 2s ease-in-out infinite;
         }
         @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scale(1.25);
-            }
+            0%, 100% {opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.25); }
         }
         .subtitle {
             font-size: 1.4rem;
@@ -174,7 +164,7 @@
             gap: 15px;
         }
         .contact-item {
-            display: flex;
+           display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
@@ -186,6 +176,8 @@
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            color: inherit;
         }
         .contact-item:hover {
             transform: translateY(-5px) scale(1.05);
@@ -389,16 +381,15 @@
         -------------------------------------------------- */
         .grid-info {
             display: grid;
-              gap: 2rem;
-              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-              margin-top: 2rem;
-              padding: 1rem;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 2rem;
+          margin: 2rem 0;
         }
-        .payment-info {
-              background-color: #f9f9f9;
-              padding: 1rem 1.5rem;
-              border-radius: 12px;
-              box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        .info-box {
+          font-size: 1.25rem;
+          margin-bottom: 0.75rem;
+          color: var(--primary-color, #d63384);
         }
         .payment-title {
                font-size: 1.25rem;
@@ -416,11 +407,22 @@
           display: inline-block;
           margin: 0.3rem 0;
         }
+         .method {
+          background-color: #f1f1f1;
+          padding: 0.4rem 0.75rem;
+          border-radius: 1rem;
+          font-size: 0.95rem;
+          color: #333;
+        }
         .info-list {
           list-style: disc inside;
           padding-left: 0;
         }
- 
+          .info-list li {
+          margin-bottom: 0.5rem;
+          line-height: 1.5;
+          color: var(--text-color, #444);
+        }
         /* --------------------------------------------------
            FLOATING WHATSAPP BUTTON / NOTIFICATIONS
         -------------------------------------------------- */
@@ -474,26 +476,58 @@
         /* --------------------------------------------------
            RESPONSIVE
         -------------------------------------------------- */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .logo-text {
+                font-size: 2.5rem;
+            }
+            
+            .categories {
+                padding: 10px 20px;
+            }
+            
+            .scroll-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+            
+            .search-section {
+                align-items: center;
+            }
+        }
+
+       @media (max-width: 600px) {
+            .logo-section {
                 flex-direction: column;
                 gap: 10px;
             }
-            .search-section {
-                justify-content: center;
-            }
+            
             .subtitle::before,
             .subtitle::after {
                 display: none;
             }
+            
+            .contact-info {
+                align-items: center;
+            }
         }
-        @media (max-width: 480px) {
+         @media (max-width: 480px) {
             .logo-image {
                 width: 100px;
                 height: 100px;
             }
+            
             .logo-text {
                 font-size: 2rem;
+            }
+            
+            .categories-wrapper {
+                padding: 15px;
+            }
+            
+            .category-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -519,18 +553,16 @@
     <div class="contact-item" onclick="copyToClipboard('3054328798', this)">
         <i class="fas fa-phone contact-icon"></i>
         <span class="contact-text">305 432 8798</span>
+        <div class="copy-tooltip">¡Copiado!</div>
     </div>
   </div>
 </header>
-
         <!-- ---------- SEARCH / CART ---------- -->
 <section class="search-section">
     <div class="search-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos…" />
         <button class="search-btn" onclick="searchProducts()">🔍</button>
     </div>
-
-    <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
     <button class="cart-btn" onclick="toggleCart()">
         🛒 Carrito <span id="cartCount" class="cart-count">0</span>
     </button>
@@ -1257,36 +1289,36 @@
       <!-- ---------- EXTRA INFO ---------- -->
         <section class="grid-info">
           <!-- MEDIOS DE PAGO -->
-          <div class="payment-info">
-            <h3 class="payment-title">💳 Medios de Pago</h3>
-            <p>Realiza tu pago por transferencia, consignación o tarjeta de crédito.</p>
+          <div class="info-box">
+            <h3 class="info-title">💳 Medios de Pago</h3>
+            <p>Ofrecemos múltiples opciones para que realices tu compra de forma segura:</p>
             <div class="payment-methods">
-              <span class="payment-method">BANCOLOMBIA</span>
-              <span class="payment-method">NEQUI</span>
-              <span class="payment-method">DAVIPLATA</span>
+              <span class="payment-method">Bancolombia</span>
+              <span class="payment-method">Nequi</span>
+              <span class="payment-method">Daviplata</span>
             </div>
-                <ul class="info-list" style="margin-top: 15px; font-style: italic; color: var(--text);">
-              <li>💳 Si deseas pagar con tarjeta de crédito, te proporcionaremos un enlace seguro para la transacción.</li>
-              <li>💰 Comisión del sistema: El pago con tarjeta tiene un recargo del 6% por parte del procesador de pagos (la comisión debe pagarse por adelantado).</li>
-              <li>❗Siempre confirma el método de pago antes de realizar cualquier transferencia.</li>
+            <ul class="info-list">
+              <li>🔗 Si deseas pagar con tarjeta de crédito, te enviaremos un enlace seguro para la transacción.</li>
+              <li>💰 Recargo del 6% en pagos con tarjeta, por parte del procesador de pagos (este valor debe abonarse por adelantado).</li>
+              <li>❗ Confirma siempre el método de pago antes de realizar cualquier transferencia.</li>
             </ul>
           </div>
             <!-- ENVÍOS -->
-          <div class="payment-info">
-            <h3 class="payment-title">🚚 Envíos</h3>
+          <div class="info-box">
+            <h3 class="info-title">🚚 Envíos</h3>
             <ul class="info-list">
-              <li>Envíos a todo el país.</li>
-              <li>Se cotiza el valor del envío para que elijas la transportadora.</li>
-              <li>Transportadoras disponibles: Servientrega, TCC, Coordinadora, Deprisa, Interrapidísimo.</li>
+              <li>Realizamos envíos a todo el país.</li>
+              <li>Cotizamos el valor para que elijas la transportadora de tu preferencia.</li>
+              <li>Opciones disponibles: Servientrega, TCC, Coordinadora, Deprisa, Interrapidísimo.</li>
               <li>Tiempo estimado de entrega: 2 a 7 días hábiles.</li>
             </ul>
           </div>
                     <!-- GARANTÍAS -->
-          <div class="payment-info">
-            <h3 class="payment-title">🎁 Garantías</h3>
+        <div class="info-box">
+            <h3 class="info-title">🎁 Garantías</h3>
             <ul class="info-list">
-              <li>Reclamos deben hacerse en el momento de recibir el paquete.</li>
-              <li>No se aceptan cambios en maquillaje, salvo defecto de fábrica.</li>
+              <li>Debes reportar cualquier reclamo en el momento de recibir tu pedido.</li>
+              <li>No se aceptan cambios en productos de maquillaje, excepto por defectos de fábrica.</li>
             </ul>
           </div>
         </section>
