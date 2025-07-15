@@ -1228,7 +1228,7 @@
               <span class="payment-method">NEQUI</span>
               <span class="payment-method">DAVIPLATA</span>
             </div>
-                      <ul class="info-list" style="margin-top: 15px; font-style: italic;">
+            <ul class="info-list" style="margin-top: 15px; font-style: italic;">
               <li>💳 Recargo del 6% por uso de tarjeta (se paga por adelantado).</li>
               <li>💰 Descuento del 3% por otro medio de pago.</li>
               <li>❗Confirma el método antes de transferir.</li>
@@ -1369,9 +1369,7 @@
             total += i.price * i.quantity;
           });
           msg += `\n💰 Total: $${total.toLocaleString()}\n\n`;
-          msg += `\n📱 *¿Podrías confirmar disponibilidad y método de pago?*';
-          msg += `\n 🚚 *También me interesa información sobre el envío.*';
-          msg += `\n ¡Gracias! 😊';
+
           // Codificamos TODO el mensaje
           const url = `https://wa.me/573054328798?text=${encodeURIComponent(msg)}`;
           window.open(url, '_blank');
