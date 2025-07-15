@@ -1228,9 +1228,9 @@
               <span class="payment-method">NEQUI</span>
               <span class="payment-method">DAVIPLATA</span>
             </div>
-                <ul class="info-list" style="margin-top: 15px; font-style: italic; color: var(--text);">
+                      <ul class="info-list" style="margin-top: 15px; font-style: italic;">
               <li>💳 Recargo del 6% por uso de tarjeta (se paga por adelantado).</li>
-              <li>💰 Recargo del 6% por uso de tarjeta (se paga por adelantado).</li>
+              <li>💰 Descuento del 3% por otro medio de pago.</li>
               <li>❗Confirma el método antes de transferir.</li>
             </ul>
           </div>
@@ -1238,18 +1238,20 @@
           <div class="payment-info">
             <h3 class="payment-title">🚚 Envíos</h3>
             <ul class="info-list">
-              <li>Envíos a todo el país.</li>
-              <li>Valor del envío se cotiza según transportadora.</li>
-              <li>Opción entre: Servientrega, TCC, Coordinadora, Deprisa, Interrapidísimo.<</li>
-              <li>Entrega estimada: 2 a 7 días hábiles.</li>
+              <li>📦 Envíos a todo el país.</li>
+              <li>💰 Valor del envío se cotiza según transportadora.</li>
+              <li>🚛 Opción entre: Servientrega, TCC, Coordinadora, Deprisa, Interrapidísimo.<</li>
+              <li>⏰ Entrega estimada: 2 a 7 días hábiles.</li>
             </ul>
           </div>
                     <!-- GARANTÍAS -->
           <div class="payment-info">
-            <h3 class="payment-title">🎁 Garantías</h3>
+            <h3 class="payment-title">🛡️ Garantías</h3>
             <ul class="info-list">
-              <li>Reclamos deben hacerse en el momento de recibir el paquete.</li>
-              <li>No se aceptan cambios en maquillaje, salvo defecto de fábrica.</li>
+              <li>📋 Reclamos deben hacerse en el momento de recibir el paquete.</li>
+              <li> 🔄 No se aceptan cambios en maquillaje, salvo defecto de fábrica.</li>
+              <li>✅ Garantía de satisfacción del 100%</li>
+              <li>🎯 Productos originales y certificados</li>  
             </ul>
           </div>
         </section>
@@ -1360,14 +1362,16 @@
             return;
           }
         
-          let msg = '¡Hola! Me interesa comprar los siguientes productos:\n\n';
+          let msg = '🛒 *¡Hola! Me interesa comprar los siguientes productos:*\n\n';
           let total = 0;
           cart.forEach(i => {
             msg += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price * i.quantity).toLocaleString()}\n`;
             total += i.price * i.quantity;
           });
-          msg += `\nTotal: $${total.toLocaleString()}\n\n`;
-        
+          msg += `\n 💰 Total: $${total.toLocaleString()}\n\n`;
+          msg += `\n 📱 *¿Podrías confirmar disponibilidad y método de pago?*\n';
+          msg += `\n  🚚 *También me interesa información sobre el envío.*\n\n';
+          msg += `\n '¡Gracias! 😊';
           // Codificamos TODO el mensaje
           const url = `https://wa.me/573054328798?text=${encodeURIComponent(msg)}`;
           window.open(url, '_blank');
