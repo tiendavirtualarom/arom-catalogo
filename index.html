@@ -496,7 +496,7 @@
             </div>
             <!-- 👇 ¡ESTE botón aporta los IDs que necesita el script! -->
             <button class="cart-btn" onclick="toggleCart()">
-                🛒 Carrito <span id="cartCount" class="cart-count">0</span>
+                🛒 Carrito <span id="cartCount">0</span>
             </button>
         </section>
         <!-- CATEGORÍAS CON DESPLAZAMIENTO -->
@@ -1368,10 +1368,10 @@
             msg += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price * i.quantity).toLocaleString()}\n`;
             total += i.price * i.quantity;
           });
-          msg += `\n 💰 Total: $${total.toLocaleString()}\n\n`;
-          msg += `\n 📱 *¿Podrías confirmar disponibilidad y método de pago?*\n';
-          msg += `\n  🚚 *También me interesa información sobre el envío.*\n\n';
-          msg += `\n '¡Gracias! 😊';
+          msg += `\n💰 Total: $${total.toLocaleString()}\n\n`;
+          msg += `\n📱 *¿Podrías confirmar disponibilidad y método de pago?*';
+          msg += `\n 🚚 *También me interesa información sobre el envío.*';
+          msg += `\n ¡Gracias! 😊';
           // Codificamos TODO el mensaje
           const url = `https://wa.me/573054328798?text=${encodeURIComponent(msg)}`;
           window.open(url, '_blank');
