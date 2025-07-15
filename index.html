@@ -1213,10 +1213,9 @@
                 <div id="cartTotal" class="cart-total" style="display:none">
                     Total: $<span id="totalAmount">0</span>
                     <button class="checkout-btn" onclick="checkout()">Proceder al pago</button>
-                </div>
             </div>
         </div>
-
+      </div>
       <!-- ---------- EXTRA INFO ---------- -->
         <section class="grid-info">
           <!-- MEDIOS DE PAGO -->
@@ -1228,30 +1227,30 @@
               <span class="payment-method">NEQUI</span>
               <span class="payment-method">DAVIPLATA</span>
             </div>
-            <ul class="info-list" style="margin-top: 15px; font-style: italic;">
-              <li>💳 Recargo del 6% por uso de tarjeta (se paga por adelantado).</li>
-              <li>💰 Descuento del 3% por otro medio de pago.</li>
-              <li>❗Confirma el método antes de transferir.</li>
+            <ul class="info-list" style="margin-top: 15px; font-style: italic; color: var(--text);">
+              <li> 💳 Recargo del 6% por uso de tarjeta (se paga por adelantado).</li>
+              <li> 💰 Descuento del 3% por otro medio de pago.</li>
+              <li> ❗Confirma el método antes de transferir.</li>
             </ul>
           </div>
             <!-- ENVÍOS -->
           <div class="payment-info">
             <h3 class="payment-title">🚚 Envíos</h3>
             <ul class="info-list">
-              <li>📦 Envíos a todo el país.</li>
-              <li>💰 Valor del envío se cotiza según transportadora.</li>
-              <li>🚛 Opción entre: Servientrega, TCC, Coordinadora, Deprisa, Interrapidísimo.<</li>
-              <li>⏰ Entrega estimada: 2 a 7 días hábiles.</li>
+              <li> 📦 Envíos a todo el país.</li>
+              <li> 💰 Valor del envío se cotiza según transportadora.</li>
+              <li> 🚛 Opción entre: Servientrega, TCC, Coordinadora, Deprisa, Interrapidísimo.<</li>
+              <li> ⏰ Entrega estimada: 2 a 7 días hábiles.</li>
             </ul>
           </div>
                     <!-- GARANTÍAS -->
           <div class="payment-info">
             <h3 class="payment-title">🛡️ Garantías</h3>
             <ul class="info-list">
-              <li>📋 Reclamos deben hacerse en el momento de recibir el paquete.</li>
+              <li> 📋 Reclamos deben hacerse en el momento de recibir el paquete.</li>
               <li> 🔄 No se aceptan cambios en maquillaje, salvo defecto de fábrica.</li>
-              <li>✅ Garantía de satisfacción del 100%</li>
-              <li>🎯 Productos originales y certificados</li>  
+              <li> ✅ Garantía de satisfacción. </li>
+              <li> 🎯 Productos originales y certificados. </li>  
             </ul>
           </div>
         </section>
@@ -1263,182 +1262,183 @@
         <div id="notification" class="notification">
           Hola 👋, ¿Necesitas ayuda para comprar?
         </div>
-            <!-- ================================================== JAVASCRIPT================================================== -->
-            <script>
-            /* ----------------  CARRITO & STORAGE  ---------------- */
-            let cart = JSON.parse(localStorage.getItem('aromCart')) || [];
-            
-            const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
-            // Mejorada: Validación de parámetros y mejor manejo de errores
-            function addToCart(id, name, price) {
-                
-                const existing = cart.find(item => item.id === id);
-                if (existing) {
-                    existing.quantity += 1;
-                } else {
-                    cart.push({ id, name, price, quantity: 1 });
-                }
-                saveCart();
-                updateCartUI();
-                showNotification(`${name} agregado al carrito`);
-            }
-            
-            function removeFromCart(id) {
-                cart = cart.filter(item => item.id !== id);
-                saveCart();
-                updateCartUI();
-                showNotification('Producto eliminado del carrito');
-            }
-            
-            function updateQuantity(id, change) {
-                const item = cart.find(i => i.id === id);
-                if (!item) return;
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(id);
-                } else {
-                    saveCart();
-                    updateCartUI();
-                }
-            }
-            
-            function updateCartUI() {
-                const cartCount   = document.getElementById('cartCount');
-                const cartItems   = document.getElementById('cartItems');
-                const cartTotalBox= document.getElementById('cartTotal');
-                const totalAmount = document.getElementById('totalAmount');
-                if (!cartCount || !cartItems) return;   // Evita romper si los nodos no existen
-                
-                const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-                cartCount.textContent = totalItems;
-            
-                if (!cart.length) {
-                    cartItems.innerHTML = `
-                        <div class="empty-cart">
-                            <div class="empty-cart-icon" style="font-size:3rem;text-align:center;">🛒</div>
-                            <p style="text-align:center;">Tu carrito está vacío<br/>¡Agrega algunos productos increíbles! ✨</p>
-                        </div>`;
-                    cartTotalBox.style.display = 'none';
-                    return;
-                }
+<!-- ================================================== JAVASCRIPT================================================== -->
+<script>
+/* ----------------  CARRITO & STORAGE  ---------------- */
+let cart = JSON.parse(localStorage.getItem('aromCart')) || [];
 
-             cartItems.innerHTML = cart.map(item => `
-        <div class="cart-item">
-          <div class="cart-item-info">
-            <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-price">$${(item.price * item.quantity).toLocaleString()}</div>
-            <div class="quantity-controls">
-              <button class="quantity-btn"
-                      aria-label="Quitar uno"
-                      onclick="updateQuantity(${item.id}, -1)">-</button>
-              <span>${item.quantity}</span>
-              <button class="quantity-btn"
-                      aria-label="Agregar uno"
-                      onclick="updateQuantity(${item.id}, 1)">+</button>
-            </div>
-          </div>
-          <button class="remove-item"
-                  aria-label="Eliminar producto"
-                  onclick="removeFromCart(${item.id})">Eliminar</button>
-        </div>`).join('');
+const saveCart = () => localStorage.setItem('aromCart', JSON.stringify(cart));
+// Mejorada: Validación de parámetros y mejor manejo de errores
+function addToCart(id, name, price) {
     
-         const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-          if (totalAmount) totalAmount.textContent = total.toLocaleString();
-          if (cartTotalBox) cartTotalBox.style.display = 'flex';
-        }
-        
-        /* ----------------  MODAL / CHECKOUT  ---------------- */
-                function toggleCart() {
-          const modal = document.getElementById('cartModal');
-          if (modal) modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
-        function closeCartIfOutside(e) {
-          if (e.target === e.currentTarget) toggleCart();
-        }
-        
-        function checkout() {
-          if (!cart.length) {
-            showNotification('Tu carrito está vacío', true);
-            return;
-          }
-        
-          let msg = '🛒 *¡Hola! Me interesa comprar los siguientes productos:*\n\n';
-          let total = 0;
-          cart.forEach(i => {
-            msg += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price * i.quantity).toLocaleString()}\n`;
-            total += i.price * i.quantity;
-          });
-          msg += `\n💰 Total: $${total.toLocaleString()}\n\n`;
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ id, name, price, quantity: 1 });
+    }
+    saveCart();
+    updateCartUI();
+    showNotification(`${name} agregado al carrito`);
+}
 
-          // Codificamos TODO el mensaje
-          const url = `https://wa.me/573054328798?text=${encodeURIComponent(msg)}`;
-          window.open(url, '_blank');
-        }
-        
-        /* ----------------  FILTRO DE CATEGORÍA  ---------------- */
-        function filterCategory(cat, btn = null) {
-          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-          if (btn) btn.classList.add('active');
-        
-          document.querySelectorAll('.category-section').forEach(sec => {
-            const show = cat === 'all' || sec.dataset.category === cat;
-            sec.style.display = show ? 'block' : 'none';
-            if (show) {
-              sec.querySelectorAll('.product-card').forEach(card => card.style.display = 'flex');
-            }
-          });
-        }
-        
-        /* ----------------  BÚSQUEDA  ---------------- */
-        function searchProducts() {
-          const term = document.getElementById('searchInput')?.value.toLowerCase().trim();
-          if (!term) { filterCategory('all'); return; }
-        
-          let found = false;
-          document.querySelectorAll('.category-section').forEach(section => {
-            let sectionFound = false;
-            section.querySelectorAll('.product-card').forEach(card => {
-              const name = card.querySelector('.product-name').textContent.toLowerCase();
-              const desc = card.querySelector('.product-description').textContent.toLowerCase();
-              const match = name.includes(term) || desc.includes(term);
-              card.style.display = match ? 'flex' : 'none';
-              if (match) { sectionFound = true; found = true; }
-            });
-            section.style.display = sectionFound ? 'block' : 'none';
-          });
-        
-          if (!found) showNotification('No se encontraron productos que coincidan con tu búsqueda.', true);
-        }
-        
-        /* Enter = buscar */
-        document.getElementById('searchInput')
-                ?.addEventListener('keydown', e => { if (e.key === 'Enter') searchProducts(); });
-        
-        /* ----------------  UTILIDADES  ---------------- */
-        function showNotification(msg, error = false) {
-          const n = document.getElementById('notification');
-          if (!n) return;
-          n.textContent = msg;
-          n.className = `notification${error ? ' error' : ''} show`;
-          setTimeout(() => n.classList.remove('show'), 3000);
-        }
-        
-        function copyToClipboard(text, el) {
-          navigator.clipboard.writeText(text).then(() => {
-            const tooltip = el.querySelector('.copy-tooltip');
-            tooltip?.classList.add('show');
-            setTimeout(() => tooltip?.classList.remove('show'), 1200);
-          });
-        }
-        
-        function contactWhatsApp(defaultMsg = 'Hola, necesito ayuda para comprar') {
-          const url = `https://wa.me/573054328798?text=${encodeURIComponent(defaultMsg)}`;
-          window.open(url, '_blank');
-        }
-        /* ----------------  INICIALIZACIÓN  ---------------- */
-        document.addEventListener('DOMContentLoaded', updateCartUI);
-        </script>
-        </body>
-        </html>
+function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    saveCart();
+    updateCartUI();
+    showNotification('Producto eliminado del carrito');
+}
+
+function updateQuantity(id, change) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.quantity += change;
+    if (item.quantity <= 0) {
+        removeFromCart(id);
+    } else {
+        saveCart();
+        updateCartUI();
+    }
+}
+
+function updateCartUI() {
+    const cartCount   = document.getElementById('cartCount');
+    const cartItems   = document.getElementById('cartItems');
+    const cartTotalBox= document.getElementById('cartTotal');
+    const totalAmount = document.getElementById('totalAmount');
+    if (!cartCount || !cartItems) return;   // Evita romper si los nodos no existen
+    
+    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+    cartCount.textContent = totalItems;
+
+    if (!cart.length) {
+        cartItems.innerHTML = `
+            <div class="empty-cart">
+                <div class="empty-cart-icon" style="font-size:3rem;text-align:center;">🛒</div>
+                <p style="text-align:center;">Tu carrito está vacío<br/>¡Agrega algunos productos increíbles! ✨</p>
+            </div>`;
+        cartTotalBox.style.display = 'none';
+        return;
+    }
+
+         cartItems.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">$${(item.price * item.quantity).toLocaleString()}</div>
+        <div class="quantity-controls">
+          <button class="quantity-btn"
+                  aria-label="Quitar uno"
+                  onclick="updateQuantity(${item.id}, -1)">-</button>
+          <span>${item.quantity}</span>
+          <button class="quantity-btn"
+                  aria-label="Agregar uno"
+                  onclick="updateQuantity(${item.id}, 1)">+</button>
+        </div>
+      </div>
+      <button class="remove-item"
+              aria-label="Eliminar producto"
+              onclick="removeFromCart(${item.id})">Eliminar</button>
+    </div>`).join('');
+
+     const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+      if (totalAmount) totalAmount.textContent = total.toLocaleString();
+      if (cartTotalBox) cartTotalBox.style.display = 'flex';
+    }
+
+/* ----------------  MODAL / CHECKOUT  ---------------- */
+        function toggleCart() {
+  const modal = document.getElementById('cartModal');
+  if (modal) modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+}
+function closeCartIfOutside(e) {
+  if (e.target === e.currentTarget) toggleCart();
+}
+
+function checkout() {
+  if (!cart.length) {
+    showNotification('Tu carrito está vacío', true);
+    return;
+  }
+
+  let msg = '¡Hola! Me interesa comprar los siguientes productos:\n\n';
+  let total = 0;
+  cart.forEach(i => {
+    msg += `• ${i.name} - Cantidad: ${i.quantity} - $${(i.price * i.quantity).toLocaleString()}\n`;
+    total += i.price * i.quantity;
+  });
+  msg += `\nTotal: $${total.toLocaleString()}\n\n`;
+
+  // Codificamos TODO el mensaje
+  const url = `https://wa.me/573054328798?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+/* ----------------  FILTRO DE CATEGORÍA  ---------------- */
+function filterCategory(cat, btn = null) {
+  document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  document.querySelectorAll('.category-section').forEach(sec => {
+    const show = cat === 'all' || sec.dataset.category === cat;
+    sec.style.display = show ? 'block' : 'none';
+    if (show) {
+      sec.querySelectorAll('.product-card').forEach(card => card.style.display = 'flex');
+    }
+  });
+}
+
+/* ----------------  BÚSQUEDA  ---------------- */
+function searchProducts() {
+  const term = document.getElementById('searchInput')?.value.toLowerCase().trim();
+  if (!term) { filterCategory('all'); return; }
+
+  let found = false;
+  document.querySelectorAll('.category-section').forEach(section => {
+    let sectionFound = false;
+    section.querySelectorAll('.product-card').forEach(card => {
+      const name = card.querySelector('.product-name').textContent.toLowerCase();
+      const desc = card.querySelector('.product-description').textContent.toLowerCase();
+      const match = name.includes(term) || desc.includes(term);
+      card.style.display = match ? 'flex' : 'none';
+      if (match) { sectionFound = true; found = true; }
+    });
+    section.style.display = sectionFound ? 'block' : 'none';
+  });
+
+  if (!found) showNotification('No se encontraron productos que coincidan con tu búsqueda.', true);
+}
+
+/* Enter = buscar */
+document.getElementById('searchInput')
+        ?.addEventListener('keydown', e => { if (e.key === 'Enter') searchProducts(); });
+
+/* ----------------  UTILIDADES  ---------------- */
+function showNotification(msg, error = false) {
+  const n = document.getElementById('notification');
+  if (!n) return;
+  n.textContent = msg;
+  n.className = `notification${error ? ' error' : ''} show`;
+  setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function copyToClipboard(text, el) {
+  navigator.clipboard.writeText(text).then(() => {
+    const tooltip = el.querySelector('.copy-tooltip');
+    tooltip?.classList.add('show');
+    setTimeout(() => tooltip?.classList.remove('show'), 1200);
+  });
+}
+
+function contactWhatsApp(defaultMsg = 'Hola, necesito ayuda para comprar') {
+  const url = `https://wa.me/573054328798?text=${encodeURIComponent(defaultMsg)}`;
+  window.open(url, '_blank');
+}
+
+/* ----------------  INICIALIZACIÓN  ---------------- */
+document.addEventListener('DOMContentLoaded', updateCartUI);
+</script>
+</body>
+</html>
 
       
