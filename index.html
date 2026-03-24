@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AROM – Maquillaje & Cuidado Personal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <style>
     /* ═══════════════════════════════════════════
@@ -55,33 +55,31 @@
        HEADER
     ═══════════════════════════════════════════ */
     header {
-      background: linear-gradient(135deg, #fff9fc 0%, #fdeef5 100%);
+      background: linear-gradient(160deg, #fff9fc 0%, #fdeef5 100%);
       border-radius: var(--radius-lg);
-      padding: 40px 50px;
+      padding: 44px 50px 40px;
       margin-bottom: 36px;
       box-shadow: var(--shadow-md);
       border: 1px solid rgba(232,160,191,.3);
       position: relative;
       overflow: hidden;
     }
-
-    /* Decoración fondo header */
     header::before {
       content: '';
       position: absolute;
-      top: -80px; right: -80px;
-      width: 320px; height: 320px;
+      top: -100px; right: -100px;
+      width: 380px; height: 380px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,160,191,.25), transparent 70%);
+      background: radial-gradient(circle, rgba(232,160,191,.20), transparent 65%);
       pointer-events: none;
     }
     header::after {
       content: '';
       position: absolute;
-      bottom: -60px; left: -60px;
-      width: 220px; height: 220px;
+      bottom: -50px; left: -50px;
+      width: 200px; height: 200px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(123,45,94,.10), transparent 70%);
+      background: radial-gradient(circle, rgba(123,45,94,.08), transparent 70%);
       pointer-events: none;
     }
 
@@ -89,51 +87,82 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
-      margin-bottom: 10px;
+      gap: 28px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
 
+    .logo-image-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .logo-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,160,191,.5);
+    }
     .logo-image {
-      width: 110px; height: 110px;
+      width: 96px; height: 96px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid var(--rose);
-      box-shadow: 0 6px 24px rgba(200,101,140,.30);
-      animation: floatLogo 4s ease-in-out infinite;
+      display: block;
+      border: 2.5px solid rgba(200,101,140,.35);
+      box-shadow: 0 4px 20px rgba(200,101,140,.25);
     }
-    @keyframes floatLogo {
-      0%,100%{ transform:translateY(0) }
-      50%    { transform:translateY(-8px) }
+
+    .logo-text-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .logo-super {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .78rem;
+      font-weight: 300;
+      letter-spacing: 5px;
+      color: var(--rose-deep);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-super::before,
+    .logo-super::after {
+      content: '✦';
+      font-size: .65rem;
+      opacity: .7;
     }
 
     .logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem,5vw,4rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--plum) 0%, var(--rose-deep) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 4px;
-      position: relative;
-    }
-    .logo-text sup {
-      font-size: .35em;
-      -webkit-text-fill-color: var(--rose);
-      vertical-align: top;
-      margin-top: .2em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 4.8rem);
+      font-weight: 600;
+      color: var(--plum);
+      letter-spacing: 10px;
+      line-height: 1;
+      text-transform: uppercase;
     }
 
-    .tagline {
-      text-align: center;
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--text-soft);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 28px;
+    .logo-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--rose-deep), rgba(232,160,191,.3));
+      margin: 6px 0 5px;
     }
+    .logo-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .82rem;
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 3px;
+      color: var(--text-soft);
+    }
+
+    .tagline { display: none; }
 
     /* ── Contacto ── */
     .contact-info {
@@ -765,10 +794,13 @@
     @media (max-width: 768px) {
       header { padding: 30px 24px; }
       .scroll-btn { display: none; }
+      .logo-text { letter-spacing: 6px; }
       .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
     }
     @media (max-width: 480px) {
-      .logo-image { width: 85px; height: 85px; }
+      .logo-image { width: 75px; height: 75px; }
+      .logo-text { font-size: 2.6rem; letter-spacing: 4px; }
+      .logo-section { gap: 18px; }
       .product-footer { flex-direction: column; align-items: stretch; }
       .add-to-cart { text-align: center; }
     }
@@ -780,8 +812,21 @@
   <!-- ═══════════════ HEADER ═══════════════ -->
   <header>
     <div class="logo-section">
-      <img src="imagenes/logo.jpg" alt="Logo AROM" class="logo-image" onerror="this.src='https://via.placeholder.com/110x110/E8A0BF/7B2D5E?text=A'" />
-      <h1 class="logo-text">AROM<sup>✦</sup></h1>
+
+      <!-- Foto circular con marco doble -->
+      <div class="logo-image-wrap">
+        <img src="imagenes/logo.jpg" alt="Logo AROM" class="logo-image"
+             onerror="this.src='https://via.placeholder.com/96x96/E8A0BF/7B2D5E?text=A'" />
+      </div>
+
+      <!-- Bloque tipográfico -->
+      <div class="logo-text-block">
+        <span class="logo-super">tienda virtual</span>
+        <h1 class="logo-text">AROM</h1>
+        <div class="logo-divider"></div>
+        <span class="logo-sub">maquillaje &amp; accesorios de belleza</span>
+      </div>
+
     </div>
     <p class="tagline">Maquillaje &amp; Accesorios de Belleza</p>
 
