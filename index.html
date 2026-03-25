@@ -1,1260 +1,1071 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AROM – Tienda virtual de maquillaje y accesorios de belleza. Envíos a todo Colombia." />
   <title>AROM – Maquillaje & Cuidado Personal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
   <style>
-    /* ═══════════════════════════════════════════
-       SISTEMA DE VARIABLES
-    ═══════════════════════════════════════════ */
-    :root {
-      --rose:       #E8A0BF;
-      --rose-deep:  #C8658C;
-      --plum:       #7B2D5E;
-      --plum-dark:  #4A1040;
-      --cream:      #FDF6F0;
-      --warm-white: #FFFAF7;
-      --text-dark:  #2C1A24;
-      --text-mid:   #6B4157;
-      --text-soft:  #A07890;
-      --success:    #2ecc71;
-      --danger:     #e74c3c;
-      --shadow-sm:  0 2px 12px rgba(123,45,94,.10);
-      --shadow-md:  0 8px 32px rgba(123,45,94,.15);
-      --shadow-lg:  0 20px 60px rgba(123,45,94,.20);
-      --radius-sm:  10px;
-      --radius-md:  18px;
-      --radius-lg:  30px;
-      --transition: all .28s cubic-bezier(.4,0,.2,1);
-    }
-
-    /* ═══════════════════════════════════════════
-       RESET & BASE
-    ═══════════════════════════════════════════ */
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-      color: var(--text-dark);
-      min-height: 100vh;
-      /* Fondo con textura sutil */
-      background-image:
-        radial-gradient(circle at 15% 25%, rgba(232,160,191,.18) 0%, transparent 50%),
-        radial-gradient(circle at 85% 75%, rgba(200,101,140,.12) 0%, transparent 45%);
-    }
-
-    .container { max-width: 1380px; margin: 0 auto; padding: 20px; }
-
-    /* ═══════════════════════════════════════════
-       HEADER
-    ═══════════════════════════════════════════ */
-    header {
-      background: linear-gradient(160deg, #fff9fc 0%, #fdeef5 100%);
-      border-radius: var(--radius-lg);
-      padding: 44px 50px 40px;
-      margin-bottom: 36px;
-      box-shadow: var(--shadow-md);
-      border: 1px solid rgba(232,160,191,.3);
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      top: -100px; right: -100px;
-      width: 380px; height: 380px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,160,191,.20), transparent 65%);
-      pointer-events: none;
-    }
-    header::after {
-      content: '';
-      position: absolute;
-      bottom: -50px; left: -50px;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(123,45,94,.08), transparent 70%);
-      pointer-events: none;
-    }
-
-    .logo-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .logo-image-wrap {
-      position: relative;
-      flex-shrink: 0;
-    }
-    .logo-image-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      border-radius: 50%;
-      border: 1px solid rgba(232,160,191,.5);
-    }
-    .logo-image {
-      width: 96px; height: 96px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      border: 2.5px solid rgba(200,101,140,.35);
-      box-shadow: 0 4px 20px rgba(200,101,140,.25);
-    }
-
-    .logo-text-block {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-    }
-
-    .logo-super {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: .78rem;
-      font-weight: 300;
-      letter-spacing: 5px;
-      color: var(--rose-deep);
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .logo-super::before,
-    .logo-super::after {
-      content: '✦';
-      font-size: .65rem;
-      opacity: .7;
-    }
-
-    .logo-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 6vw, 4.8rem);
-      font-weight: 600;
-      color: var(--plum);
-      letter-spacing: 10px;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .logo-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, var(--rose-deep), rgba(232,160,191,.3));
-      margin: 6px 0 5px;
-    }
-    .logo-sub {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: .82rem;
-      font-weight: 300;
-      font-style: italic;
-      letter-spacing: 3px;
-      color: var(--text-soft);
-    }
-
-    .tagline { display: none; }
-
-    /* ── Contacto ── */
-    .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-    }
-
-    .contact-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 11px 22px;
-      border-radius: 50px;
-      border: 1.5px solid rgba(200,101,140,.25);
-      background: rgba(255,255,255,.7);
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-      font-size: .92rem;
-      color: var(--plum);
-      text-decoration: none;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .contact-item:hover {
-      border-color: var(--rose-deep);
-      background: #fff;
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-sm);
-    }
-    .contact-item .contact-icon { color: var(--rose-deep); font-size: 1rem; }
-
-    .copy-tooltip {
-      position: absolute;
-      bottom: -38px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--success);
-      color: #fff;
-      padding: 5px 11px;
-      border-radius: 20px;
-      font-size: .78rem;
-      font-weight: 600;
-      opacity: 0;
-      visibility: hidden;
-      transition: var(--transition);
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .copy-tooltip.show { opacity:1; visibility:visible; bottom:-42px; }
-
-    /* ═══════════════════════════════════════════
-       BARRA BÚSQUEDA + CARRITO
-    ═══════════════════════════════════════════ */
-    .search-section {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-
-    /* ── Barra de ordenamiento ── */
-    .sort-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 22px;
-      flex-wrap: wrap;
-    }
-    .sort-label {
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--text-soft);
-      letter-spacing: .4px;
-      white-space: nowrap;
-    }
-    .sort-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1.5px solid rgba(200,101,140,.22);
-      background: #fff;
-      padding: 7px 16px;
-      border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .84rem;
-      font-weight: 500;
-      color: var(--text-mid);
-      cursor: pointer;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .sort-btn:hover {
-      border-color: var(--rose-deep);
-      color: var(--plum);
-      transform: translateY(-1px);
-    }
-    .sort-btn.active {
-      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
-      color: #fff;
-      border-color: transparent;
-      box-shadow: var(--shadow-sm);
-    }
-    .sort-btn .sort-arrow { font-size: .75rem; opacity: .8; }
-
-    .search-bar {
-      flex: 1 1 300px;
-      display: flex;
-      background: #fff;
-      border-radius: 50px;
-      border: 1.5px solid rgba(200,101,140,.20);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      transition: var(--transition);
-    }
-    .search-bar:focus-within {
-      border-color: var(--rose);
-      box-shadow: 0 0 0 3px rgba(232,160,191,.2);
-    }
-    .search-input {
-      flex: 1;
-      padding: 13px 22px;
-      border: none;
-      outline: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .97rem;
-      background: transparent;
-      color: var(--text-dark);
-    }
-    .search-input::placeholder { color: var(--text-soft); }
-
-    .clear-btn {
-      background: transparent;
-      border: none;
-      padding: 0 12px 0 0;
-      cursor: pointer;
-      color: var(--text-soft);
-      font-size: .95rem;
-      line-height: 1;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-      flex-shrink: 0;
-    }
-    .clear-btn:hover { color: var(--rose-deep); transform: scale(1.2); }
-    .clear-btn.visible { display: flex; }
-
-    .search-btn {
-      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
-      border: none;
-      padding: 0 22px;
-      cursor: pointer;
-      color: #fff;
-      font-size: 1.1rem;
-      transition: var(--transition);
-    }
-    .search-btn:hover { filter: brightness(1.08); }
-
-    .cart-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: linear-gradient(135deg, var(--plum), var(--plum-dark));
-      color: #fff;
-      border: none;
-      padding: 13px 24px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: .97rem;
-      transition: var(--transition);
-      box-shadow: var(--shadow-sm);
-    }
-    .cart-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-
-    .cart-badge {
-      background: var(--rose);
-      color: #fff;
-      min-width: 22px; height: 22px;
-      border-radius: 11px;
-      padding: 0 6px;
-      font-size: .8rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform .2s;
-    }
-    .cart-badge.bump { animation: badgeBump .3s ease; }
-    @keyframes badgeBump {
-      0%,100%{ transform:scale(1) }
-      50%    { transform:scale(1.4) }
-    }
-
-    /* ═══════════════════════════════════════════
-       CATEGORÍAS (slider horizontal)
-    ═══════════════════════════════════════════ */
-    .categories-wrapper {
-      position: relative;
-      margin-bottom: 36px;
-    }
-    .categories {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 8px 4px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      scrollbar-width: none;
-    }
-    .categories::-webkit-scrollbar { display: none; }
-
-    .category-btn {
-      flex: 0 0 auto;
-      scroll-snap-align: start;
-      border: 1.5px solid rgba(200,101,140,.20);
-      background: #fff;
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .92rem;
-      font-weight: 500;
-      cursor: pointer;
-      color: var(--text-mid);
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .category-btn:hover,
-    .category-btn.active {
-      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
-      color: #fff;
-      border-color: transparent;
-      box-shadow: var(--shadow-sm);
-      transform: translateY(-2px);
-    }
-
-    .scroll-btn {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      background: #fff;
-      border: 1.5px solid rgba(200,101,140,.25);
-      border-radius: 50%;
-      width: 34px; height: 34px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--plum);
-      box-shadow: var(--shadow-sm);
-      z-index: 10;
-      transition: var(--transition);
-    }
-    .scroll-btn:hover { background: var(--plum); color: #fff; }
-    .scroll-left  { left: -14px; }
-    .scroll-right { right: -14px; }
-
-    /* ═══════════════════════════════════════════
-       TÍTULO DE SECCIÓN
-    ═══════════════════════════════════════════ */
-    .category-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--plum);
-      margin: 36px 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .category-title::after {
-      content: '';
-      flex: 1;
-      height: 1.5px;
-      background: linear-gradient(90deg, rgba(200,101,140,.3), transparent);
-      border-radius: 2px;
-    }
-
-    /* ═══════════════════════════════════════════
-       GRID DE PRODUCTOS
-    ═══════════════════════════════════════════ */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 22px;
-    }
-
-    /* ── Tarjeta ── */
-    .product-card {
-      background: #fff;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid rgba(232,160,191,.15);
-      transition: var(--transition);
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-md);
-      border-color: rgba(200,101,140,.25);
-    }
-
-    .product-img-wrap {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1/1;
-      background: linear-gradient(135deg, #fdf0f5, #fde4ef);
-    }
-    .product-card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform .5s ease;
-    }
-    .product-card:hover img { transform: scale(1.06); }
-
-    /* Etiqueta de categoría */
-    .product-badge {
-      position: absolute;
-      top: 10px; left: 10px;
-      background: rgba(123,45,94,.80);
-      color: #fff;
-      font-size: .72rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      backdrop-filter: blur(4px);
-    }
-
-    .product-body {
-      padding: 14px 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .product-name {
-      font-weight: 600;
-      font-size: .97rem;
-      color: var(--text-dark);
-      margin-bottom: 6px;
-      line-height: 1.35;
-    }
-    .product-description {
-      font-size: .84rem;
-      color: var(--text-soft);
-      line-height: 1.5;
-      flex: 1;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .product-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px 16px;
-      border-top: 1px solid rgba(232,160,191,.15);
-      gap: 10px;
-    }
-    .product-price {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--plum);
-    }
-
-    .add-to-cart {
-      border: none;
-      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
-      color: #fff;
-      padding: 9px 18px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: .88rem;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .add-to-cart:hover {
-      filter: brightness(1.08);
-      transform: scale(1.04);
-      box-shadow: 0 4px 14px rgba(200,101,140,.35);
-    }
-    .add-to-cart:active { transform: scale(.97); }
-
-    /* ═══════════════════════════════════════════
-       OVERLAY "VER DETALLE" sobre imagen
-    ═══════════════════════════════════════════ */
-    .product-img-wrap { cursor: pointer; }
-
-    .img-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(123,45,94,.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity .28s ease;
-      backdrop-filter: blur(2px);
-    }
-    .product-card:hover .img-overlay { opacity: 1; }
-
-    .img-overlay-label {
-      background: #fff;
-      color: var(--plum);
-      font-family: 'DM Sans', sans-serif;
-      font-size: .82rem;
-      font-weight: 700;
-      padding: 9px 20px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      letter-spacing: .3px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.18);
-      transform: translateY(6px);
-      transition: transform .28s ease;
-    }
-    .product-card:hover .img-overlay-label { transform: translateY(0); }
-
-    /* ═══════════════════════════════════════════
-       MODAL VISTA RÁPIDA
-    ═══════════════════════════════════════════ */
-    .qv-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(44,26,36,.50);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      padding: 16px;
-    }
-    .qv-modal.open { display: flex; }
-
-    .qv-content {
-      background: #fff;
-      border-radius: var(--radius-lg);
-      width: 100%;
-      max-width: 780px;
-      max-height: 92vh;
-      overflow-y: auto;
-      box-shadow: var(--shadow-lg);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      animation: qvIn .32s cubic-bezier(.4,0,.2,1);
-    }
-    @keyframes qvIn {
-      from { opacity:0; transform:scale(.94) translateY(20px) }
-      to   { opacity:1; transform:scale(1)   translateY(0) }
-    }
-
-    /* imagen izquierda */
-    .qv-img-wrap {
-      position: relative;
-      aspect-ratio: 1/1;
-      background: linear-gradient(135deg, #fdf0f5, #fde4ef);
-      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-      overflow: hidden;
-    }
-    .qv-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-
-    /* cuerpo derecho */
-    .qv-body {
-      padding: 32px 28px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: relative;
-    }
-
-    .qv-close {
-      position: absolute;
-      top: 14px; right: 14px;
-      background: rgba(123,45,94,.08);
-      border: none;
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.1rem;
-      color: var(--plum);
-      display: flex; align-items: center; justify-content: center;
-      transition: var(--transition);
-    }
-    .qv-close:hover { background: var(--plum); color: #fff; }
-
-    .qv-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      line-height: 1.3;
-      padding-right: 24px;
-    }
-    .qv-price {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: var(--plum);
-    }
-    .qv-divider {
-      height: 1px;
-      background: linear-gradient(90deg, rgba(200,101,140,.25), transparent);
-    }
-    .qv-desc {
-      font-size: .9rem;
-      color: var(--text-mid);
-      line-height: 1.7;
-      flex: 1;
-    }
-    .qv-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: auto;
-    }
-    .qv-add-btn {
-      border: none;
-      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
-      color: #fff;
-      padding: 14px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      display: flex; align-items: center; justify-content: center;
-      gap: 8px;
-      transition: var(--transition);
-    }
-    .qv-add-btn:hover { filter: brightness(1.08); box-shadow: 0 6px 20px rgba(200,101,140,.35); transform: translateY(-1px); }
-
-    .qv-stepper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      border-radius: 50px;
-      overflow: hidden;
-      border: 2px solid var(--rose-deep);
-    }
-    .qv-stepper button {
-      border: none;
-      background: transparent;
-      color: var(--rose-deep);
-      flex: 1;
-      height: 44px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .qv-stepper button:hover { background: var(--rose-deep); color: #fff; }
-    .qv-stepper .qv-qty {
-      min-width: 44px;
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--plum);
-      pointer-events: none;
-      border-left: 1px solid rgba(200,101,140,.2);
-      border-right: 1px solid rgba(200,101,140,.2);
-    }
-
-    /* responsive: stack en móvil */
-    @media (max-width: 580px) {
-      .qv-content { grid-template-columns: 1fr; max-width: 400px; }
-      .qv-img-wrap { border-radius: var(--radius-lg) var(--radius-lg) 0 0; aspect-ratio: 4/3; }
-      .qv-body { padding: 22px 20px 24px; }
-    }
-
-    /* ── Stepper en tarjeta (cuando ya está en el carrito) ── */
-    .card-stepper {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      border-radius: 50px;
-      overflow: hidden;
-      border: 1.5px solid var(--rose-deep);
-      background: #fff;
-    }
-    .card-stepper button {
-      border: none;
-      background: transparent;
-      color: var(--rose-deep);
-      width: 32px; height: 34px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .card-stepper button:hover { background: var(--rose-deep); color: #fff; }
-    .card-stepper .card-qty {
-      min-width: 28px;
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      font-size: .97rem;
-      font-weight: 700;
-      color: var(--plum);
-      pointer-events: none;
-    }
-
-    /* ═══════════════════════════════════════════
-       MODAL CARRITO
-    ═══════════════════════════════════════════ */
-    .cart-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(44,26,36,.45);
-      backdrop-filter: blur(6px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      padding: 16px;
-    }
-    .cart-content {
-      background: var(--warm-white);
-      width: 100%;
-      max-width: 500px;
-      border-radius: var(--radius-lg);
-      max-height: 92vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
-      animation: slideUp .32s cubic-bezier(.4,0,.2,1);
-    }
-    @keyframes slideUp {
-      from { opacity:0; transform:translateY(40px) }
-      to   { opacity:1; transform:translateY(0) }
-    }
-
-    .cart-header {
-      padding: 20px 26px;
-      background: linear-gradient(135deg, var(--plum), var(--plum-dark));
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .cart-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-    }
-    .close-cart {
-      background: rgba(255,255,255,.15);
-      border: none;
-      color: #fff;
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      font-size: 1.3rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: var(--transition);
-    }
-    .close-cart:hover { background: rgba(255,255,255,.25); }
-
-    #cartItems { flex: 1; overflow-y: auto; padding: 16px 22px; }
-
-    .empty-cart {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-soft);
-    }
-    .empty-cart .empty-icon { font-size: 3rem; margin-bottom: 12px; }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(232,160,191,.20);
-    }
-
-    /* ── Miniatura ── */
-    .cart-thumb {
-      width: 58px;
-      height: 58px;
-      border-radius: 12px;
-      object-fit: cover;
-      flex-shrink: 0;
-      border: 1.5px solid rgba(232,160,191,.30);
-      background: linear-gradient(135deg, #fde4ef, #fdf0f5);
-    }
-
-    .cart-item-info { flex: 1; min-width: 0; }
-    .cart-item-name {
-      font-weight: 600;
-      font-size: .88rem;
-      color: var(--text-dark);
-      margin-bottom: 3px;
-      /* recortar nombres muy largos */
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .cart-item-price {
-      font-family: 'Playfair Display', serif;
-      font-size: .95rem;
-      color: var(--plum);
-    }
-
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 6px;
-    }
-    .quantity-btn {
-      width: 28px; height: 28px;
-      border: none;
-      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
-      color: #fff;
-      border-radius: 50%;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: .95rem;
-      display: flex; align-items: center; justify-content: center;
-      transition: var(--transition);
-    }
-    .quantity-btn:hover { filter: brightness(1.1); transform: scale(1.08); }
-    .qty-number {
-      min-width: 22px;
-      text-align: center;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .remove-item {
-      border: none;
-      background: rgba(231,76,60,.10);
-      color: var(--danger);
-      border-radius: var(--radius-sm);
-      padding: 7px 12px;
-      cursor: pointer;
-      font-size: .82rem;
-      font-weight: 600;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .remove-item:hover { background: var(--danger); color: #fff; }
-
-    .cart-footer {
-      padding: 18px 24px;
-      border-top: 1px solid rgba(232,160,191,.25);
-      background: #fff;
-    }
-    .cart-total-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .cart-total-label { font-weight: 500; color: var(--text-mid); }
-    .cart-total-amount {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--plum);
-    }
-
-    /* ── Campo de nota ── */
-    .note-wrap {
-      margin-bottom: 14px;
-    }
-    .note-label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      margin-bottom: 7px;
-      letter-spacing: .3px;
-    }
-    .note-label i { color: var(--rose-deep); font-size: .85rem; }
-    .note-input {
-      width: 100%;
-      border: 1.5px solid rgba(200,101,140,.22);
-      border-radius: 14px;
-      padding: 11px 14px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .88rem;
-      color: var(--text-dark);
-      background: #fdfafc;
-      resize: none;
-      outline: none;
-      transition: var(--transition);
-      line-height: 1.5;
-    }
-    .note-input::placeholder { color: var(--text-soft); }
-    .note-input:focus {
-      border-color: var(--rose);
-      background: #fff;
-      box-shadow: 0 0 0 3px rgba(232,160,191,.18);
-    }
-    .note-counter {
-      text-align: right;
-      font-size: .75rem;
-      color: var(--text-soft);
-      margin-top: 4px;
-    }
-    .note-counter.warn { color: var(--rose-deep); font-weight: 600; }
-    .checkout-btn {
-      width: 100%;
-      border: none;
-      background: linear-gradient(135deg, var(--plum), var(--plum-dark));
-      color: #fff;
-      padding: 14px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-    }
-    .checkout-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-
-    /* ═══════════════════════════════════════════
-       SECCIÓN INFO (pago / envíos / garantías)
-    ═══════════════════════════════════════════ */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 22px;
-      margin-top: 56px;
-    }
-
-    .info-card {
-      background: #fff;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(232,160,191,.18);
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-    }
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-md);
-      border-color: rgba(200,101,140,.30);
-    }
-
-    /* franja superior con color único por tarjeta */
-    .info-card-header {
-      padding: 26px 26px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .info-card.pago   .info-card-header { background: linear-gradient(135deg, #fde8f2, #fdf0f9); }
-    .info-card.envio  .info-card-header { background: linear-gradient(135deg, #e8f4fd, #eef7ff); }
-    .info-card.garantia .info-card-header { background: linear-gradient(135deg, #e8fdf3, #f0fdf6); }
-
-    /* círculo con ícono grande */
-    .info-icon-wrap {
-      width: 52px; height: 52px;
-      border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-    }
-    .info-card.pago      .info-icon-wrap { background: rgba(200,101,140,.15); color: var(--rose-deep); }
-    .info-card.envio     .info-icon-wrap { background: rgba(52,152,219,.13);  color: #1a79b8; }
-    .info-card.garantia  .info-icon-wrap { background: rgba(39,174,96,.13);   color: #1e8449; }
-
-    .info-card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--plum);
-      line-height: 1.2;
-    }
-    .info-card-subtitle {
-      font-size: .78rem;
-      color: var(--text-soft);
-      margin-top: 2px;
-      font-weight: 400;
-    }
-
-    /* cuerpo de la tarjeta */
-    .info-card-body {
-      padding: 4px 26px 24px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    /* fila de ítem */
-    .info-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 11px;
-    }
-    .info-item-icon {
-      width: 30px; height: 30px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85rem;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .info-card.pago     .info-item-icon { background: rgba(200,101,140,.10); color: var(--rose-deep); }
-    .info-card.envio    .info-item-icon { background: rgba(52,152,219,.10);  color: #1a79b8; }
-    .info-card.garantia .info-item-icon { background: rgba(39,174,96,.10);   color: #1e8449; }
-
-    .info-item-text {
-      font-size: .87rem;
-      color: var(--text-mid);
-      line-height: 1.5;
-      padding-top: 5px;
-    }
-    .info-item-text strong { color: var(--text-dark); font-weight: 600; }
-
-    /* pills de bancos */
-    .payment-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin: 4px 0 6px;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: #fff;
-      color: var(--plum);
-      font-size: .78rem;
-      font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 20px;
-      border: 1.5px solid rgba(200,101,140,.25);
-      letter-spacing: .4px;
-    }
-    .pill i { font-size: .7rem; color: var(--rose-deep); }
-
-    /* transportadoras */
-    .carriers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 2px;
-    }
-    .carrier-tag {
-      background: rgba(52,152,219,.08);
-      color: #1a79b8;
-      font-size: .75rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(52,152,219,.18);
-    }
-
-    /* ═══════════════════════════════════════════
-       NOTIFICACIÓN TOAST
-    ═══════════════════════════════════════════ */
-    #notification {
-      position: fixed;
-      bottom: 90px; right: 20px;
-      background: var(--text-dark);
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: var(--radius-sm);
-      font-size: .9rem;
-      font-weight: 500;
-      box-shadow: var(--shadow-md);
-      z-index: 10000;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity .3s, transform .3s;
-      pointer-events: none;
-      max-width: 300px;
-    }
-    #notification.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    #notification.error { background: var(--danger); }
-    #notification.success { background: var(--success); }
-
-    /* ═══════════════════════════════════════════
-       BOTÓN FLOTANTE WHATSAPP
-    ═══════════════════════════════════════════ */
-    .floating-whatsapp {
-      position: fixed;
-      bottom: 24px; right: 24px;
-      background: #25D366;
-      color: #fff;
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.7rem;
-      box-shadow: 0 6px 24px rgba(37,211,102,.4);
-      cursor: pointer;
-      text-decoration: none;
-      transition: var(--transition);
-      z-index: 999;
-    }
-    .floating-whatsapp:hover {
-      transform: translateY(-4px) scale(1.08);
-      box-shadow: 0 10px 30px rgba(37,211,102,.5);
-    }
-
-    /* ═══════════════════════════════════════════
-       SIN RESULTADOS
-    ═══════════════════════════════════════════ */
-    .no-results {
-      grid-column: 1/-1;
-      text-align: center;
-      padding: 48px 20px;
-      color: var(--text-soft);
-    }
-    .no-results .icon { font-size: 2.8rem; margin-bottom: 10px; }
-
-    /* ═══════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════ */
-    footer {
-      text-align: center;
-      padding: 36px 20px 20px;
-      color: var(--text-soft);
-      font-size: .85rem;
-    }
-    footer span { color: var(--rose-deep); }
-
-    /* ═══════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════ */
-    @media (max-width: 768px) {
-      header { padding: 30px 24px; }
-      .scroll-btn { display: none; }
-      .logo-text { letter-spacing: 6px; }
-      .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
-    }
-    @media (max-width: 480px) {
-      .logo-image { width: 75px; height: 75px; }
-      .logo-text { font-size: 2.6rem; letter-spacing: 4px; }
-      .logo-section { gap: 18px; }
-      .product-footer { flex-direction: column; align-items: stretch; }
-      .add-to-cart { text-align: center; }
-    }
+/* ═══════════════════════════════════════════════
+   VARIABLES
+═══════════════════════════════════════════════ */
+:root {
+  --rose:        #E8A0BF;
+  --rose-deep:   #C8658C;
+  --rose-hover:  #b8547c;
+  --plum:        #7B2D5E;
+  --plum-dark:   #4A1040;
+  --plum-light:  #9B4D7E;
+  --cream:       #FDF6F0;
+  --warm-white:  #FFFAF7;
+  --white:       #FFFFFF;
+  --text-dark:   #2C1A24;
+  --text-mid:    #6B4157;
+  --text-soft:   #A07890;
+  --text-faint:  #C8A8B8;
+  --success:     #27ae60;
+  --danger:      #e74c3c;
+  --info:        #2980b9;
+  --border:      rgba(200,101,140,.18);
+  --border-hover:rgba(200,101,140,.40);
+
+  --shadow-xs:  0 1px 4px rgba(123,45,94,.08);
+  --shadow-sm:  0 2px 12px rgba(123,45,94,.11);
+  --shadow-md:  0 8px 32px rgba(123,45,94,.16);
+  --shadow-lg:  0 20px 60px rgba(123,45,94,.22);
+  --shadow-xl:  0 32px 80px rgba(123,45,94,.28);
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+
+  --ease:        cubic-bezier(.4,0,.2,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+  --t-fast:  .18s;
+  --t-base:  .28s;
+  --t-slow:  .45s;
+
+  --header-h: 72px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  min-height:100vh;
+  overflow-x:hidden;
+  /* grain overlay for depth */
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(232,160,191,.14) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(200,101,140,.10) 0%, transparent 50%);
+}
+
+img { display:block; max-width:100%; }
+button { font-family:inherit; cursor:pointer; }
+a { text-decoration:none; color:inherit; }
+
+.container { max-width:1400px; margin:0 auto; padding:20px 24px 40px; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(200,101,140,.3); border-radius:10px; }
+::-webkit-scrollbar-thumb:hover { background:var(--rose-deep); }
+
+/* ═══════════════════════════════════════════════
+   STICKY NAV
+═══════════════════════════════════════════════ */
+.sticky-nav {
+  position:sticky;
+  top:0;
+  z-index:500;
+  background:rgba(253,246,240,.92);
+  backdrop-filter:blur(16px) saturate(1.4);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom:1px solid var(--border);
+  padding:10px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  transition:box-shadow var(--t-base) var(--ease);
+}
+.sticky-nav.scrolled { box-shadow:var(--shadow-md); }
+.nav-brand {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;
+  font-weight:600;
+  letter-spacing:6px;
+  color:var(--plum);
+  text-transform:uppercase;
+}
+.nav-right { display:flex; align-items:center; gap:10px; }
+
+/* mini search inside nav */
+.nav-search {
+  display:flex;
+  align-items:center;
+  background:#fff;
+  border:1.5px solid var(--border);
+  border-radius:50px;
+  padding:6px 14px;
+  gap:8px;
+  transition:all var(--t-base) var(--ease);
+  width:220px;
+}
+.nav-search:focus-within {
+  border-color:var(--rose);
+  box-shadow:0 0 0 3px rgba(232,160,191,.18);
+  width:280px;
+}
+.nav-search input {
+  border:none; outline:none;
+  font-family:'DM Sans',sans-serif;
+  font-size:.88rem;
+  background:transparent;
+  color:var(--text-dark);
+  width:100%;
+}
+.nav-search input::placeholder { color:var(--text-faint); }
+.nav-search i { color:var(--text-soft); font-size:.85rem; flex-shrink:0; }
+.nav-search .ns-clear {
+  background:transparent; border:none;
+  color:var(--text-soft); font-size:.8rem;
+  display:none; align-items:center; justify-content:center;
+  cursor:pointer; transition:color var(--t-fast);
+  flex-shrink:0;
+}
+.nav-search .ns-clear.visible { display:flex; }
+.nav-search .ns-clear:hover { color:var(--rose-deep); }
+
+.nav-cart-btn {
+  position:relative;
+  background:linear-gradient(135deg,var(--plum),var(--plum-dark));
+  color:#fff;
+  border:none;
+  width:44px; height:44px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem;
+  transition:all var(--t-base) var(--ease-spring);
+  box-shadow:var(--shadow-sm);
+  flex-shrink:0;
+}
+.nav-cart-btn:hover { transform:scale(1.08); box-shadow:var(--shadow-md); }
+.nav-badge {
+  position:absolute; top:-5px; right:-5px;
+  background:var(--rose-deep);
+  color:#fff; font-size:.7rem; font-weight:700;
+  min-width:20px; height:20px; padding:0 5px;
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  border:2px solid var(--cream);
+  transition:transform var(--t-fast) var(--ease-spring);
+}
+.nav-badge.bump { animation:badgeBump .35s var(--ease-spring); }
+@keyframes badgeBump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.5)} }
+
+/* ═══════════════════════════════════════════════
+   HERO HEADER
+═══════════════════════════════════════════════ */
+header {
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg, #fff8fb 0%, #fdeef7 45%, #fde4ef 100%);
+  border-radius:var(--radius-xl);
+  padding:56px 60px 50px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow-md);
+  border:1px solid rgba(232,160,191,.25);
+}
+
+/* decorative circles */
+header::before, header::after, .header-orb { position:absolute; border-radius:50%; pointer-events:none; }
+header::before {
+  content:'';
+  top:-120px; right:-80px;
+  width:420px; height:420px;
+  background:radial-gradient(circle, rgba(232,160,191,.22) 0%, transparent 65%);
+}
+header::after {
+  content:'';
+  bottom:-80px; left:-60px;
+  width:280px; height:280px;
+  background:radial-gradient(circle, rgba(123,45,94,.09) 0%, transparent 70%);
+}
+.header-orb {
+  bottom:20px; right:15%;
+  width:160px; height:160px;
+  background:radial-gradient(circle, rgba(200,101,140,.12) 0%, transparent 70%);
+}
+
+.logo-section {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:32px;
+  margin-bottom:28px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:1;
+}
+
+/* logo image */
+.logo-ring {
+  position:relative;
+  flex-shrink:0;
+}
+.logo-ring::before {
+  content:'';
+  position:absolute; inset:-6px;
+  border-radius:50%;
+  border:1.5px dashed rgba(200,101,140,.4);
+  animation:spin 20s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.logo-ring::after {
+  content:'';
+  position:absolute; inset:-12px;
+  border-radius:50%;
+  border:1px solid rgba(232,160,191,.25);
+}
+.logo-image {
+  width:104px; height:104px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,.9);
+  box-shadow:0 8px 28px rgba(200,101,140,.30), 0 0 0 3px rgba(232,160,191,.3);
+  display:block;
+  position:relative;
+  z-index:1;
+}
+
+/* logo text */
+.logo-text-block { display:flex; flex-direction:column; align-items:flex-start; gap:3px; }
+.logo-super {
+  font-family:'Cormorant Garamond',serif;
+  font-size:.75rem; font-weight:300;
+  letter-spacing:6px; color:var(--rose-deep);
+  text-transform:uppercase;
+  display:flex; align-items:center; gap:8px;
+}
+.logo-super::before { content:'◆'; font-size:.55rem; opacity:.6; }
+.logo-main {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.2rem,7vw,5.2rem);
+  font-weight:600;
+  color:var(--plum);
+  letter-spacing:12px;
+  line-height:1;
+  text-transform:uppercase;
+}
+.logo-divider {
+  width:100%; height:1px;
+  background:linear-gradient(90deg,var(--rose-deep),rgba(232,160,191,.2));
+  margin:5px 0;
+}
+.logo-sub {
+  font-family:'Cormorant Garamond',serif;
+  font-size:.83rem; font-style:italic; font-weight:300;
+  letter-spacing:3px; color:var(--text-soft);
+}
+
+/* contacts */
+.contact-info {
+  display:flex; flex-wrap:wrap;
+  justify-content:center; gap:12px;
+  position:relative; z-index:1;
+}
+.contact-item {
+  display:inline-flex; align-items:center; gap:9px;
+  padding:10px 22px;
+  border-radius:50px;
+  border:1.5px solid rgba(200,101,140,.22);
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(8px);
+  font-weight:500; font-size:.9rem;
+  color:var(--plum);
+  transition:all var(--t-base) var(--ease);
+  position:relative; overflow:hidden;
+  cursor:pointer;
+}
+.contact-item::before {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  opacity:0;
+  transition:opacity var(--t-base);
+}
+.contact-item:hover::before { opacity:1; }
+.contact-item:hover { color:#fff; border-color:transparent; transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+.contact-item:hover .contact-icon { color:#fff; }
+.contact-item span { position:relative; z-index:1; }
+.contact-icon { color:var(--rose-deep); font-size:.95rem; position:relative; z-index:1; transition:color var(--t-base); }
+
+.copy-tooltip {
+  position:absolute; bottom:-42px; left:50%;
+  transform:translateX(-50%);
+  background:var(--success); color:#fff;
+  padding:5px 12px; border-radius:20px;
+  font-size:.76rem; font-weight:600;
+  opacity:0; visibility:hidden; pointer-events:none;
+  white-space:nowrap;
+  transition:all var(--t-base); z-index:10;
+}
+.copy-tooltip.show { opacity:1; visibility:visible; bottom:-46px; }
+
+/* ═══════════════════════════════════════════════
+   FILTER BAR (categories + sort together)
+═══════════════════════════════════════════════ */
+.filter-bar {
+  background:#fff;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-xs);
+  margin-bottom:36px;
+  overflow:hidden;
+}
+.filter-bar-top {
+  padding:14px 20px 12px;
+  border-bottom:1px solid rgba(232,160,191,.12);
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  flex-wrap:wrap;
+}
+.filter-label {
+  font-size:.78rem; font-weight:600;
+  color:var(--text-soft); letter-spacing:.5px;
+  text-transform:uppercase; white-space:nowrap;
+}
+
+.sort-group { display:flex; gap:6px; flex-wrap:wrap; }
+.sort-btn {
+  display:inline-flex; align-items:center; gap:5px;
+  border:1.5px solid var(--border);
+  background:transparent;
+  padding:7px 16px; border-radius:50px;
+  font-size:.82rem; font-weight:500;
+  color:var(--text-mid);
+  transition:all var(--t-base) var(--ease);
+  white-space:nowrap;
+}
+.sort-btn:hover { border-color:var(--rose-deep); color:var(--plum); transform:translateY(-1px); }
+.sort-btn.active {
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; border-color:transparent;
+  box-shadow:0 3px 10px rgba(200,101,140,.3);
+}
+.sort-btn i { font-size:.72rem; }
+
+/* categories row */
+.cat-row {
+  position:relative;
+  padding:12px 44px;
+}
+.cat-scroll {
+  display:flex; gap:8px;
+  overflow-x:auto; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch; scroll-behavior:smooth;
+  scrollbar-width:none;
+  padding:4px 0;
+}
+.cat-scroll::-webkit-scrollbar { display:none; }
+.cat-btn {
+  flex:0 0 auto; scroll-snap-align:start;
+  border:1.5px solid var(--border);
+  background:#fff;
+  padding:9px 20px; border-radius:50px;
+  font-size:.88rem; font-weight:500;
+  color:var(--text-mid);
+  transition:all var(--t-base) var(--ease);
+  white-space:nowrap;
+}
+.cat-btn:hover {
+  border-color:var(--rose-deep); color:var(--plum);
+  transform:translateY(-2px); box-shadow:var(--shadow-xs);
+}
+.cat-btn.active {
+  background:linear-gradient(135deg,var(--plum),var(--plum-dark));
+  color:#fff; border-color:transparent;
+  box-shadow:0 4px 14px rgba(74,16,64,.3);
+}
+.cat-arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:50%; width:32px; height:32px;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--plum); font-size:1rem;
+  box-shadow:var(--shadow-xs); z-index:5;
+  transition:all var(--t-base) var(--ease);
+}
+.cat-arrow:hover { background:var(--plum); color:#fff; border-color:var(--plum); }
+.cat-arrow-l { left:8px; }
+.cat-arrow-r { right:8px; }
+
+/* ═══════════════════════════════════════════════
+   RESULTS INFO BAR
+═══════════════════════════════════════════════ */
+.results-bar {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:20px; flex-wrap:wrap;
+}
+.results-count {
+  font-size:.84rem; color:var(--text-soft); font-weight:400;
+}
+.results-count strong { color:var(--plum); font-weight:600; }
+.clear-filters-btn {
+  display:none;
+  align-items:center; gap:6px;
+  border:1.5px solid var(--border);
+  background:#fff; padding:6px 14px; border-radius:50px;
+  font-size:.82rem; color:var(--text-mid); font-weight:500;
+  transition:all var(--t-base) var(--ease);
+}
+.clear-filters-btn.visible { display:flex; }
+.clear-filters-btn:hover { border-color:var(--rose-deep); color:var(--rose-deep); }
+
+/* ═══════════════════════════════════════════════
+   SECTION TITLE
+═══════════════════════════════════════════════ */
+.section-header {
+  display:flex; align-items:center; gap:14px;
+  margin:44px 0 22px;
+}
+.section-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.45rem; font-weight:700;
+  color:var(--plum); white-space:nowrap;
+}
+.section-line {
+  flex:1; height:1px;
+  background:linear-gradient(90deg,rgba(200,101,140,.3),transparent);
+}
+.section-count {
+  font-size:.78rem; font-weight:600;
+  color:var(--text-soft); white-space:nowrap;
+  background:rgba(123,45,94,.07);
+  padding:4px 10px; border-radius:20px;
+}
+
+/* ═══════════════════════════════════════════════
+   PRODUCTS GRID
+═══════════════════════════════════════════════ */
+.products-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(230px,1fr));
+  gap:20px;
+}
+
+/* ─── CARD ─── */
+.product-card {
+  background:#fff;
+  border-radius:var(--radius-md);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-xs);
+  overflow:hidden;
+  display:flex; flex-direction:column;
+  transition:transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease), border-color var(--t-base);
+  cursor:default;
+}
+.product-card:hover {
+  transform:translateY(-7px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--border-hover);
+}
+
+/* image */
+.card-img-wrap {
+  position:relative; overflow:hidden;
+  aspect-ratio:1/1;
+  background:linear-gradient(135deg,#fdf0f5,#fde4ef);
+  cursor:pointer;
+}
+.card-img-wrap img {
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform var(--t-slow) var(--ease);
+}
+.product-card:hover .card-img-wrap img { transform:scale(1.07); }
+
+/* badge */
+.card-badge {
+  position:absolute; top:10px; left:10px;
+  background:rgba(74,16,64,.82);
+  color:#fff; font-size:.69rem; font-weight:700;
+  padding:4px 10px; border-radius:20px;
+  letter-spacing:.4px; text-transform:uppercase;
+  backdrop-filter:blur(6px);
+}
+.card-badge.new { background:rgba(39,174,96,.85); }
+.card-badge.hot { background:rgba(200,101,140,.9); }
+
+/* overlay */
+.card-overlay {
+  position:absolute; inset:0;
+  background:rgba(74,16,64,.42);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0;
+  transition:opacity var(--t-base);
+  backdrop-filter:blur(3px);
+}
+.product-card:hover .card-overlay { opacity:1; }
+.card-overlay-pill {
+  background:#fff; color:var(--plum);
+  font-size:.8rem; font-weight:700;
+  padding:10px 22px; border-radius:50px;
+  display:flex; align-items:center; gap:7px;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  transform:translateY(8px);
+  transition:transform var(--t-base) var(--ease-spring);
+  letter-spacing:.2px;
+}
+.product-card:hover .card-overlay-pill { transform:translateY(0); }
+
+/* wishlist btn */
+.card-wish {
+  position:absolute; top:10px; right:10px;
+  background:rgba(255,255,255,.85);
+  border:none; border-radius:50%;
+  width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text-soft); font-size:.9rem;
+  backdrop-filter:blur(4px);
+  transition:all var(--t-base) var(--ease-spring);
+  opacity:0; transform:scale(.8);
+  cursor:pointer;
+}
+.product-card:hover .card-wish { opacity:1; transform:scale(1); }
+.card-wish.active { color:var(--rose-deep); background:#fff; }
+.card-wish:hover { transform:scale(1.1) !important; }
+
+/* body */
+.card-body {
+  padding:14px 15px 10px;
+  flex:1; display:flex; flex-direction:column; gap:6px;
+}
+.card-name {
+  font-weight:600; font-size:.93rem;
+  color:var(--text-dark); line-height:1.35;
+}
+.card-desc {
+  font-size:.82rem; color:var(--text-soft);
+  line-height:1.55; flex:1;
+  display:-webkit-box;
+  -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+/* footer */
+.card-footer {
+  padding:10px 15px 15px;
+  border-top:1px solid rgba(232,160,191,.12);
+  display:flex; align-items:center;
+  justify-content:space-between; gap:10px;
+}
+.card-price {
+  font-family:'Playfair Display',serif;
+  font-size:1.12rem; font-weight:700;
+  color:var(--plum);
+}
+
+/* add btn */
+.btn-add {
+  border:none;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; padding:9px 18px; border-radius:50px;
+  font-size:.86rem; font-weight:600;
+  transition:all var(--t-base) var(--ease-spring);
+  white-space:nowrap;
+}
+.btn-add:hover { filter:brightness(1.08); transform:scale(1.05); box-shadow:0 4px 14px rgba(200,101,140,.35); }
+.btn-add:active { transform:scale(.97); }
+
+/* stepper on card */
+.card-stepper {
+  display:flex; align-items:center;
+  border:1.5px solid var(--rose-deep);
+  border-radius:50px; overflow:hidden; background:#fff;
+}
+.card-stepper button {
+  border:none; background:transparent;
+  color:var(--rose-deep);
+  width:32px; height:34px;
+  font-size:1.05rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  transition:all var(--t-fast);
+  flex-shrink:0;
+}
+.card-stepper button:hover { background:var(--rose-deep); color:#fff; }
+.card-stepper .cs-qty {
+  min-width:28px; text-align:center;
+  font-family:'Playfair Display',serif;
+  font-size:.95rem; font-weight:700; color:var(--plum);
+  pointer-events:none;
+}
+
+/* no results */
+.no-results {
+  grid-column:1/-1; text-align:center;
+  padding:56px 20px; color:var(--text-soft);
+}
+.no-results .nr-icon { font-size:3rem; margin-bottom:12px; opacity:.5; }
+.no-results p { font-size:1rem; }
+
+/* ═══════════════════════════════════════════════
+   QUICK VIEW MODAL
+═══════════════════════════════════════════════ */
+.qv-overlay {
+  position:fixed; inset:0;
+  background:rgba(44,26,36,.55);
+  backdrop-filter:blur(10px);
+  display:none; align-items:center; justify-content:center;
+  z-index:10000; padding:16px;
+}
+.qv-overlay.open { display:flex; }
+
+.qv-panel {
+  background:#fff;
+  border-radius:var(--radius-xl);
+  width:100%; max-width:820px;
+  max-height:93vh; overflow-y:auto;
+  box-shadow:var(--shadow-xl);
+  display:grid; grid-template-columns:1fr 1fr;
+  animation:modalIn .35s var(--ease) both;
+}
+@keyframes modalIn {
+  from { opacity:0; transform:scale(.93) translateY(24px); }
+  to   { opacity:1; transform:scale(1)   translateY(0); }
+}
+
+.qv-img-col {
+  position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#fdf0f5,#fde4ef);
+  border-radius:var(--radius-xl) 0 0 var(--radius-xl);
+  aspect-ratio:1/1;
+}
+.qv-img-col img { width:100%; height:100%; object-fit:cover; }
+
+.qv-close {
+  position:absolute; top:14px; right:14px;
+  background:rgba(255,255,255,.85); border:none;
+  width:34px; height:34px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem; color:var(--plum);
+  backdrop-filter:blur(4px);
+  transition:all var(--t-base) var(--ease);
+  z-index:2;
+}
+.qv-close:hover { background:var(--plum); color:#fff; }
+
+.qv-body {
+  padding:36px 30px 30px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.qv-cat {
+  font-size:.74rem; font-weight:700;
+  color:var(--rose-deep); text-transform:uppercase; letter-spacing:1px;
+}
+.qv-name {
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem; font-weight:700;
+  color:var(--text-dark); line-height:1.3;
+}
+.qv-price {
+  font-family:'Playfair Display',serif;
+  font-size:1.8rem; font-weight:700; color:var(--plum);
+}
+.qv-divider { height:1px; background:linear-gradient(90deg,var(--border),transparent); }
+.qv-desc { font-size:.88rem; color:var(--text-mid); line-height:1.75; flex:1; }
+
+.qv-actions { display:flex; flex-direction:column; gap:10px; margin-top:auto; }
+.qv-add-btn {
+  border:none;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; padding:15px;
+  border-radius:50px;
+  font-size:1rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  transition:all var(--t-base) var(--ease-spring);
+}
+.qv-add-btn:hover { filter:brightness(1.08); box-shadow:0 6px 20px rgba(200,101,140,.4); transform:translateY(-2px); }
+
+.qv-stepper {
+  display:flex; align-items:center;
+  border:2px solid var(--rose-deep); border-radius:50px; overflow:hidden;
+}
+.qv-stepper button {
+  border:none; background:transparent; color:var(--rose-deep);
+  flex:1; height:46px; font-size:1.25rem; font-weight:700;
+  transition:all var(--t-fast);
+}
+.qv-stepper button:hover { background:var(--rose-deep); color:#fff; }
+.qv-stepper .qv-qty {
+  min-width:48px; text-align:center;
+  font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--plum);
+  border-left:1px solid var(--border); border-right:1px solid var(--border);
+  pointer-events:none;
+}
+
+@media (max-width:580px) {
+  .qv-panel { grid-template-columns:1fr; max-width:420px; }
+  .qv-img-col { border-radius:var(--radius-xl) var(--radius-xl) 0 0; aspect-ratio:4/3; }
+}
+
+/* ═══════════════════════════════════════════════
+   CART DRAWER
+═══════════════════════════════════════════════ */
+.cart-overlay {
+  position:fixed; inset:0;
+  background:rgba(44,26,36,.40);
+  backdrop-filter:blur(6px);
+  display:none; z-index:9999;
+}
+.cart-overlay.open { display:block; }
+
+.cart-drawer {
+  position:fixed; top:0; right:0; bottom:0;
+  width:min(420px,100vw);
+  background:var(--warm-white);
+  box-shadow:var(--shadow-xl);
+  display:flex; flex-direction:column;
+  transform:translateX(100%);
+  transition:transform var(--t-slow) var(--ease);
+  z-index:10000;
+}
+.cart-drawer.open { transform:translateX(0); }
+
+.drawer-header {
+  padding:22px 24px;
+  background:linear-gradient(135deg,var(--plum),var(--plum-dark));
+  color:#fff;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-shrink:0;
+}
+.drawer-header h2 {
+  font-family:'Playfair Display',serif; font-size:1.3rem;
+}
+.drawer-close {
+  background:rgba(255,255,255,.15); border:none; color:#fff;
+  width:36px; height:36px; border-radius:50%;
+  font-size:1.2rem; display:flex; align-items:center; justify-content:center;
+  transition:background var(--t-base);
+}
+.drawer-close:hover { background:rgba(255,255,255,.28); }
+
+.drawer-items { flex:1; overflow-y:auto; padding:16px 20px; }
+
+.empty-cart {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  height:100%; text-align:center; color:var(--text-soft); padding:40px;
+  gap:12px;
+}
+.empty-cart .ec-icon { font-size:3.5rem; opacity:.35; }
+.empty-cart p { font-size:.95rem; }
+.empty-cart small { font-size:.82rem; color:var(--text-faint); }
+
+.cart-item {
+  display:flex; align-items:flex-start; gap:13px;
+  padding:14px 0;
+  border-bottom:1px solid rgba(232,160,191,.15);
+  animation:itemIn .2s var(--ease) both;
+}
+@keyframes itemIn { from{opacity:0;transform:translateX(10px)} to{opacity:1;transform:none} }
+
+.cart-thumb {
+  width:62px; height:62px; border-radius:12px;
+  object-fit:cover; flex-shrink:0;
+  border:1.5px solid rgba(232,160,191,.25);
+  background:linear-gradient(135deg,#fde4ef,#fdf0f5);
+}
+.ci-info { flex:1; min-width:0; }
+.ci-name {
+  font-weight:600; font-size:.86rem;
+  color:var(--text-dark);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  margin-bottom:4px;
+}
+.ci-price { font-family:'Playfair Display',serif; font-size:.92rem; color:var(--plum); }
+.ci-controls { display:flex; align-items:center; gap:8px; margin-top:8px; }
+.qty-btn {
+  width:26px; height:26px; border:none; border-radius:50%;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; font-weight:700; font-size:.9rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:all var(--t-fast) var(--ease-spring);
+}
+.qty-btn:hover { filter:brightness(1.12); transform:scale(1.1); }
+.ci-qty { min-width:22px; text-align:center; font-weight:600; color:var(--text-dark); font-size:.9rem; }
+.ci-remove {
+  border:none; background:rgba(231,76,60,.09);
+  color:var(--danger); border-radius:var(--radius-xs);
+  padding:6px 10px; font-size:.78rem; font-weight:600;
+  transition:all var(--t-base);
+  flex-shrink:0; align-self:center;
+}
+.ci-remove:hover { background:var(--danger); color:#fff; }
+
+.drawer-footer {
+  padding:18px 20px;
+  border-top:1px solid var(--border);
+  background:#fff;
+  flex-shrink:0;
+}
+.total-row {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:14px;
+}
+.total-label { font-weight:500; color:var(--text-mid); }
+.total-amount {
+  font-family:'Playfair Display',serif;
+  font-size:1.45rem; font-weight:700; color:var(--plum);
+}
+
+/* note field */
+.note-wrap { margin-bottom:14px; }
+.note-label {
+  display:flex; align-items:center; gap:6px;
+  font-size:.8rem; font-weight:600; color:var(--text-mid);
+  margin-bottom:7px; letter-spacing:.3px;
+}
+.note-label i { color:var(--rose-deep); }
+.note-input {
+  width:100%; border:1.5px solid var(--border);
+  border-radius:14px; padding:10px 13px;
+  font-family:'DM Sans',sans-serif; font-size:.86rem;
+  color:var(--text-dark); background:#fdfafc;
+  resize:none; outline:none;
+  transition:all var(--t-base); line-height:1.5;
+}
+.note-input::placeholder { color:var(--text-faint); }
+.note-input:focus { border-color:var(--rose); background:#fff; box-shadow:0 0 0 3px rgba(232,160,191,.18); }
+.note-counter { text-align:right; font-size:.73rem; color:var(--text-faint); margin-top:4px; }
+.note-counter.warn { color:var(--rose-deep); font-weight:600; }
+
+.checkout-btn {
+  width:100%; border:none;
+  background:linear-gradient(135deg,var(--plum),var(--plum-dark));
+  color:#fff; padding:15px; border-radius:50px;
+  font-size:1rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  transition:all var(--t-base) var(--ease);
+}
+.checkout-btn:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+
+/* ═══════════════════════════════════════════════
+   INFO CARDS
+═══════════════════════════════════════════════ */
+.info-section { margin-top:64px; }
+.info-section-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem; font-weight:700; color:var(--plum);
+  text-align:center; margin-bottom:28px;
+  display:flex; align-items:center; gap:12px;
+}
+.info-section-title::before, .info-section-title::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(90deg,transparent,var(--border));
+}
+.info-section-title::after { background:linear-gradient(90deg,var(--border),transparent); }
+
+.info-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+.info-card {
+  background:#fff; border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-xs);
+  overflow:hidden; display:flex; flex-direction:column;
+  transition:all var(--t-base) var(--ease);
+}
+.info-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:var(--border-hover); }
+
+.info-card-head {
+  padding:24px 24px 18px;
+  display:flex; align-items:center; gap:15px;
+}
+.info-card.pago    .info-card-head { background:linear-gradient(135deg,#fde8f2,#fdf4fb); }
+.info-card.envio   .info-card-head { background:linear-gradient(135deg,#e8f4fd,#eef7ff); }
+.info-card.garantia .info-card-head { background:linear-gradient(135deg,#e8fdf3,#f0fdf6); }
+
+.info-icon {
+  width:50px; height:50px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.35rem; flex-shrink:0;
+}
+.info-card.pago     .info-icon { background:rgba(200,101,140,.14); color:var(--rose-deep); }
+.info-card.envio    .info-icon { background:rgba(41,128,185,.13); color:#1a79b8; }
+.info-card.garantia .info-icon { background:rgba(39,174,96,.13); color:#1e8449; }
+
+.info-card-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem; font-weight:700; color:var(--plum); line-height:1.2;
+}
+.info-card-sub { font-size:.76rem; color:var(--text-soft); margin-top:2px; }
+
+.info-card-body { padding:4px 24px 22px; flex:1; display:flex; flex-direction:column; gap:9px; }
+
+.info-row { display:flex; align-items:flex-start; gap:10px; }
+.info-row-icon {
+  width:28px; height:28px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.8rem; flex-shrink:0; margin-top:2px;
+}
+.info-card.pago     .info-row-icon { background:rgba(200,101,140,.09); color:var(--rose-deep); }
+.info-card.envio    .info-row-icon { background:rgba(41,128,185,.09); color:#1a79b8; }
+.info-card.garantia .info-row-icon { background:rgba(39,174,96,.09); color:#1e8449; }
+.info-row-text { font-size:.85rem; color:var(--text-mid); line-height:1.5; padding-top:4px; }
+.info-row-text strong { color:var(--text-dark); font-weight:600; }
+
+.payment-pills { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 4px; }
+.ppill {
+  display:inline-flex; align-items:center; gap:5px;
+  background:#fff; color:var(--plum);
+  font-size:.76rem; font-weight:700;
+  padding:5px 11px; border-radius:20px;
+  border:1.5px solid var(--border); letter-spacing:.3px;
+}
+.ppill i { font-size:.68rem; color:var(--rose-deep); }
+.carriers { display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+.carrier {
+  background:rgba(41,128,185,.08); color:#1a79b8;
+  font-size:.73rem; font-weight:600;
+  padding:4px 10px; border-radius:14px;
+  border:1px solid rgba(41,128,185,.16);
+}
+
+/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+#toast {
+  position:fixed; bottom:88px; right:20px;
+  background:var(--text-dark); color:#fff;
+  padding:12px 18px; border-radius:var(--radius-sm);
+  font-size:.88rem; font-weight:500;
+  box-shadow:var(--shadow-md); z-index:20000;
+  opacity:0; transform:translateY(12px);
+  transition:opacity .3s, transform .3s;
+  pointer-events:none; max-width:310px;
+  display:flex; align-items:center; gap:9px;
+}
+#toast.show { opacity:1; transform:translateY(0); }
+#toast.success { background:var(--success); }
+#toast.error   { background:var(--danger); }
+
+/* ═══════════════════════════════════════════════
+   WA FLOAT
+═══════════════════════════════════════════════ */
+.wa-float {
+  position:fixed; bottom:22px; right:22px;
+  background:#25D366; color:#fff;
+  width:56px; height:56px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.65rem;
+  box-shadow:0 6px 24px rgba(37,211,102,.45);
+  text-decoration:none;
+  transition:all var(--t-base) var(--ease-spring); z-index:900;
+}
+.wa-float:hover { transform:translateY(-5px) scale(1.1); box-shadow:0 12px 32px rgba(37,211,102,.55); }
+
+/* pulse ring */
+.wa-float::before {
+  content:''; position:absolute; inset:-4px;
+  border:2px solid rgba(37,211,102,.4);
+  border-radius:50%; animation:waPulse 2s ease-out infinite;
+}
+@keyframes waPulse { 0%{transform:scale(1);opacity:1} 100%{transform:scale(1.5);opacity:0} }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+footer {
+  text-align:center; margin-top:56px; padding:28px 20px 16px;
+  border-top:1px solid var(--border);
+  color:var(--text-soft); font-size:.83rem;
+}
+footer span { color:var(--rose-deep); }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width:768px) {
+  header { padding:34px 28px 36px; border-radius:var(--radius-lg); }
+  .sticky-nav { padding:10px 16px; }
+  .nav-search { width:160px; }
+  .nav-search:focus-within { width:200px; }
+  .cat-arrow { display:none; }
+  .cat-row { padding:10px 16px; }
+  .products-grid { grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:14px; }
+  .filter-bar-top { padding:11px 14px 10px; }
+}
+@media (max-width:480px) {
+  .logo-image { width:82px; height:82px; }
+  .logo-main { letter-spacing:7px; }
+  .logo-section { gap:20px; }
+  .card-footer { flex-direction:column; align-items:stretch; }
+  .btn-add { text-align:center; }
+  .nav-search { display:none; }
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE LOAD ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.anim-header { animation:fadeUp .6s var(--ease) .05s both; }
+.anim-filter  { animation:fadeUp .5s var(--ease) .15s both; }
+.anim-grid    { animation:fadeUp .5s var(--ease) .22s both; }
   </style>
 </head>
 <body>
+
+<!-- ═══════════════ STICKY NAV ═══════════════ -->
+<nav class="sticky-nav" id="stickyNav">
+  <span class="nav-brand">AROM</span>
+  <div class="nav-right">
+    <div class="nav-search">
+      <i class="fas fa-search"></i>
+      <input type="text" id="navSearch" placeholder="Buscar productos…" autocomplete="off" />
+      <button class="ns-clear" id="nsClear" aria-label="Limpiar"><i class="fas fa-times"></i></button>
+    </div>
+    <button class="nav-cart-btn" onclick="openCart()" aria-label="Ver carrito">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="nav-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
 <div class="container">
 
   <!-- ═══════════════ HEADER ═══════════════ -->
-  <header>
+  <header class="anim-header">
+    <div class="header-orb"></div>
     <div class="logo-section">
-
-      <!-- Foto circular con marco doble -->
-      <div class="logo-image-wrap">
+      <div class="logo-ring">
         <img src="imagenes/logo.jpg" alt="Logo AROM" class="logo-image"
-             onerror="this.src='https://via.placeholder.com/96x96/E8A0BF/7B2D5E?text=A'" />
+             onerror="this.src='https://via.placeholder.com/104x104/E8A0BF/7B2D5E?text=A'" />
       </div>
-
-      <!-- Bloque tipográfico -->
       <div class="logo-text-block">
-        <span class="logo-super">tienda virtual</span>
-        <h1 class="logo-text">AROM</h1>
+        <span class="logo-super">Tienda Virtual</span>
+        <h1 class="logo-main">AROM</h1>
         <div class="logo-divider"></div>
         <span class="logo-sub">maquillaje &amp; accesorios de belleza</span>
       </div>
-
     </div>
-    <p class="tagline">Maquillaje &amp; Accesorios de Belleza</p>
 
     <div class="contact-info">
       <a class="contact-item"
@@ -1263,13 +1074,11 @@
         <i class="fab fa-tiktok contact-icon"></i>
         <span>@tienda_virtual_arom</span>
       </a>
-
-      <button class="contact-item" onclick="copyToClipboard('3054328798', this)" aria-label="Copiar número">
+      <button class="contact-item" onclick="copyPhone('3054328798', this)" aria-label="Copiar número">
         <i class="fas fa-phone contact-icon"></i>
         <span>305 432 8798</span>
         <span class="copy-tooltip">¡Copiado! ✓</span>
       </button>
-
       <a class="contact-item" href="https://wa.me/573054328798" target="_blank" rel="noopener">
         <i class="fab fa-whatsapp contact-icon"></i>
         <span>WhatsApp</span>
@@ -1277,564 +1086,402 @@
     </div>
   </header>
 
-  <!-- ═══════════════ BÚSQUEDA + CARRITO ═══════════════ -->
-  <section class="search-section">
-    <div class="search-bar">
-      <input type="text" id="searchInput" class="search-input"
-             placeholder="Buscar productos, marcas…" autocomplete="off" />
-      <button class="clear-btn" id="clearBtn" onclick="clearSearch()" aria-label="Limpiar búsqueda">
-        <i class="fas fa-times"></i>
-      </button>
-      <button class="search-btn" onclick="searchProducts()" aria-label="Buscar">
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
-    <button class="cart-btn" onclick="toggleCart()">
-      <i class="fas fa-shopping-bag"></i>
-      Mi bolsa
-      <span class="cart-badge" id="cartCount">0</span>
-    </button>
-  </section>
-
-  <!-- ═══════════════ ORDENAMIENTO ═══════════════ -->
-  <div class="sort-bar">
-    <span class="sort-label">Ordenar por:</span>
-    <button class="sort-btn active" id="sort-default" onclick="sortProducts('default', this)">
-      <i class="fas fa-th-large sort-arrow"></i> Por defecto
-    </button>
-    <button class="sort-btn" id="sort-asc" onclick="sortProducts('asc', this)">
-      <i class="fas fa-arrow-up sort-arrow"></i> Menor precio
-    </button>
-    <button class="sort-btn" id="sort-desc" onclick="sortProducts('desc', this)">
-      <i class="fas fa-arrow-down sort-arrow"></i> Mayor precio
-    </button>
-  </div>
-
-  <!-- ═══════════════ CATEGORÍAS ═══════════════ -->
-  <div class="categories-wrapper">
-    <button class="scroll-btn scroll-left"  onclick="scrollCat('left')"  aria-label="Anterior">‹</button>
-    <nav class="categories" id="categoriesNav">
-      <button class="category-btn active" onclick="filterCat('all',this)">🔥 Todos</button>
-      <button class="category-btn" onclick="filterCat('Cuidado-Facial',this)">✨ Cuidado Facial</button>
-      <button class="category-btn" onclick="filterCat('Labios',this)">💋 Labios</button>
-      <button class="category-btn" onclick="filterCat('Rubores',this)">🎨 Rubores</button>
-      <button class="category-btn" onclick="filterCat('Sombras',this)">👁️ Sombras</button>
-      <button class="category-btn" onclick="filterCat('Pestañas',this)">✨ Pestañas</button>
-      <button class="category-btn" onclick="filterCat('Delineadores',this)">✏️ Delineadores</button>
-      <button class="category-btn" onclick="filterCat('Cabello',this)">✂️ Cabello</button>
-      <button class="category-btn" onclick="filterCat('Otros',this)">➕ Otros</button>
-    </nav>
-    <button class="scroll-btn scroll-right" onclick="scrollCat('right')" aria-label="Siguiente">›</button>
-  </div>
-
-  <!-- ═══════════════ PRODUCTOS ═══════════════ -->
-  <main id="productsContainer">
-
-    <!-- ── Cuidado Facial ── -->
-    <div class="category-section" data-category="Cuidado-Facial">
-      <h2 class="category-title">✨ Cuidado Facial</h2>
-      <div class="products-grid" id="grid-facial">
-        <!-- Tarjetas generadas por JS desde el array de productos -->
+  <!-- ═══════════════ FILTER BAR ═══════════════ -->
+  <div class="filter-bar anim-filter">
+    <div class="filter-bar-top">
+      <span class="filter-label">Ordenar por:</span>
+      <div class="sort-group">
+        <button class="sort-btn active" id="s-default" onclick="setSort('default',this)">
+          <i class="fas fa-th-large"></i> Relevancia
+        </button>
+        <button class="sort-btn" id="s-asc" onclick="setSort('asc',this)">
+          <i class="fas fa-arrow-up"></i> Menor precio
+        </button>
+        <button class="sort-btn" id="s-desc" onclick="setSort('desc',this)">
+          <i class="fas fa-arrow-down"></i> Mayor precio
+        </button>
       </div>
     </div>
+    <div class="cat-row">
+      <button class="cat-arrow cat-arrow-l" onclick="scrollCats(-200)" aria-label="Anterior">‹</button>
+      <nav class="cat-scroll" id="catScroll">
+        <button class="cat-btn active" data-cat="all"          onclick="filterCat('all',this)">🔥 Todos</button>
+        <button class="cat-btn" data-cat="Cuidado-Facial"      onclick="filterCat('Cuidado-Facial',this)">✨ Cuidado Facial</button>
+        <button class="cat-btn" data-cat="Labios"              onclick="filterCat('Labios',this)">💋 Labios</button>
+        <button class="cat-btn" data-cat="Rubores"             onclick="filterCat('Rubores',this)">🎨 Rubores</button>
+        <button class="cat-btn" data-cat="Sombras"             onclick="filterCat('Sombras',this)">👁️ Sombras</button>
+        <button class="cat-btn" data-cat="Pestañas"            onclick="filterCat('Pestañas',this)">✨ Pestañas</button>
+        <button class="cat-btn" data-cat="Delineadores"        onclick="filterCat('Delineadores',this)">✏️ Delineadores</button>
+        <button class="cat-btn" data-cat="Cabello"             onclick="filterCat('Cabello',this)">✂️ Cabello</button>
+        <button class="cat-btn" data-cat="Otros"               onclick="filterCat('Otros',this)">➕ Otros</button>
+      </nav>
+      <button class="cat-arrow cat-arrow-r" onclick="scrollCats(200)" aria-label="Siguiente">›</button>
+    </div>
+  </div>
 
-    <!-- ── Labios ── -->
+  <!-- results bar -->
+  <div class="results-bar">
+    <p class="results-count" id="resultsCount"></p>
+    <button class="clear-filters-btn" id="clearFiltersBtn" onclick="resetFilters()">
+      <i class="fas fa-times"></i> Limpiar filtros
+    </button>
+  </div>
+
+  <!-- ═══════════════ PRODUCT SECTIONS ═══════════════ -->
+  <main id="mainContent" class="anim-grid">
+
+    <div class="category-section" data-category="Cuidado-Facial">
+      <div class="section-header">
+        <h2 class="section-title">✨ Cuidado Facial</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-facial"></span>
+      </div>
+      <div class="products-grid" id="grid-facial"></div>
+    </div>
+
     <div class="category-section" data-category="Labios">
-      <h2 class="category-title">💋 Labios</h2>
+      <div class="section-header">
+        <h2 class="section-title">💋 Labios</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-labios"></span>
+      </div>
       <div class="products-grid" id="grid-labios"></div>
     </div>
 
-    <!-- ── Rubores ── -->
     <div class="category-section" data-category="Rubores">
-      <h2 class="category-title">🎨 Rubores y Contornos</h2>
+      <div class="section-header">
+        <h2 class="section-title">🎨 Rubores y Contornos</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-rubores"></span>
+      </div>
       <div class="products-grid" id="grid-rubores"></div>
     </div>
 
-    <!-- ── Sombras ── -->
     <div class="category-section" data-category="Sombras">
-      <h2 class="category-title">👁️ Sombras e Iluminadores</h2>
+      <div class="section-header">
+        <h2 class="section-title">👁️ Sombras e Iluminadores</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-sombras"></span>
+      </div>
       <div class="products-grid" id="grid-sombras"></div>
     </div>
 
-    <!-- ── Pestañas ── -->
     <div class="category-section" data-category="Pestañas">
-      <h2 class="category-title">✨ Pestañas</h2>
+      <div class="section-header">
+        <h2 class="section-title">✨ Pestañas</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-pestanas"></span>
+      </div>
       <div class="products-grid" id="grid-pestanas"></div>
+    </div>
+
+    <div class="category-section" data-category="Delineadores">
+      <div class="section-header">
+        <h2 class="section-title">✏️ Delineadores</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-delineadores"></span>
+      </div>
+      <div class="products-grid" id="grid-delineadores"></div>
+    </div>
+
+    <div class="category-section" data-category="Cabello">
+      <div class="section-header">
+        <h2 class="section-title">✂️ Cabello</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-cabello"></span>
+      </div>
+      <div class="products-grid" id="grid-cabello"></div>
+    </div>
+
+    <div class="category-section" data-category="Otros">
+      <div class="section-header">
+        <h2 class="section-title">➕ Otros</h2>
+        <div class="section-line"></div>
+        <span class="section-count" id="cnt-otros"></span>
+      </div>
+      <div class="products-grid" id="grid-otros"></div>
     </div>
 
   </main>
 
-  <!-- ═══════════════ INFO ═══════════════ -->
-  <section class="info-grid">
+  <!-- ═══════════════ INFO SECTION ═══════════════ -->
+  <section class="info-section">
+    <h2 class="info-section-title">Información de compra</h2>
+    <div class="info-grid">
 
-    <!-- PAGO -->
-    <div class="info-card pago">
-      <div class="info-card-header">
-        <div class="info-icon-wrap">
-          <i class="fas fa-credit-card"></i>
+      <div class="info-card pago">
+        <div class="info-card-head">
+          <div class="info-icon"><i class="fas fa-credit-card"></i></div>
+          <div>
+            <div class="info-card-title">Medios de Pago</div>
+            <div class="info-card-sub">Transferencia · Tarjeta · Billetera</div>
+          </div>
         </div>
-        <div>
-          <div class="info-card-title">Medios de Pago</div>
-          <div class="info-card-subtitle">Transferencia · Tarjeta · Billetera</div>
-        </div>
-      </div>
-      <div class="info-card-body">
-        <div class="payment-pills">
-          <span class="pill"><i class="fas fa-university"></i> BANCOLOMBIA</span>
-          <span class="pill"><i class="fas fa-mobile-alt"></i> NEQUI</span>
-          <span class="pill"><i class="fas fa-mobile-alt"></i> DAVIPLATA</span>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-percentage"></i></div>
-          <div class="info-item-text"><strong>Recargo del 6%</strong> por uso de tarjeta de crédito.</div>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-tag"></i></div>
-          <div class="info-item-text"><strong>Descuento del 3%</strong> pagando por otro medio.</div>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-exclamation-circle"></i></div>
-          <div class="info-item-text">Confirma el método <strong>antes de transferir</strong>.</div>
+        <div class="info-card-body">
+          <div class="payment-pills">
+            <span class="ppill"><i class="fas fa-university"></i> BANCOLOMBIA</span>
+            <span class="ppill"><i class="fas fa-mobile-alt"></i> NEQUI</span>
+            <span class="ppill"><i class="fas fa-mobile-alt"></i> DAVIPLATA</span>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-percentage"></i></div>
+            <div class="info-row-text"><strong>Recargo del 6%</strong> por uso de tarjeta de crédito.</div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-tag"></i></div>
+            <div class="info-row-text"><strong>Descuento del 3%</strong> pagando por otro medio.</div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="info-row-text">Confirma el método <strong>antes de transferir</strong>.</div>
+          </div>
         </div>
       </div>
+
+      <div class="info-card envio">
+        <div class="info-card-head">
+          <div class="info-icon"><i class="fas fa-shipping-fast"></i></div>
+          <div>
+            <div class="info-card-title">Envíos</div>
+            <div class="info-card-sub">A todo Colombia · 2–7 días hábiles</div>
+          </div>
+        </div>
+        <div class="info-card-body">
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-map-marked-alt"></i></div>
+            <div class="info-row-text">Envíos a <strong>todo el país</strong>.</div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-calculator"></i></div>
+            <div class="info-row-text">Flete <strong>cotizado según transportadora</strong>.</div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-truck"></i></div>
+            <div class="info-row-text">Transportadoras:</div>
+          </div>
+          <div class="carriers">
+            <span class="carrier">Servientrega</span>
+            <span class="carrier">TCC</span>
+            <span class="carrier">Coordinadora</span>
+            <span class="carrier">Interrapidísimo</span>
+            <span class="carrier">Deprisa</span>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-clock"></i></div>
+            <div class="info-row-text">Entrega estimada: <strong>2 a 7 días hábiles</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card garantia">
+        <div class="info-card-head">
+          <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+          <div>
+            <div class="info-card-title">Garantías</div>
+            <div class="info-card-sub">Productos originales y certificados</div>
+          </div>
+        </div>
+        <div class="info-card-body">
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-clipboard-check"></i></div>
+            <div class="info-row-text">Reclamos al <strong>recibir el paquete</strong>.</div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-exchange-alt"></i></div>
+            <div class="info-row-text">Sin cambios en maquillaje salvo <strong>defecto de fábrica</strong>.</div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="info-row-text"><strong>Garantía de satisfacción</strong> en todos los pedidos.</div>
+          </div>
+          <div class="info-row">
+            <div class="info-row-icon"><i class="fas fa-award"></i></div>
+            <div class="info-row-text">Productos <strong>100% originales</strong> y certificados.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <!-- ENVÍOS -->
-    <div class="info-card envio">
-      <div class="info-card-header">
-        <div class="info-icon-wrap">
-          <i class="fas fa-shipping-fast"></i>
-        </div>
-        <div>
-          <div class="info-card-title">Envíos</div>
-          <div class="info-card-subtitle">A todo Colombia · 2–7 días hábiles</div>
-        </div>
-      </div>
-      <div class="info-card-body">
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-map-marked-alt"></i></div>
-          <div class="info-item-text">Envíos a <strong>todo el país</strong>.</div>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-calculator"></i></div>
-          <div class="info-item-text">Valor del flete <strong>cotizado según transportadora</strong>.</div>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-truck"></i></div>
-          <div class="info-item-text">Transportadoras disponibles:</div>
-        </div>
-        <div class="carriers">
-          <span class="carrier-tag">Servientrega</span>
-          <span class="carrier-tag">TCC</span>
-          <span class="carrier-tag">Coordinadora</span>
-          <span class="carrier-tag">Interrapidísimo</span>
-          <span class="carrier-tag">Deprisa</span>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-clock"></i></div>
-          <div class="info-item-text">Entrega estimada: <strong>2 a 7 días hábiles</strong>.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- GARANTÍAS -->
-    <div class="info-card garantia">
-      <div class="info-card-header">
-        <div class="info-icon-wrap">
-          <i class="fas fa-shield-alt"></i>
-        </div>
-        <div>
-          <div class="info-card-title">Garantías</div>
-          <div class="info-card-subtitle">Productos originales y certificados</div>
-        </div>
-      </div>
-      <div class="info-card-body">
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-clipboard-check"></i></div>
-          <div class="info-item-text">Reclamos deben hacerse <strong>al recibir el paquete</strong>.</div>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-exchange-alt"></i></div>
-          <div class="info-item-text">Sin cambios en maquillaje, salvo <strong>defecto de fábrica</strong>.</div>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-check-circle"></i></div>
-          <div class="info-item-text"><strong>Garantía de satisfacción</strong> en todos los pedidos.</div>
-        </div>
-        <div class="info-item">
-          <div class="info-item-icon"><i class="fas fa-award"></i></div>
-          <div class="info-item-text">Productos <strong>100% originales</strong> y certificados.</div>
-        </div>
-      </div>
-    </div>
-
   </section>
 
-  <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer>
     <p>Hecho con <span>♥</span> por AROM · Maquillaje &amp; Accesorios · © 2025</p>
   </footer>
+</div>
 
-</div><!-- /container -->
-
-<!-- ═══════════════ MODAL VISTA RÁPIDA ═══════════════ -->
-<div id="qvModal" class="qv-modal" onclick="closeQVIfOutside(event)">
-  <div class="qv-content">
-    <div class="qv-img-wrap">
+<!-- ═══════════════ QUICK VIEW MODAL ═══════════════ -->
+<div id="qvOverlay" class="qv-overlay" onclick="closeQVOutside(event)" role="dialog" aria-modal="true" aria-labelledby="qvTitle">
+  <div class="qv-panel">
+    <div class="qv-img-col">
+      <button class="qv-close" onclick="closeQV()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
       <img id="qvImg" src="" alt="" />
     </div>
     <div class="qv-body">
-      <button class="qv-close" onclick="closeQuickView()" aria-label="Cerrar">
-        <i class="fas fa-times"></i>
-      </button>
-      <div id="qvName"  class="qv-name"></div>
+      <div id="qvCat" class="qv-cat"></div>
+      <h2 id="qvTitle" class="qv-name"></h2>
       <div id="qvPrice" class="qv-price"></div>
       <div class="qv-divider"></div>
-      <div id="qvDesc"  class="qv-desc"></div>
+      <p id="qvDesc" class="qv-desc"></p>
       <div class="qv-actions" id="qvActions"></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ MODAL CARRITO ═══════════════ -->
-<div id="cartModal" class="cart-modal" onclick="closeIfOutside(event)">
-  <div class="cart-content">
-    <div class="cart-header">
-      <h2>🛍️ Mi Bolsa</h2>
-      <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar">&times;</button>
-    </div>
-    <div id="cartItems"></div>
-    <div id="cartFooter" class="cart-footer" style="display:none">
-      <div class="cart-total-row">
-        <span class="cart-total-label">Total del pedido</span>
-        <span class="cart-total-amount">$<span id="totalAmount">0</span></span>
-      </div>
-
-      <!-- Campo de nota -->
-      <div class="note-wrap">
-        <label class="note-label" for="orderNote">
-          <i class="fas fa-pen-nib"></i> Nota o instrucción especial (opcional)
-        </label>
-        <textarea id="orderNote" class="note-input" rows="2"
-                  maxlength="200"
-                  placeholder="Ej: dirección de entrega, color preferido, regalo, etc."
-                  oninput="updateNoteCounter()"></textarea>
-        <div class="note-counter" id="noteCounter">0 / 200</div>
-      </div>
-
-      <button class="checkout-btn" onclick="checkout()">
-        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
-      </button>
-    </div>
+<!-- ═══════════════ CART DRAWER ═══════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Carrito de compras">
+  <div class="drawer-header">
+    <h2>🛍️ Mi Bolsa</h2>
+    <button class="drawer-close" onclick="closeCart()" aria-label="Cerrar carrito">&times;</button>
   </div>
-</div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-footer" id="drawerFooter" style="display:none">
+    <div class="total-row">
+      <span class="total-label">Total del pedido</span>
+      <span class="total-amount">$<span id="totalAmount">0</span></span>
+    </div>
+    <div class="note-wrap">
+      <label class="note-label" for="orderNote">
+        <i class="fas fa-pen-nib"></i> Nota especial (opcional)
+      </label>
+      <textarea id="orderNote" class="note-input" rows="2" maxlength="200"
+        placeholder="Ej: dirección, color preferido, regalo…"
+        oninput="updateNoteCounter()"></textarea>
+      <div class="note-counter" id="noteCounter">0 / 200</div>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">
+      <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+    </button>
+  </div>
+</aside>
 
 <!-- ═══════════════ TOAST ═══════════════ -->
-<div id="notification" role="alert" aria-live="polite"></div>
+<div id="toast" role="alert" aria-live="polite"></div>
 
-<!-- ═══════════════ WHATSAPP FLOTANTE ═══════════════ -->
+<!-- ═══════════════ WA FLOAT ═══════════════ -->
 <a href="https://wa.me/573054328798" target="_blank" rel="noopener"
-   class="floating-whatsapp" aria-label="Chatear por WhatsApp">
+   class="wa-float" aria-label="Chatear por WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
 
 <!-- ═══════════════════════════════════════════
-     JAVASCRIPT — datos + lógica
+     JAVASCRIPT
 ═══════════════════════════════════════════ -->
 <script>
-/* ────────────────────────────────────────────
-   BASE DE DATOS DE PRODUCTOS
-   Agrega o modifica productos aquí fácilmente
-──────────────────────────────────────────── */
+/* ════════════════════════════════════════
+   PRODUCT DATABASE
+════════════════════════════════════════ */
 const PRODUCTS = {
   'grid-facial': [
-    { id:1,  name:'Crema Hidratante de Arroz BIOAQUA',         price:7000,  img:'imagenes/crema_facialarroz.jpg',         desc:'Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.' },
-    { id:2,  name:'Crema Polipéptidos de Perilla',             price:7000,  img:'imagenes/crema_perilla.jpg',             desc:'Hidratación intensa, reduce signos del envejecimiento, piel más uniforme y radiante.' },
-    { id:3,  name:'Crema Centella Asiática BIOAQUA',           price:7000,  img:'imagenes/crema_facial_centella.jpg',     desc:'Reduce enrojecimiento e irritación. Potente antioxidante que protege de radicales libres.' },
-    { id:4,  name:'Crema Vitamina C BIOAQUA',                  price:7000,  img:'imagenes/crema_facialvitaminaC.jpg',     desc:'Reduce líneas de expresión, activa síntesis de colágeno, minimiza manchas. 50g.' },
-    { id:5,  name:'Crema Facial Hinojo BIOAQUA',               price:6000,  img:'imagenes/crema_facial_hinojo.jpg',       desc:'Base de ácido hialurónico y extracto de hinojo para piel hidratada y radiante.' },
-    { id:6,  name:'Crema Camelias BIOAQUA',                    price:7000,  img:'imagenes/crema_camelias_1.jpg',          desc:'Hidrata profundamente y protege del daño ambiental, piel fresca y juvenil.' },
-    { id:7,  name:'Gel Ácido Hialurónico BIOAQUA',             price:4800,  img:'imagenes/crema_gel.jpg',                 desc:'Reduce signos de envejecimiento, mejora líneas finas y deja la piel suave y luminosa.' },
-    { id:8,  name:'Crema Ácido Hialurónico BIOAQUA',           price:9500,  img:'imagenes/crema_acido_hialuronico.jpg',   desc:'Alta concentración, poder antioxidante, previene envejecimiento prematuro.' },
-    { id:9,  name:'Crema Retinol BIOAQUA',                     price:7500,  img:'imagenes/crema_facialretinol.jpg',       desc:'Elimina manchas de sol, edad y acné; reduce líneas de expresión y mejora luminosidad.' },
-    { id:10, name:'Crema Vitamina C Aclarante BIOAQUA',        price:7000,  img:'imagenes/crema_facial_vitaminacaclarante.jpg', desc:'Nutre, ilumina y rejuvenece con Vitamina C y Elastina.' },
-    { id:11, name:'Crema Ácido Salicílico Acné BIOAQUA',       price:8000,  img:'imagenes/ACIDO-SALICILICO-BIOAQUA_.jpg', desc:'Combate el acné, controla grasa, limpia poros y regula la producción de sebo.' },
-    { id:12, name:'Crema Vitamina E + B5 BIOAQUA',             price:7000,  img:'imagenes/crema_facial_vitaminae+b5.jpg', desc:'Vitamina E antioxidante + B5 humectante para piel saludable y nutrida.' },
-    { id:13, name:'Crema Antiacné BIOAQUA',                    price:7500,  img:'imagenes/crema_facial_anec.jpg',         desc:'Reduce sebo, controla bacterias y mejora manchas y cicatrices de acné.' },
-    { id:14, name:'Crema Blanqueadora Para Pecas BIOAQUA',     price:7500,  img:'imagenes/cremablanqueadora.jpg',         desc:'Elimina eficazmente pecas, manchas y acné, aclarando la piel sin efectos secundarios.' },
-    { id:15, name:'Crema Rosas + Ácido Hialurónico BIOAQUA',  price:7500,  img:'imagenes/crema_camelias.jpg',            desc:'Combina rosas calmantes con ácido hialurónico para piel suave e hidratada.' },
-    { id:16, name:'Mascarilla Vitamina C SADOER',              price:8500,  img:'imagenes/mascarillavitaminae.jpg',       desc:'Ilumina, revitaliza y unifica el tono, ideal para pieles apagadas o con manchas.' },
-    { id:17, name:'Mascarilla Gel Arroz BIOAQUA',              price:8500,  img:'imagenes/mascarilladearrozengel.jpg',    desc:'Gel suave con extractos de arroz que remueve suciedad de poros y piel muerta.' },
-    { id:18, name:'Mascarilla Aloe Vera BIOAQUA',              price:8500,  img:'imagenes/mascarilla_gelaloevera.jpg',    desc:'Para pieles sensibles, con acné, envejecimiento o necesidad extrema de hidratación.' },
-    { id:19, name:'Crema Depilatoria Aloe Vera BIOAQUA',       price:7500,  img:'imagenes/crema_depilatoria.jpg',         desc:'3 min de depilación rápida y suave. Apta para cara, axilas, piernas y piel sensible.' },
-    { id:20, name:'Crema Corporal Peach BIOAQUA',              price:8500,  img:'imagenes/crematarrodurazno.jpg',         desc:'Nutre profundamente, hidrata todo el día y deja la piel brillante y luminosa.' },
-    { id:21, name:'Jabón Facial Camelias BIOAQUA',             price:7500,  img:'imagenes/jabon_camelias (2).jpg',        desc:'Limpia, protege y revitaliza con extracto de camelia y propiedades antioxidantes.' },
-    { id:22, name:'Jabón Facial Centella Asiática BIOAQUA',    price:7500,  img:'imagenes/jabon_centella.jpg',            desc:'Limpia, hidrata y ayuda a prevenir brotes y arrugas con centella asiática.' },
-    { id:23, name:'Jabón Peptide Perilla Niacinamida BIOAQUA', price:8500,  img:'imagenes/jabon_perilla.jpg',             desc:'Perilla calmante con niacinamida, ideal para piel sensible y propensa a irritaciones.' },
-    { id:24, name:'Jabón Hinojo Marino + AH BIOAQUA',          price:8500,  img:'imagenes/jabon_hinojo.jpg',              desc:'Limpiador tipo espuma anti-arrugas con hinojo marino y ácido hialurónico.' },
-    { id:25, name:'Sérum Perilla Polipéptidos BIOAQUA',        price:5000,  img:'imagenes/serum_perilla.jpg',             desc:'Nutrición profunda con polipéptidos de perilla para hidratación intensa y anti-edad.' },
-    { id:28, name:'Suero Ácido Hialurónico BIOAQUA',           price:8500,  img:'imagenes/serum_acido_grande.jpg',        desc:'Hidrata, da volumen y elasticidad, reduciendo arrugas y mejorando la apariencia.' },
-    { id:29, name:'Suero Gold 24K AH BIOAQUA',                 price:10500, img:'imagenes/serum_acido_oro.jpg',           desc:'Nanopartículas de oro 24K + nicotinamida que aportan luminosidad e hidratación profunda.' },
-    { id:30, name:'Sérum Anti-Edad Vitamina C BIOAQUA',        price:10500, img:'imagenes/serum_vtaminaC_grande.jpg',     desc:'Hidrata, nutre, reduce manchas y signos de envejecimiento, aporta firmeza y protección.' },
-    { id:31, name:'Contorno de Ojos Arroz Blanco BIOAQUA',     price:3500,  img:'imagenes/CONTORNO DE ARROZ.jpg',         desc:'El arroz hidrata, ilumina y elimina células muertas en el delicado contorno de ojos.' },
-    { id:32, name:'Jabón Facial Rose Hyaluronic BIOAQUA',      price:8500,  img:'imagenes/JABONROSAS.jpg',                desc:'ÁH + rosas que limpian, hidratan, suavizan y revitalizan la piel profundamente.' },
-    { id:33, name:'Agua de Rosas',                             price:8500,  img:'imagenes/aguarosas500ml.jpg',            desc:'Tónico hidratante, tonificante y reafirmante. Sin alcohol ni parabenos.' },
-    { id:34, name:'Crema Aclarante Zona Íntima BIOAQUA',       price:9500,  img:'imagenes/despigmentante.jpg',            desc:'Despigmenta y aclara zonas sensibles: axilas, labios, pezones y más.' },
-    { id:35, name:'Protector Solar Arroz SPF50+ BIOAQUA',      price:5500,  img:'imagenes/bloqueadorcremaarroz.jpg',      desc:'Alta protección UVB/UVA para el rostro con extracto de arroz.' },
-    { id:36, name:'Protector Solar en Spray BIOAQUA',          price:8500,  img:'imagenes/bloqueadorrosado.jpg',          desc:'Ideal sobre maquillaje, sin grasa, transparente y con defensa UV.' },
-    { id:37, name:'Protector Solar Aloe Vera BIOAQUA',         price:7000,  img:'imagenes/bloqueador_solar_aloevera.jpg', desc:'Defensa UVA/UVB + propiedades antibacterianas e hidratación intensiva.' },
-    { id:38, name:'Crema Depilatoria Arroz BIOAQUA',           price:7500,  img:'imagenes/depiladorarroz.jpg',            desc:'Elimina vello en minutos con efecto despigmentante, piel suave e hidratada.' },
-    { id:39, name:'Sérum Retinol BIOAQUA',                     price:5000,  img:'imagenes/m_38.jpg',                      desc:'Reduce arrugas, estimula colágeno, combate manchas y deja la piel radiante.' },
-    { id:40, name:'Sérum Vitamina C 30ml BIOAQUA',             price:5000,  img:'imagenes/m_42.jpg',                      desc:'Aclara el tono, nutre profundamente y mejora la suavidad del rostro.' },
-    { id:41, name:'Sérum Esencia de Arroz BIOAQUA',            price:5000,  img:'imagenes/SERUMARROZ.jpg',                desc:'Anti-edad con arroz y ácido hialurónico para piel firme, suave y protegida.' },
-    { id:42, name:'Tratamiento Crecimiento Pestañas BIOAQUA',  price:6500,  img:'imagenes/m_39.jpg',                      desc:'Estimula folículos y fortalece pestañas, cejas, barba y bigote. Resultados en 2-3 sem.' },
-    { id:43, name:'Sérum Rosas + AH BIOAQUA',                  price:5000,  img:'imagenes/serumrosas.jpg',                desc:'Hidratación profunda, reduce arrugas y mejora firmeza y luminosidad.' },
-    { id:44, name:'Sérum Ácido Hialurónico BIOAQUA',           price:5000,  img:'imagenes/serumverde.jpg',                desc:'Repara, hidrata y revitaliza, restaura luminosidad. Absorción rápida.' },
-    { id:45, name:'Sérum Centella Asiática BIOAQUA',           price:5000,  img:'imagenes/serumcentella.jpg',             desc:'Calma enrojecimiento, protege con antioxidantes y fortalece la barrera cutánea.' },
-    { id:46, name:'Sérum Antiedad Camelias BIOAQUA',           price:5000,  img:'imagenes/serumcamelias.jpg',             desc:'Fórmula con aguacate y vitamina E que nutre, hidrata y promueve brillo natural.' },
-    { id:47, name:'Sérum Vitamina E y B5 BIOAQUA',             price:5000,  img:'imagenes/serumvitaminaE.jpg',            desc:'Hidrata, mejora firmeza y elasticidad, promueve regeneración celular.' },
-    { id:48, name:'Sérum Whitening Vitamina C BIOAQUA',        price:5000,  img:'imagenes/serumvitaminacnaranja.jpg',     desc:'Aclara manchas, protege con antioxidantes e hidrata profundamente.' },
-    { id:49, name:'Exfoliante Facial Durazno BIOAQUA',         price:8500,  img:'imagenes/exfoliantedurazno.jpg',         desc:'Limpia, elimina células muertas y deja la piel más suave desde el primer uso.' },
-    { id:50, name:'Jabón Facial Durazno con Aminoácidos',      price:5000,  img:'imagenes/jabonfacialdurazno.jpg',        desc:'Limpia suavemente con aminoácidos y fragancia de durazno fresco.' },
-    { id:51, name:'Crema Contorno Ojos Anti-Arrugas BIOAQUA',  price:5000,  img:'imagenes/CREMAARRUJAS.jpg',              desc:'Suaviza arrugas y ojeras, hidrata y tensa la piel. Uso diario mañana y noche.' },
+    { id:1,  name:'Crema Hidratante de Arroz BIOAQUA',         price:7000,  img:'imagenes/crema_facialarroz.jpg',         cat:'Cuidado Facial', desc:'Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.' },
+    { id:2,  name:'Crema Polipéptidos de Perilla',             price:7000,  img:'imagenes/crema_perilla.jpg',             cat:'Cuidado Facial', desc:'Hidratación intensa, reduce signos del envejecimiento, piel más uniforme y radiante.' },
+    { id:3,  name:'Crema Centella Asiática BIOAQUA',           price:7000,  img:'imagenes/crema_facial_centella.jpg',     cat:'Cuidado Facial', desc:'Reduce enrojecimiento e irritación. Potente antioxidante que protege de radicales libres.' },
+    { id:4,  name:'Crema Vitamina C BIOAQUA',                  price:7000,  img:'imagenes/crema_facialvitaminaC.jpg',     cat:'Cuidado Facial', desc:'Reduce líneas de expresión, activa síntesis de colágeno, minimiza manchas. 50g.' },
+    { id:5,  name:'Crema Facial Hinojo BIOAQUA',               price:6000,  img:'imagenes/crema_facial_hinojo.jpg',       cat:'Cuidado Facial', desc:'Base de ácido hialurónico y extracto de hinojo para piel hidratada y radiante.' },
+    { id:6,  name:'Crema Camelias BIOAQUA',                    price:7000,  img:'imagenes/crema_camelias_1.jpg',          cat:'Cuidado Facial', desc:'Hidrata profundamente y protege del daño ambiental, piel fresca y juvenil.' },
+    { id:7,  name:'Gel Ácido Hialurónico BIOAQUA',             price:4800,  img:'imagenes/crema_gel.jpg',                 cat:'Cuidado Facial', desc:'Reduce signos de envejecimiento, mejora líneas finas y deja la piel suave y luminosa.' },
+    { id:8,  name:'Crema Ácido Hialurónico BIOAQUA',           price:9500,  img:'imagenes/crema_acido_hialuronico.jpg',   cat:'Cuidado Facial', desc:'Alta concentración, poder antioxidante, previene envejecimiento prematuro.' },
+    { id:9,  name:'Crema Retinol BIOAQUA',                     price:7500,  img:'imagenes/crema_facialretinol.jpg',       cat:'Cuidado Facial', desc:'Elimina manchas de sol, edad y acné; reduce líneas de expresión y mejora luminosidad.' },
+    { id:10, name:'Crema Vitamina C Aclarante BIOAQUA',        price:7000,  img:'imagenes/crema_facial_vitaminacaclarante.jpg', cat:'Cuidado Facial', desc:'Nutre, ilumina y rejuvenece con Vitamina C y Elastina.' },
+    { id:11, name:'Crema Ácido Salicílico Acné BIOAQUA',       price:8000,  img:'imagenes/ACIDO-SALICILICO-BIOAQUA_.jpg', cat:'Cuidado Facial', desc:'Combate el acné, controla grasa, limpia poros y regula la producción de sebo.' },
+    { id:12, name:'Crema Vitamina E + B5 BIOAQUA',             price:7000,  img:'imagenes/crema_facial_vitaminae+b5.jpg', cat:'Cuidado Facial', desc:'Vitamina E antioxidante + B5 humectante para piel saludable y nutrida.' },
+    { id:13, name:'Crema Antiacné BIOAQUA',                    price:7500,  img:'imagenes/crema_facial_anec.jpg',         cat:'Cuidado Facial', desc:'Reduce sebo, controla bacterias y mejora manchas y cicatrices de acné.' },
+    { id:14, name:'Crema Blanqueadora Para Pecas BIOAQUA',     price:7500,  img:'imagenes/cremablanqueadora.jpg',         cat:'Cuidado Facial', desc:'Elimina eficazmente pecas, manchas y acné, aclarando la piel sin efectos secundarios.' },
+    { id:15, name:'Crema Rosas + Ácido Hialurónico BIOAQUA',  price:7500,  img:'imagenes/crema_camelias.jpg',            cat:'Cuidado Facial', desc:'Combina rosas calmantes con ácido hialurónico para piel suave e hidratada.' },
+    { id:16, name:'Mascarilla Vitamina C SADOER',              price:8500,  img:'imagenes/mascarillavitaminae.jpg',       cat:'Cuidado Facial', desc:'Ilumina, revitaliza y unifica el tono, ideal para pieles apagadas o con manchas.' },
+    { id:17, name:'Mascarilla Gel Arroz BIOAQUA',              price:8500,  img:'imagenes/mascarilladearrozengel.jpg',    cat:'Cuidado Facial', desc:'Gel suave con extractos de arroz que remueve suciedad de poros y piel muerta.' },
+    { id:18, name:'Mascarilla Aloe Vera BIOAQUA',              price:8500,  img:'imagenes/mascarilla_gelaloevera.jpg',    cat:'Cuidado Facial', desc:'Para pieles sensibles, con acné, envejecimiento o necesidad extrema de hidratación.' },
+    { id:19, name:'Crema Depilatoria Aloe Vera BIOAQUA',       price:7500,  img:'imagenes/crema_depilatoria.jpg',         cat:'Cuidado Facial', desc:'3 min de depilación rápida y suave. Apta para cara, axilas, piernas y piel sensible.' },
+    { id:20, name:'Crema Corporal Peach BIOAQUA',              price:8500,  img:'imagenes/crematarrodurazno.jpg',         cat:'Cuidado Facial', desc:'Nutre profundamente, hidrata todo el día y deja la piel brillante y luminosa.' },
+    { id:21, name:'Jabón Facial Camelias BIOAQUA',             price:7500,  img:'imagenes/jabon_camelias (2).jpg',        cat:'Cuidado Facial', desc:'Limpia, protege y revitaliza con extracto de camelia y propiedades antioxidantes.' },
+    { id:22, name:'Jabón Facial Centella Asiática BIOAQUA',    price:7500,  img:'imagenes/jabon_centella.jpg',            cat:'Cuidado Facial', desc:'Limpia, hidrata y ayuda a prevenir brotes y arrugas con centella asiática.' },
+    { id:23, name:'Jabón Peptide Perilla Niacinamida BIOAQUA', price:8500,  img:'imagenes/jabon_perilla.jpg',             cat:'Cuidado Facial', desc:'Perilla calmante con niacinamida, ideal para piel sensible y propensa a irritaciones.' },
+    { id:24, name:'Jabón Hinojo Marino + AH BIOAQUA',          price:8500,  img:'imagenes/jabon_hinojo.jpg',              cat:'Cuidado Facial', desc:'Limpiador tipo espuma anti-arrugas con hinojo marino y ácido hialurónico.' },
+    { id:25, name:'Sérum Perilla Polipéptidos BIOAQUA',        price:5000,  img:'imagenes/serum_perilla.jpg',             cat:'Cuidado Facial', desc:'Nutrición profunda con polipéptidos de perilla para hidratación intensa y anti-edad.' },
+    { id:28, name:'Suero Ácido Hialurónico BIOAQUA',           price:8500,  img:'imagenes/serum_acido_grande.jpg',        cat:'Cuidado Facial', desc:'Hidrata, da volumen y elasticidad, reduciendo arrugas y mejorando la apariencia.' },
+    { id:29, name:'Suero Gold 24K AH BIOAQUA',                 price:10500, img:'imagenes/serum_acido_oro.jpg',           cat:'Cuidado Facial', desc:'Nanopartículas de oro 24K + nicotinamida que aportan luminosidad e hidratación profunda.' },
+    { id:30, name:'Sérum Anti-Edad Vitamina C BIOAQUA',        price:10500, img:'imagenes/serum_vtaminaC_grande.jpg',     cat:'Cuidado Facial', desc:'Hidrata, nutre, reduce manchas y signos de envejecimiento, aporta firmeza y protección.' },
+    { id:31, name:'Contorno de Ojos Arroz Blanco BIOAQUA',     price:3500,  img:'imagenes/CONTORNO DE ARROZ.jpg',         cat:'Cuidado Facial', desc:'El arroz hidrata, ilumina y elimina células muertas en el delicado contorno de ojos.' },
+    { id:32, name:'Jabón Facial Rose Hyaluronic BIOAQUA',      price:8500,  img:'imagenes/JABONROSAS.jpg',                cat:'Cuidado Facial', desc:'ÁH + rosas que limpian, hidratan, suavizan y revitalizan la piel profundamente.' },
+    { id:33, name:'Agua de Rosas',                             price:8500,  img:'imagenes/aguarosas500ml.jpg',            cat:'Cuidado Facial', desc:'Tónico hidratante, tonificante y reafirmante. Sin alcohol ni parabenos.' },
+    { id:34, name:'Crema Aclarante Zona Íntima BIOAQUA',       price:9500,  img:'imagenes/despigmentante.jpg',            cat:'Cuidado Facial', desc:'Despigmenta y aclara zonas sensibles: axilas, labios, pezones y más.' },
+    { id:35, name:'Protector Solar Arroz SPF50+ BIOAQUA',      price:5500,  img:'imagenes/bloqueadorcremaarroz.jpg',      cat:'Cuidado Facial', desc:'Alta protección UVB/UVA para el rostro con extracto de arroz.' },
+    { id:36, name:'Protector Solar en Spray BIOAQUA',          price:8500,  img:'imagenes/bloqueadorrosado.jpg',          cat:'Cuidado Facial', desc:'Ideal sobre maquillaje, sin grasa, transparente y con defensa UV.' },
+    { id:37, name:'Protector Solar Aloe Vera BIOAQUA',         price:7000,  img:'imagenes/bloqueador_solar_aloevera.jpg', cat:'Cuidado Facial', desc:'Defensa UVA/UVB + propiedades antibacterianas e hidratación intensiva.' },
+    { id:38, name:'Crema Depilatoria Arroz BIOAQUA',           price:7500,  img:'imagenes/depiladorarroz.jpg',            cat:'Cuidado Facial', desc:'Elimina vello en minutos con efecto despigmentante, piel suave e hidratada.' },
+    { id:39, name:'Sérum Retinol BIOAQUA',                     price:5000,  img:'imagenes/m_38.jpg',                      cat:'Cuidado Facial', desc:'Reduce arrugas, estimula colágeno, combate manchas y deja la piel radiante.' },
+    { id:40, name:'Sérum Vitamina C 30ml BIOAQUA',             price:5000,  img:'imagenes/m_42.jpg',                      cat:'Cuidado Facial', desc:'Aclara el tono, nutre profundamente y mejora la suavidad del rostro.' },
+    { id:41, name:'Sérum Esencia de Arroz BIOAQUA',            price:5000,  img:'imagenes/SERUMARROZ.jpg',                cat:'Cuidado Facial', desc:'Anti-edad con arroz y ácido hialurónico para piel firme, suave y protegida.' },
+    { id:42, name:'Tratamiento Crecimiento Pestañas BIOAQUA',  price:6500,  img:'imagenes/m_39.jpg',                      cat:'Cuidado Facial', desc:'Estimula folículos y fortalece pestañas, cejas, barba y bigote.' },
+    { id:43, name:'Sérum Rosas + AH BIOAQUA',                  price:5000,  img:'imagenes/serumrosas.jpg',                cat:'Cuidado Facial', desc:'Hidratación profunda, reduce arrugas y mejora firmeza y luminosidad.' },
+    { id:44, name:'Sérum Ácido Hialurónico BIOAQUA',           price:5000,  img:'imagenes/serumverde.jpg',                cat:'Cuidado Facial', desc:'Repara, hidrata y revitaliza, restaura luminosidad. Absorción rápida.' },
+    { id:45, name:'Sérum Centella Asiática BIOAQUA',           price:5000,  img:'imagenes/serumcentella.jpg',             cat:'Cuidado Facial', desc:'Calma enrojecimiento, protege con antioxidantes y fortalece la barrera cutánea.' },
+    { id:46, name:'Sérum Antiedad Camelias BIOAQUA',           price:5000,  img:'imagenes/serumcamelias.jpg',             cat:'Cuidado Facial', desc:'Fórmula con aguacate y vitamina E que nutre, hidrata y promueve brillo natural.' },
+    { id:47, name:'Sérum Vitamina E y B5 BIOAQUA',             price:5000,  img:'imagenes/serumvitaminaE.jpg',            cat:'Cuidado Facial', desc:'Hidrata, mejora firmeza y elasticidad, promueve regeneración celular.' },
+    { id:48, name:'Sérum Whitening Vitamina C BIOAQUA',        price:5000,  img:'imagenes/serumvitaminacnaranja.jpg',     cat:'Cuidado Facial', desc:'Aclara manchas, protege con antioxidantes e hidrata profundamente.' },
+    { id:49, name:'Exfoliante Facial Durazno BIOAQUA',         price:8500,  img:'imagenes/exfoliantedurazno.jpg',         cat:'Cuidado Facial', desc:'Limpia, elimina células muertas y deja la piel más suave desde el primer uso.' },
+    { id:50, name:'Jabón Facial Durazno con Aminoácidos',      price:5000,  img:'imagenes/jabonfacialdurazno.jpg',        cat:'Cuidado Facial', desc:'Limpia suavemente con aminoácidos y fragancia de durazno fresco.' },
+    { id:51, name:'Crema Contorno Ojos Anti-Arrugas BIOAQUA',  price:5000,  img:'imagenes/CREMAARRUJAS.jpg',              cat:'Cuidado Facial', desc:'Suaviza arrugas y ojeras, hidrata y tensa la piel. Uso diario mañana y noche.' },
   ],
-
   'grid-labios': [
-    { id:101, name:'Brillo Hello Kitty Llavero',       price:3500,  img:'imagenes/brillo_hello_kity_llavero.jpg', desc:'Brillo mágico en divertida forma de llavero Hello Kitty.' },
-    { id:102, name:'Bálsamo Labial x2 Capuvinni',      price:8500,  img:'imagenes/balsamo_color_capuvinni.jpg',   desc:'Empaque en forma de helado con 2 bálsamos de diferentes tonos.' },
-    { id:103, name:'Labial Mate Líquido LAMEILA',       price:4000,  img:'imagenes/balsamo_color_capuvinni.jpg',   desc:'Labial líquido con acabado mate de larga duración.' },
-    { id:104, name:'Bálsamo Fresa',                    price:2500,  img:'imagenes/balsamo_color_capuvinni.jpg',   desc:'Bálsamo hidratante con aroma a fresa para labios suaves.' },
-    { id:105, name:'Colágeno de Labios VEZE',           price:10000, img:'imagenes/balsamo_color_capuvinni.jpg',   desc:'Hidrata, suaviza, elimina líneas finas y previene grietas.' },
-    { id:106, name:'Brillo Mágico Aloe Vera',          price:4000,  img:'imagenes/balsamo_color_capuvinni.jpg',   desc:'Brillo labial con propiedades hidratantes del aloe vera.' },
+    { id:101, name:'Brillo Hello Kitty Llavero',         price:3500,  img:'imagenes/brillo_hello_kity_llavero.jpg', cat:'Labios', desc:'Brillo mágico en divertida forma de llavero Hello Kitty.' },
+    { id:102, name:'Bálsamo Labial x2 Capuvinni',        price:8500,  img:'imagenes/balsamo_color_capuvinni.jpg',   cat:'Labios', desc:'Empaque en forma de helado con 2 bálsamos de diferentes tonos.' },
+    { id:103, name:'Labial Mate Líquido LAMEILA',         price:4000,  img:'imagenes/labial_mate_lameila.jpg',       cat:'Labios', desc:'Labial líquido con acabado mate de larga duración.' },
+    { id:104, name:'Bálsamo Fresa',                      price:2500,  img:'imagenes/balsamo_fresa.jpg',             cat:'Labios', desc:'Bálsamo hidratante con aroma a fresa para labios suaves.' },
+    { id:105, name:'Colágeno de Labios VEZE',             price:10000, img:'imagenes/colageno_labios.jpg',           cat:'Labios', desc:'Hidrata, suaviza, elimina líneas finas y previene grietas.' },
+    { id:106, name:'Brillo Mágico Aloe Vera',            price:4000,  img:'imagenes/brillo_aloevera.jpg',           cat:'Labios', desc:'Brillo labial con propiedades hidratantes del aloe vera.' },
   ],
-
   'grid-rubores': [
-    { id:201, name:'Paleta Correctores Full Coverage SFR', price:8000, img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Paleta completa de correctores de alta cobertura para todo tipo de piel.' },
-    { id:202, name:'Rubor Tipo Tiza CAPPUVINI',            price:8000, img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Rubor en polvo compacto con acabado natural y duradero.' },
-    { id:203, name:'Rubor Líquido MLSMILE',                price:8000, img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Rubor líquido de fácil aplicación con acabado natural.' },
-    { id:204, name:'Rubor Jelly Tint ALAMA BEAUTY',        price:8000, img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Textura gelatinosa única, fácil aplicación y acabado natural.' },
+    { id:201, name:'Paleta Correctores Full Coverage SFR', price:8000,  img:'imagenes/paleta_correctores.jpg',    cat:'Rubores', desc:'Paleta completa de correctores de alta cobertura para todo tipo de piel.' },
+    { id:202, name:'Rubor Tipo Tiza CAPPUVINI',            price:8000,  img:'imagenes/rubor_tiza.jpg',            cat:'Rubores', desc:'Rubor en polvo compacto con acabado natural y duradero.' },
+    { id:203, name:'Rubor Líquido MLSMILE',                price:8000,  img:'imagenes/rubor_liquido.jpg',         cat:'Rubores', desc:'Rubor líquido de fácil aplicación con acabado natural.' },
+    { id:204, name:'Rubor Jelly Tint ALAMA BEAUTY',        price:8000,  img:'imagenes/rubor_jelly.jpg',           cat:'Rubores', desc:'Textura gelatinosa única, fácil aplicación y acabado natural.' },
   ],
-
   'grid-sombras': [
-    { id:301, name:'Iluminador SAGUI',                       price:8000,  img:'imagenes/iluminador_luna.jpg',             desc:'Iluminador para resaltar los puntos altos del rostro con acabado radiante.' },
-    { id:302, name:'Paleta de Sombras 40 Tonos',             price:25000, img:'imagenes/balsamo_color_capuvinni.jpg',     desc:'Paleta completa con 40 tonos para crear looks versátiles.' },
-    { id:303, name:'Paleta de Sombras 38 Tonos',             price:25000, img:'imagenes/balsamo_color_capuvinni.jpg',     desc:'Amplia gama de colores para todos los gustos y ocasiones.' },
-    { id:304, name:'Paleta Pride 117 Colores Kevin & Coco',  price:48000, img:'imagenes/balsamo_color_capuvinni.jpg',     desc:'Paleta profesional con 117 colores para maquillaje completo.' },
+    { id:301, name:'Iluminador SAGUI',                       price:8000,  img:'imagenes/iluminador_luna.jpg',         cat:'Sombras', desc:'Iluminador para resaltar los puntos altos del rostro con acabado radiante.' },
+    { id:302, name:'Paleta de Sombras 40 Tonos',             price:25000, img:'imagenes/paleta_40_tonos.jpg',         cat:'Sombras', desc:'Paleta completa con 40 tonos para crear looks versátiles.' },
+    { id:303, name:'Paleta de Sombras 38 Tonos',             price:25000, img:'imagenes/paleta_38_tonos.jpg',         cat:'Sombras', desc:'Amplia gama de colores para todos los gustos y ocasiones.' },
+    { id:304, name:'Paleta Pride 117 Colores Kevin & Coco',  price:48000, img:'imagenes/paleta_117_tonos.jpg',        cat:'Sombras', desc:'Paleta profesional con 117 colores para maquillaje completo.' },
   ],
-
   'grid-pestanas': [
-    { id:401, name:'Sérum Crecimiento Pestañas BIOAQUA',   price:7000,  img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Nutre desde la raíz, agrega grosor y fortalece pestañas cortas.' },
-    { id:402, name:'Pestañina Distinct Roots KARITÉ',      price:7000,  img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Máscara para pestañas con efecto volumen y definición.' },
-    { id:403, name:'Pestañina PROSA',                      price:20000, img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Máscara premium para pestañas largas y voluminosas.' },
-    { id:404, name:'Pestañina Súper Volumen OLIBOLLA',     price:7000,  img:'imagenes/balsamo_color_capuvinni.jpg', desc:'Con aloe vera, doble extensión para pestañas impactantes.' },
+    { id:401, name:'Sérum Crecimiento Pestañas BIOAQUA',   price:7000,  img:'imagenes/serum_pestanas.jpg',     cat:'Pestañas', desc:'Nutre desde la raíz, agrega grosor y fortalece pestañas cortas.' },
+    { id:402, name:'Pestañina Distinct Roots KARITÉ',      price:7000,  img:'imagenes/pestanina_karite.jpg',   cat:'Pestañas', desc:'Máscara para pestañas con efecto volumen y definición.' },
+    { id:403, name:'Pestañina PROSA',                      price:20000, img:'imagenes/pestanina_prosa.jpg',   cat:'Pestañas', desc:'Máscara premium para pestañas largas y voluminosas.' },
+    { id:404, name:'Pestañina Súper Volumen OLIBOLLA',     price:7000,  img:'imagenes/pestanina_olibolla.jpg',cat:'Pestañas', desc:'Con aloe vera, doble extensión para pestañas impactantes.' },
+  ],
+  'grid-delineadores': [
+    { id:501, name:'Delineador Negro Líquido',             price:6000,  img:'imagenes/delineador_negro.jpg',    cat:'Delineadores', desc:'Trazo preciso, secado rápido y larga duración todo el día.' },
+    { id:502, name:'Delineador de Colores',                price:7000,  img:'imagenes/delineador_colores.jpg', cat:'Delineadores', desc:'Set de delineadores de colores vibrantes para looks creativos.' },
+  ],
+  'grid-cabello': [
+    { id:601, name:'Aceite Capilar Nutritivo',             price:9000,  img:'imagenes/aceite_capilar.jpg',     cat:'Cabello', desc:'Nutre, brilla y protege el cabello del calor y la humedad.' },
+    { id:602, name:'Mascarilla Capilar Hidratante',        price:11000, img:'imagenes/mascarilla_capilar.jpg', cat:'Cabello', desc:'Hidratación profunda para cabello seco, dañado o con puntas abiertas.' },
+  ],
+  'grid-otros': [
+    { id:701, name:'Set de Brochas 10 Piezas',             price:15000, img:'imagenes/brochas_set.jpg',        cat:'Otros', desc:'Set completo de brochas profesionales para una aplicación perfecta.' },
+    { id:702, name:'Esponja Beauty Blender',               price:5000,  img:'imagenes/esponja_bb.jpg',         cat:'Otros', desc:'Esponja para aplicar base, corrector y polvo con acabado impecable.' },
   ],
 };
 
-/* ────────────────────────────────────────────
-   RENDER DE PRODUCTOS
-──────────────────────────────────────────── */
-function renderProducts() {
-  Object.entries(PRODUCTS).forEach(([gridId, products]) => {
-    const grid = document.getElementById(gridId);
-    if (!grid) return;
-    grid.innerHTML = products.map(p => `
-      <div class="product-card" data-id="${p.id}">
-        <div class="product-img-wrap" onclick="openQuickView(${p.id})">
-          <img src="${p.img}"
-               alt="${p.name}"
-               loading="lazy"
-               onerror="this.src='https://via.placeholder.com/300x300/fde4ef/7B2D5E?text=AROM'" />
-          <div class="img-overlay">
-            <span class="img-overlay-label">
-              <i class="fas fa-eye"></i> Ver detalle
-            </span>
-          </div>
-        </div>
-        <div class="product-body">
-          <div class="product-name">${p.name}</div>
-          <div class="product-description">${p.desc}</div>
-        </div>
-        <div class="product-footer">
-          <div class="product-price">$${p.price.toLocaleString('es-CO')}</div>
-          <div id="card-ctrl-${p.id}">${cardControl(p)}</div>
-        </div>
-      </div>`).join('');
-  });
-}
-
-/* devuelve el HTML del control según cantidad en carrito */
-function cardControl(p) {
-  const item = cart.find(i => i.id === p.id);
-  if (!item) {
-    return `<button class="add-to-cart"
-              onclick="addToCart(${p.id},'${escHtml(p.name)}',${p.price})">
-              + Agregar
-            </button>`;
-  }
-  return `<div class="card-stepper">
-    <button onclick="cardMinus(${p.id},'${escHtml(p.name)}',${p.price})" aria-label="Quitar uno">−</button>
-    <span class="card-qty">${item.qty}</span>
-    <button onclick="cardPlus(${p.id},'${escHtml(p.name)}',${p.price})" aria-label="Agregar uno">+</button>
-  </div>`;
-}
-
-const escHtml = s => s.replace(/'/g,"&#39;").replace(/"/g,"&quot;");
-
-/* ────────────────────────────────────────────
-   CARRITO — lógica
-──────────────────────────────────────────── */
+/* ════════════════════════════════════════
+   STATE
+════════════════════════════════════════ */
 let cart = [];
-try { cart = JSON.parse(localStorage.getItem('aromCart')) || []; } catch(e){ cart=[]; }
+let currentSort = 'default';
+let activeSearch = '';
+let activeCat = 'all';
+let wishlist = new Set();
 
-const saveCart = () => {
-  try { localStorage.setItem('aromCart', JSON.stringify(cart)); } catch(e){}
-};
+try { cart     = JSON.parse(localStorage.getItem('aromCart_v2'))    || []; } catch(e){ cart=[]; }
+try { wishlist = new Set(JSON.parse(localStorage.getItem('aromWish'))||[]); } catch(e){}
 
-function addToCart(id, name, price) {
-  const existing = cart.find(i => i.id === id);
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    let img = '';
-    for (const list of Object.values(PRODUCTS)) {
-      const p = list.find(p => p.id === id);
-      if (p) { img = p.img; break; }
-    }
-    cart.push({ id, name, price, qty: 1, img });
-  }
-  saveCart();
-  renderCart();
-  refreshCardControl(id);
-  bumpBadge();
-  toast(`✓ ${name} agregado`, 'success');
-}
+const saveCart = () => { try{ localStorage.setItem('aromCart_v2',JSON.stringify(cart)); }catch(e){} };
+const saveWish = () => { try{ localStorage.setItem('aromWish',JSON.stringify([...wishlist])); }catch(e){} };
 
-function removeFromCart(id) {
-  cart = cart.filter(i => i.id !== id);
-  saveCart();
-  renderCart();
-  refreshCardControl(id);
-}
-
-function changeQty(id, delta) {
-  const item = cart.find(i => i.id === id);
-  if (!item) return;
-  item.qty += delta;
-  if (item.qty <= 0) { removeFromCart(id); return; }
-  saveCart();
-  renderCart();
-  refreshCardControl(id);
-}
-
-/* ── Stepper desde la tarjeta ── */
-function cardPlus(id, name, price) {
-  addToCart(id, name, price);
-}
-
-function cardMinus(id, name, price) {
-  const item = cart.find(i => i.id === id);
-  if (!item) return;
-  item.qty -= 1;
-  if (item.qty <= 0) {
-    removeFromCart(id);
-  } else {
-    saveCart();
-    renderCart();
-    refreshCardControl(id);
-  }
-}
-
-/* Actualiza solo el control de UNA tarjeta sin re-renderizar todo el grid */
-function refreshCardControl(id) {
-  const wrap = document.getElementById(`card-ctrl-${id}`);
-  if (!wrap) return;
-  /* buscar el producto en PRODUCTS */
-  let p = null;
-  for (const list of Object.values(PRODUCTS)) {
-    p = list.find(x => x.id === id);
-    if (p) break;
-  }
-  if (p) wrap.innerHTML = cardControl(p);
-}
-
-function renderCart() {
-  const wrap   = document.getElementById('cartItems');
-  const footer = document.getElementById('cartFooter');
-  const badge  = document.getElementById('cartCount');
-  const total  = document.getElementById('totalAmount');
-  if (!wrap) return;
-
-  const totalItems = cart.reduce((s,i) => s + i.qty, 0);
-  badge.textContent = totalItems;
-
-  if (!cart.length) {
-    wrap.innerHTML = `
-      <div class="empty-cart">
-        <div class="empty-icon">🛍️</div>
-        <p>Tu bolsa está vacía</p>
-        <p style="font-size:.85rem;margin-top:6px;color:var(--text-soft)">¡Agrega productos increíbles!</p>
-      </div>`;
-    footer.style.display = 'none';
-    return;
-  }
-
-  wrap.innerHTML = cart.map(i => `
-    <div class="cart-item">
-      <img class="cart-thumb"
-           src="${i.img || ''}"
-           alt="${i.name}"
-           onerror="this.src='https://via.placeholder.com/58x58/fde4ef/7B2D5E?text=A'" />
-      <div class="cart-item-info">
-        <div class="cart-item-name" title="${i.name}">${i.name}</div>
-        <div class="cart-item-price">$${(i.price * i.qty).toLocaleString('es-CO')}</div>
-        <div class="quantity-controls">
-          <button class="quantity-btn" onclick="changeQty(${i.id},-1)" aria-label="Quitar uno">−</button>
-          <span class="qty-number">${i.qty}</span>
-          <button class="quantity-btn" onclick="changeQty(${i.id},+1)" aria-label="Añadir uno">+</button>
-        </div>
-      </div>
-      <button class="remove-item" onclick="removeFromCart(${i.id})" aria-label="Eliminar">
-        <i class="fas fa-trash-alt"></i>
-      </button>
-    </div>`).join('');
-
-  const sum = cart.reduce((s,i) => s + i.price * i.qty, 0);
-  total.textContent = sum.toLocaleString('es-CO');
-  footer.style.display = 'block';
-}
-
-function bumpBadge() {
-  const b = document.getElementById('cartCount');
-  b.classList.remove('bump');
-  void b.offsetWidth; // reflow
-  b.classList.add('bump');
-}
-
-/* ────────────────────────────────────────────
-   MODAL
-──────────────────────────────────────────── */
-function toggleCart() {
-  const m = document.getElementById('cartModal');
-  if (!m) return;
-  const opening = m.style.display !== 'flex';
-  m.style.display = opening ? 'flex' : 'none';
-  document.body.style.overflow = opening ? 'hidden' : '';
-}
-function closeIfOutside(e) {
-  if (e.target === e.currentTarget) toggleCart();
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    const cart = document.getElementById('cartModal');
-    if (cart && cart.style.display === 'flex') { toggleCart(); return; }
-    closeQuickView();
-  }
-});
-
-/* ────────────────────────────────────────────
-   VISTA RÁPIDA
-──────────────────────────────────────────── */
-let qvProduct = null; /* producto activo en el modal */
+/* ════════════════════════════════════════
+   HELPERS
+════════════════════════════════════════ */
+const esc = s => String(s).replace(/'/g,"&#39;").replace(/"/g,"&quot;");
 
 function findProduct(id) {
   for (const list of Object.values(PRODUCTS)) {
@@ -1844,148 +1491,309 @@ function findProduct(id) {
   return null;
 }
 
-function openQuickView(id) {
-  qvProduct = findProduct(id);
-  if (!qvProduct) return;
+function fmt(n) { return n.toLocaleString('es-CO'); }
 
-  document.getElementById('qvImg').src   = qvProduct.img;
-  document.getElementById('qvImg').alt   = qvProduct.name;
-  document.getElementById('qvName').textContent  = qvProduct.name;
-  document.getElementById('qvPrice').textContent = '$' + qvProduct.price.toLocaleString('es-CO');
-  document.getElementById('qvDesc').textContent  = qvProduct.desc;
+/* ════════════════════════════════════════
+   RENDER PRODUCTS
+════════════════════════════════════════ */
+function renderProducts() {
+  Object.entries(PRODUCTS).forEach(([gridId, products]) => {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.innerHTML = products.map(p => cardHTML(p)).join('');
 
+    // update section count
+    const key = gridId.replace('grid-', '');
+    const cnt = document.getElementById(`cnt-${key}`);
+    if (cnt) cnt.textContent = `${products.length} productos`;
+  });
+  updateResultsCount();
+}
+
+function cardHTML(p) {
+  const inCart = cart.find(i => i.id === p.id);
+  return `
+  <div class="product-card" data-id="${p.id}">
+    <div class="card-img-wrap" onclick="openQV(${p.id})">
+      <img src="${p.img}" alt="${esc(p.name)}" loading="lazy"
+           onerror="this.src='https://via.placeholder.com/300x300/fde4ef/7B2D5E?text=AROM'" />
+      <div class="card-badge">${p.cat}</div>
+      <div class="card-overlay">
+        <span class="card-overlay-pill">
+          <i class="fas fa-eye"></i> Ver detalle
+        </span>
+      </div>
+      <button class="card-wish ${wishlist.has(p.id)?'active':''}"
+              onclick="toggleWish(event,${p.id})"
+              aria-label="Favorito">
+        <i class="fa${wishlist.has(p.id)?'s':'r'} fa-heart"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="card-name">${p.name}</div>
+      <div class="card-desc">${p.desc}</div>
+    </div>
+    <div class="card-footer">
+      <div class="card-price">$${fmt(p.price)}</div>
+      <div id="cc-${p.id}">${cardControl(p)}</div>
+    </div>
+  </div>`;
+}
+
+function cardControl(p) {
+  const item = cart.find(i => i.id === p.id);
+  if (!item) {
+    return `<button class="btn-add" onclick="addToCart(${p.id})">+ Agregar</button>`;
+  }
+  return `<div class="card-stepper">
+    <button onclick="cardDec(${p.id})" aria-label="Quitar">−</button>
+    <span class="cs-qty">${item.qty}</span>
+    <button onclick="cardInc(${p.id})" aria-label="Agregar">+</button>
+  </div>`;
+}
+
+function refreshCard(id) {
+  const wrap = document.getElementById(`cc-${id}`);
+  const p = findProduct(id);
+  if (wrap && p) wrap.innerHTML = cardControl(p);
+}
+
+/* ════════════════════════════════════════
+   CART LOGIC
+════════════════════════════════════════ */
+function addToCart(id) {
+  const existing = cart.find(i => i.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    const p = findProduct(id);
+    if (!p) return;
+    cart.push({ id, name:p.name, price:p.price, qty:1, img:p.img });
+  }
+  saveCart(); renderDrawer(); refreshCard(id); bumpBadge();
+  const p = findProduct(id);
+  toast(`✓ ${p?.name||'Producto'} agregado`, 'success');
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  saveCart(); renderDrawer(); refreshCard(id);
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) { removeFromCart(id); return; }
+  saveCart(); renderDrawer(); refreshCard(id);
+}
+
+function cardInc(id) { addToCart(id); }
+function cardDec(id) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty--;
+  if (item.qty <= 0) { removeFromCart(id); return; }
+  saveCart(); renderDrawer(); refreshCard(id);
+}
+
+/* ════════════════════════════════════════
+   WISHLIST
+════════════════════════════════════════ */
+function toggleWish(e, id) {
+  e.stopPropagation();
+  if (wishlist.has(id)) {
+    wishlist.delete(id);
+    toast('Eliminado de favoritos', '');
+  } else {
+    wishlist.add(id);
+    toast('❤️ Agregado a favoritos', 'success');
+  }
+  saveWish();
+  // update button
+  const btn = document.querySelector(`.product-card[data-id="${id}"] .card-wish`);
+  if (btn) {
+    btn.classList.toggle('active', wishlist.has(id));
+    btn.querySelector('i').className = `fa${wishlist.has(id)?'s':'r'} fa-heart`;
+  }
+}
+
+/* ════════════════════════════════════════
+   CART DRAWER
+════════════════════════════════════════ */
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderDrawer() {
+  const itemsEl = document.getElementById('drawerItems');
+  const footerEl = document.getElementById('drawerFooter');
+  const badge   = document.getElementById('cartBadge');
+  const total   = document.getElementById('totalAmount');
+  if (!itemsEl) return;
+
+  const totalItems = cart.reduce((s,i)=>s+i.qty,0);
+  badge.textContent = totalItems;
+
+  if (!cart.length) {
+    itemsEl.innerHTML = `<div class="empty-cart">
+      <div class="ec-icon">🛍️</div>
+      <p>Tu bolsa está vacía</p>
+      <small>¡Agrega productos increíbles!</small>
+    </div>`;
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  itemsEl.innerHTML = cart.map(i => `
+    <div class="cart-item">
+      <img class="cart-thumb" src="${i.img||''}" alt="${esc(i.name)}"
+           onerror="this.src='https://via.placeholder.com/62x62/fde4ef/7B2D5E?text=A'" />
+      <div class="ci-info">
+        <div class="ci-name" title="${esc(i.name)}">${i.name}</div>
+        <div class="ci-price">$${fmt(i.price * i.qty)}</div>
+        <div class="ci-controls">
+          <button class="qty-btn" onclick="changeQty(${i.id},-1)" aria-label="Quitar">−</button>
+          <span class="ci-qty">${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i.id},+1)" aria-label="Añadir">+</button>
+        </div>
+      </div>
+      <button class="ci-remove" onclick="removeFromCart(${i.id})" aria-label="Eliminar">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>`).join('');
+
+  const sum = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  total.textContent = fmt(sum);
+  footerEl.style.display = 'block';
+}
+
+function bumpBadge() {
+  const b = document.getElementById('cartBadge');
+  b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump');
+}
+
+/* ════════════════════════════════════════
+   QUICK VIEW
+════════════════════════════════════════ */
+let qvActive = null;
+
+function openQV(id) {
+  qvActive = findProduct(id);
+  if (!qvActive) return;
+  document.getElementById('qvImg').src       = qvActive.img;
+  document.getElementById('qvImg').alt       = qvActive.name;
+  document.getElementById('qvCat').textContent   = qvActive.cat;
+  document.getElementById('qvTitle').textContent = qvActive.name;
+  document.getElementById('qvPrice').textContent = '$' + fmt(qvActive.price);
+  document.getElementById('qvDesc').textContent  = qvActive.desc;
   renderQVActions();
-
-  const modal = document.getElementById('qvModal');
-  modal.classList.add('open');
+  document.getElementById('qvOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function closeQuickView() {
-  const modal = document.getElementById('qvModal');
-  modal.classList.remove('open');
+function closeQV() {
+  document.getElementById('qvOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  qvProduct = null;
+  qvActive = null;
 }
+function closeQVOutside(e) { if(e.target===e.currentTarget) closeQV(); }
 
-function closeQVIfOutside(e) {
-  if (e.target === e.currentTarget) closeQuickView();
-}
-
-/* Renderiza el control dentro del modal (botón o stepper) */
 function renderQVActions() {
-  if (!qvProduct) return;
+  if (!qvActive) return;
   const wrap = document.getElementById('qvActions');
-  const item = cart.find(i => i.id === qvProduct.id);
-
+  const item = cart.find(i => i.id === qvActive.id);
   if (!item) {
-    wrap.innerHTML = `
-      <button class="qv-add-btn" onclick="qvAddToCart()">
-        <i class="fas fa-shopping-bag"></i> Agregar al carrito
-      </button>`;
+    wrap.innerHTML = `<button class="qv-add-btn" onclick="qvAdd()">
+      <i class="fas fa-shopping-bag"></i> Agregar al carrito</button>`;
   } else {
-    wrap.innerHTML = `
-      <div class="qv-stepper">
-        <button onclick="qvChange(-1)" aria-label="Quitar uno">−</button>
-        <span class="qv-qty">${item.qty}</span>
-        <button onclick="qvChange(+1)" aria-label="Agregar uno">+</button>
-      </div>`;
+    wrap.innerHTML = `<div class="qv-stepper">
+      <button onclick="qvChange(-1)" aria-label="Quitar">−</button>
+      <span class="qv-qty">${item.qty}</span>
+      <button onclick="qvChange(+1)" aria-label="Agregar">+</button>
+    </div>`;
   }
 }
 
-function qvAddToCart() {
-  if (!qvProduct) return;
-  addToCart(qvProduct.id, qvProduct.name, qvProduct.price);
-  renderQVActions(); /* actualiza el control sin cerrar el modal */
-}
-
-function qvChange(delta) {
-  if (!qvProduct) return;
-  const item = cart.find(i => i.id === qvProduct.id);
-  if (!item) return;
-  item.qty += delta;
-  if (item.qty <= 0) {
-    removeFromCart(qvProduct.id);
-  } else {
-    saveCart();
-    renderCart();
-    refreshCardControl(qvProduct.id);
-  }
+function qvAdd() {
+  if (!qvActive) return;
+  addToCart(qvActive.id);
   renderQVActions();
 }
 
-/* ────────────────────────────────────────────
-   CHECKOUT → WhatsApp
-──────────────────────────────────────────── */
+function qvChange(delta) {
+  if (!qvActive) return;
+  const item = cart.find(i=>i.id===qvActive.id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty<=0) { removeFromCart(qvActive.id); renderQVActions(); return; }
+  saveCart(); renderDrawer(); refreshCard(qvActive.id); renderQVActions();
+}
+
+/* ════════════════════════════════════════
+   CHECKOUT
+════════════════════════════════════════ */
 function checkout() {
-  if (!cart.length) { toast('Tu bolsa está vacía 😅', 'error'); return; }
+  if (!cart.length) { toast('Tu bolsa está vacía 😅','error'); return; }
   let msg = '¡Hola AROM! Quiero hacer el siguiente pedido:\n\n';
   let total = 0;
   cart.forEach(i => {
-    msg += `▸ ${i.name}\n  Cantidad: ${i.qty} × $${i.price.toLocaleString('es-CO')} = $${(i.price*i.qty).toLocaleString('es-CO')}\n`;
+    msg += `▸ ${i.name}\n  Cant: ${i.qty} × $${fmt(i.price)} = $${fmt(i.price*i.qty)}\n`;
     total += i.price * i.qty;
   });
-  msg += `\n*Total: $${total.toLocaleString('es-CO')} COP*`;
-
+  msg += `\n*Total: $${fmt(total)} COP*`;
   const note = document.getElementById('orderNote')?.value.trim();
   if (note) msg += `\n\n📝 *Nota:* ${note}`;
-
   msg += '\n\n¿Me pueden ayudar con el proceso de pago y envío? 🙏';
   window.open(`https://wa.me/573054328798?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-/* ────────────────────────────────────────────
-   CONTADOR DE NOTA
-──────────────────────────────────────────── */
 function updateNoteCounter() {
-  const ta      = document.getElementById('orderNote');
-  const counter = document.getElementById('noteCounter');
-  if (!ta || !counter) return;
+  const ta = document.getElementById('orderNote');
+  const ct = document.getElementById('noteCounter');
+  if (!ta||!ct) return;
   const len = ta.value.length;
-  counter.textContent = `${len} / 200`;
-  counter.classList.toggle('warn', len >= 160);
+  ct.textContent = `${len} / 200`;
+  ct.classList.toggle('warn', len>=160);
 }
 
-/* ────────────────────────────────────────────
-   FILTRO POR CATEGORÍA
-──────────────────────────────────────────── */
-let currentSort = 'default'; /* estado global del orden */
-
-function filterCat(cat, btn = null) {
-  document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+/* ════════════════════════════════════════
+   FILTER & SEARCH
+════════════════════════════════════════ */
+function filterCat(cat, btn) {
+  activeCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
   document.querySelectorAll('.category-section').forEach(sec => {
-    const show = cat === 'all' || sec.dataset.category === cat;
+    const show = cat==='all' || sec.dataset.category===cat;
     sec.style.display = show ? 'block' : 'none';
   });
 
-  /* mantener el orden activo al cambiar categoría */
   if (currentSort !== 'default') applySort(currentSort);
+  updateResultsCount();
+  updateClearBtn();
 
-  /* scroll suave a la sección elegida (no para "Todos") */
   if (cat !== 'all') {
     const target = document.querySelector(`.category-section[data-category="${cat}"]`);
-    if (target) {
-      setTimeout(() => {
-        const offset = 90; /* espacio para que no quede pegado al borde */
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }, 30); /* pequeño delay para que display:block se aplique antes */
-    }
+    if (target) setTimeout(() => {
+      const top = target.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top, behavior:'smooth' });
+    }, 30);
   }
 }
 
-/* ────────────────────────────────────────────
-   ORDENAR POR PRECIO
-──────────────────────────────────────────── */
-function sortProducts(order, btn) {
+function setSort(order, btn) {
   currentSort = order;
-
-  /* botones activos */
-  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-
   applySort(order);
 }
 
@@ -1994,131 +1802,169 @@ function applySort(order) {
     const cards = Array.from(grid.querySelectorAll('.product-card'));
     if (!cards.length) return;
 
-    if (order === 'default') {
-      /* restaurar orden original usando data-id como referencia */
-      const gridId = grid.id;
-      const originalList = PRODUCTS[gridId];
-      if (!originalList) return;
-      originalList.forEach(p => {
-        const card = grid.querySelector(`.product-card[data-id="${p.id}"]`);
-        if (card) grid.appendChild(card); /* mueve al final respetando el orden */
+    if (order==='default') {
+      const gId = grid.id;
+      const original = PRODUCTS[gId];
+      if (!original) return;
+      original.forEach(p => {
+        const c = grid.querySelector(`.product-card[data-id="${p.id}"]`);
+        if (c) grid.appendChild(c);
       });
       return;
     }
 
-    cards.sort((a, b) => {
-      const priceA = getCardPrice(a);
-      const priceB = getCardPrice(b);
-      return order === 'asc' ? priceA - priceB : priceB - priceA;
+    cards.sort((a,b) => {
+      const pA = parseInt(a.querySelector('.card-price')?.textContent.replace(/\D/g,'')||'0');
+      const pB = parseInt(b.querySelector('.card-price')?.textContent.replace(/\D/g,'')||'0');
+      return order==='asc' ? pA-pB : pB-pA;
     });
-
-    /* reinsertar en el nuevo orden con micro-animación */
-    cards.forEach((card, idx) => {
-      card.style.transition = 'opacity .2s, transform .2s';
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(8px)';
-      grid.appendChild(card);
-      setTimeout(() => {
-        card.style.opacity = '';
-        card.style.transform = '';
-      }, idx * 30 + 60);
+    cards.forEach((c,i) => {
+      c.style.opacity='0'; c.style.transform='translateY(10px)';
+      grid.appendChild(c);
+      setTimeout(() => { c.style.transition='opacity .2s, transform .2s'; c.style.opacity=''; c.style.transform=''; }, i*25+50);
     });
   });
 }
 
-function getCardPrice(card) {
-  /* lee el precio del elemento .product-price dentro de la tarjeta */
-  const el = card.querySelector('.product-price');
-  if (!el) return 0;
-  return parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
-}
+/* search */
+function doSearch(term) {
+  activeSearch = term.trim().toLowerCase();
+  const clear = document.getElementById('clearFiltersBtn');
 
-/* ────────────────────────────────────────────
-   BÚSQUEDA
-──────────────────────────────────────────── */
-function searchProducts() {
-  const term = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
-  if (!term) { filterCat('all'); return; }
+  if (!activeSearch) { resetFilters(); return; }
 
-  let found = false;
+  let visible = 0;
   document.querySelectorAll('.category-section').forEach(sec => {
-    let secFound = false;
+    let secHit = false;
     sec.querySelectorAll('.product-card').forEach(card => {
-      const text = card.textContent.toLowerCase();
-      const match = text.includes(term);
-      card.style.display = match ? 'flex' : 'none';
-      if (match) { secFound = true; found = true; }
+      const match = card.textContent.toLowerCase().includes(activeSearch);
+      card.style.display = match ? '' : 'none';
+      if (match) { secHit=true; visible++; }
     });
-    sec.style.display = secFound ? 'block' : 'none';
+    sec.style.display = secHit ? 'block' : 'none';
   });
 
-  if (!found) toast('Sin resultados para "' + term + '"', 'error');
+  updateResultsCount(visible);
+  updateClearBtn();
+  if (!visible) toast(`Sin resultados para "${term}"`, 'error');
 }
 
-document.getElementById('searchInput')
-  ?.addEventListener('keydown', e => { if (e.key === 'Enter') searchProducts(); });
+function resetFilters() {
+  activeSearch = '';
+  activeCat = 'all';
+  currentSort = 'default';
 
-document.getElementById('searchInput')
-  ?.addEventListener('input', e => {
-    const val = e.target.value;
-    const btn = document.getElementById('clearBtn');
-    if (btn) btn.classList.toggle('visible', val.length > 0);
-    if (!val) clearSearch();
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.cat-btn[data-cat="all"]')?.classList.add('active');
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-default')?.classList.add('active');
+
+  document.querySelectorAll('.category-section').forEach(s=>{
+    s.style.display='block';
+    s.querySelectorAll('.product-card').forEach(c=>c.style.display='');
   });
 
-function clearSearch() {
-  const input = document.getElementById('searchInput');
-  const btn   = document.getElementById('clearBtn');
-  if (input) input.value = '';
-  if (btn)   btn.classList.remove('visible');
-  filterCat('all');
-  // Resetear botón de categoría activo a "Todos"
-  document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.category-btn')?.classList.add('active');
-  input?.focus();
+  const ns = document.getElementById('navSearch');
+  if (ns) ns.value='';
+  document.getElementById('nsClear')?.classList.remove('visible');
+
+  updateResultsCount();
+  updateClearBtn();
 }
 
-/* ────────────────────────────────────────────
-   SCROLL CATEGORÍAS
-──────────────────────────────────────────── */
-function scrollCat(dir) {
-  const nav = document.getElementById('categoriesNav');
-  if (nav) nav.scrollBy({ left: dir === 'left' ? -180 : 180, behavior: 'smooth' });
+function updateResultsCount(count) {
+  const el = document.getElementById('resultsCount');
+  if (!el) return;
+  if (count === undefined) {
+    // count all visible
+    count = 0;
+    document.querySelectorAll('.product-card').forEach(c => {
+      if (c.style.display !== 'none') count++;
+    });
+  }
+  el.innerHTML = `Mostrando <strong>${count}</strong> producto${count!==1?'s':''}`;
 }
 
-/* ────────────────────────────────────────────
+function updateClearBtn() {
+  const btn = document.getElementById('clearFiltersBtn');
+  if (!btn) return;
+  const active = activeSearch || activeCat!=='all' || currentSort!=='default';
+  btn.classList.toggle('visible', active);
+}
+
+/* nav search wiring */
+document.getElementById('navSearch')?.addEventListener('input', e => {
+  const val = e.target.value;
+  document.getElementById('nsClear')?.classList.toggle('visible', val.length>0);
+  doSearch(val);
+});
+document.getElementById('navSearch')?.addEventListener('keydown', e => {
+  if (e.key==='Escape') { e.target.value=''; resetFilters(); }
+});
+document.getElementById('nsClear')?.addEventListener('click', () => {
+  const ns = document.getElementById('navSearch');
+  if(ns) ns.value='';
+  document.getElementById('nsClear').classList.remove('visible');
+  resetFilters();
+});
+
+/* ════════════════════════════════════════
+   SCROLL CATS
+════════════════════════════════════════ */
+function scrollCats(dx) {
+  document.getElementById('catScroll')?.scrollBy({ left:dx, behavior:'smooth' });
+}
+
+/* ════════════════════════════════════════
+   STICKY NAV SHADOW ON SCROLL
+════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  document.getElementById('stickyNav')?.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive:true });
+
+/* ════════════════════════════════════════
    TOAST
-──────────────────────────────────────────── */
+════════════════════════════════════════ */
 let toastTimer;
-function toast(msg, type = '') {
-  const n = document.getElementById('notification');
-  if (!n) return;
+function toast(msg, type='') {
+  const t = document.getElementById('toast');
+  if (!t) return;
   clearTimeout(toastTimer);
-  n.textContent = msg;
-  n.className = `notification${type ? ' ' + type : ''} show`;
-  toastTimer = setTimeout(() => n.classList.remove('show'), 3000);
+  t.textContent = msg;
+  t.className = `show${type ? ' '+type : ''}`;
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-/* ────────────────────────────────────────────
-   COPIAR AL PORTAPAPELES
-──────────────────────────────────────────── */
-function copyToClipboard(text, el) {
+/* ════════════════════════════════════════
+   COPY PHONE
+════════════════════════════════════════ */
+function copyPhone(text, el) {
   navigator.clipboard?.writeText(text).then(() => {
     const tip = el.querySelector('.copy-tooltip');
     tip?.classList.add('show');
-    setTimeout(() => tip?.classList.remove('show'), 1400);
+    setTimeout(() => tip?.classList.remove('show'), 1600);
     toast('Número copiado ✓', 'success');
   }).catch(() => toast('No se pudo copiar', 'error'));
 }
 
-/* ────────────────────────────────────────────
+/* ════════════════════════════════════════
+   KEYBOARD
+════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('qvOverlay')?.classList.contains('open')) { closeQV(); return; }
+    if (document.getElementById('cartDrawer')?.classList.contains('open')) { closeCart(); }
+  }
+});
+
+/* ════════════════════════════════════════
    INIT
-──────────────────────────────────────────── */
+════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
-  renderCart();
-  /* si hay productos guardados en localStorage, reflejarlos en las tarjetas */
-  cart.forEach(i => refreshCardControl(i.id));
+  renderDrawer();
+  cart.forEach(i => refreshCard(i.id));
+  updateResultsCount();
 });
 </script>
 </body>
