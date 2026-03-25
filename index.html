@@ -511,8 +511,15 @@ header::after {
 .card-badge.new { background:rgba(39,174,96,.85); }
 .card-badge.hot { background:rgba(200,101,140,.9); }
 
-/* overlay */
-.card-overlay {
+/* badge nuevo */
+.card-badge-new {
+  position:absolute; bottom:10px; left:10px;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; font-size:.67rem; font-weight:700;
+  padding:4px 10px; border-radius:20px;
+  letter-spacing:.3px;
+  box-shadow:0 2px 8px rgba(200,101,140,.35);
+}
   position:absolute; inset:0;
   background:rgba(74,16,64,.42);
   display:flex; align-items:center; justify-content:center;
@@ -547,8 +554,146 @@ header::after {
   cursor:pointer;
 }
 .product-card:hover .card-wish { opacity:1; transform:scale(1); }
-.card-wish.active { color:var(--rose-deep); background:#fff; }
+.card-wish.active { color:var(--rose-deep); background:#fff; opacity:1; transform:scale(1); }
 .card-wish:hover { transform:scale(1.1) !important; }
+@keyframes heartPop { 0%{transform:scale(1)} 40%{transform:scale(1.45)} 70%{transform:scale(.9)} 100%{transform:scale(1)} }
+.card-wish.pop i { animation:heartPop .38s var(--ease-spring); }
+
+/* ═══════════════════════════════════════════════
+   WISH DRAWER
+═══════════════════════════════════════════════ */
+.wish-overlay {
+  position:fixed; inset:0;
+  background:rgba(44,26,36,.40);
+  backdrop-filter:blur(6px);
+  display:none; z-index:9999;
+}
+.wish-overlay.open { display:block; }
+
+.wish-drawer {
+  position:fixed; top:0; right:0; bottom:0;
+  width:min(420px,100vw);
+  background:var(--warm-white);
+  box-shadow:var(--shadow-xl);
+  display:flex; flex-direction:column;
+  transform:translateX(100%);
+  transition:transform var(--t-slow) var(--ease);
+  z-index:10000;
+}
+.wish-drawer.open { transform:translateX(0); }
+
+.wish-drawer-header {
+  padding:22px 24px;
+  background:linear-gradient(135deg,var(--rose-deep),var(--plum));
+  color:#fff;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-shrink:0;
+}
+.wish-drawer-header h2 {
+  font-family:'Playfair Display',serif; font-size:1.3rem;
+  display:flex; align-items:center; gap:10px;
+}
+.wish-close {
+  background:rgba(255,255,255,.15); border:none; color:#fff;
+  width:36px; height:36px; border-radius:50%;
+  font-size:1.2rem; display:flex; align-items:center; justify-content:center;
+  transition:background var(--t-base);
+}
+.wish-close:hover { background:rgba(255,255,255,.28); }
+
+.wish-items { flex:1; overflow-y:auto; padding:16px 20px; }
+
+.empty-wish {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  height:100%; text-align:center; color:var(--text-soft); padding:40px;
+  gap:12px;
+}
+.empty-wish .ew-icon { font-size:3.5rem; opacity:.35; }
+.empty-wish p { font-size:.95rem; }
+.empty-wish small { font-size:.82rem; color:var(--text-faint); }
+
+.wish-item {
+  display:flex; align-items:center; gap:13px;
+  padding:14px 0;
+  border-bottom:1px solid rgba(232,160,191,.15);
+  animation:itemIn .2s var(--ease) both;
+}
+.wish-thumb {
+  width:62px; height:62px; border-radius:12px;
+  object-fit:cover; flex-shrink:0;
+  border:1.5px solid rgba(232,160,191,.25);
+  background:linear-gradient(135deg,#fde4ef,#fdf0f5);
+  cursor:pointer;
+}
+.wi-info { flex:1; min-width:0; }
+.wi-name {
+  font-weight:600; font-size:.86rem;
+  color:var(--text-dark);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  margin-bottom:3px;
+}
+.wi-price { font-family:'Playfair Display',serif; font-size:.92rem; color:var(--plum); margin-bottom:7px; }
+.wi-add-btn {
+  border:none;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; padding:6px 14px; border-radius:50px;
+  font-size:.78rem; font-weight:700;
+  display:inline-flex; align-items:center; gap:5px;
+  transition:all var(--t-base) var(--ease-spring);
+  white-space:nowrap;
+}
+.wi-add-btn:hover { filter:brightness(1.08); transform:scale(1.04); }
+.wi-remove {
+  border:none; background:rgba(231,76,60,.09);
+  color:var(--danger); border-radius:var(--radius-xs);
+  padding:6px 10px; font-size:.78rem;
+  transition:all var(--t-base);
+  flex-shrink:0;
+}
+.wi-remove:hover { background:var(--danger); color:#fff; }
+
+.wish-footer {
+  padding:18px 20px;
+  border-top:1px solid var(--border);
+  background:#fff;
+  flex-shrink:0;
+}
+.wish-add-all-btn {
+  width:100%; border:none;
+  background:linear-gradient(135deg,var(--plum),var(--plum-dark));
+  color:#fff; padding:15px; border-radius:50px;
+  font-size:1rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  transition:all var(--t-base) var(--ease);
+}
+.wish-add-all-btn:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+
+/* nav wish btn */
+.nav-wish-btn {
+  position:relative;
+  background:rgba(232,160,191,.18);
+  border:1.5px solid rgba(200,101,140,.25);
+  color:var(--rose-deep);
+  width:44px; height:44px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.05rem;
+  transition:all var(--t-base) var(--ease-spring);
+  flex-shrink:0;
+}
+.nav-wish-btn:hover { background:var(--rose-deep); color:#fff; transform:scale(1.08); box-shadow:var(--shadow-sm); }
+.nav-wish-badge {
+  position:absolute; top:-5px; right:-5px;
+  background:var(--rose-deep);
+  color:#fff; font-size:.7rem; font-weight:700;
+  min-width:20px; height:20px; padding:0 5px;
+  border-radius:10px;
+  display:none; align-items:center; justify-content:center;
+  border:2px solid var(--cream);
+  transition:transform var(--t-fast) var(--ease-spring);
+}
+.nav-wish-badge.visible { display:flex; }
+.nav-wish-badge.bump { animation:badgeBump .35s var(--ease-spring); }
 
 /* body */
 .card-body {
@@ -1020,8 +1165,31 @@ footer span { color:var(--rose-deep); }
 }
 
 /* ═══════════════════════════════════════════════
-   PAGE LOAD ANIMATIONS
+   BOTÓN VOLVER ARRIBA
 ═══════════════════════════════════════════════ */
+.back-to-top {
+  position:fixed; bottom:90px; right:22px;
+  width:44px; height:44px; border-radius:50%;
+  background:linear-gradient(135deg,var(--plum),var(--plum-dark));
+  color:#fff; border:none;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem;
+  box-shadow:var(--shadow-md);
+  cursor:pointer; z-index:890;
+  opacity:0; transform:translateY(16px) scale(.85);
+  pointer-events:none;
+  transition:opacity var(--t-base) var(--ease),
+             transform var(--t-base) var(--ease-spring);
+}
+.back-to-top.visible {
+  opacity:1; transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.back-to-top:hover {
+  transform:translateY(-4px) scale(1.1);
+  box-shadow:var(--shadow-lg);
+}
+.back-to-top:active { transform:scale(.95); }
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(20px); }
   to   { opacity:1; transform:translateY(0); }
@@ -1029,6 +1197,77 @@ footer span { color:var(--rose-deep); }
 .anim-header { animation:fadeUp .6s var(--ease) .05s both; }
 .anim-filter  { animation:fadeUp .5s var(--ease) .15s both; }
 .anim-grid    { animation:fadeUp .5s var(--ease) .22s both; }
+
+/* ═══════════════════════════════════════════════
+   SKELETON LOADER
+═══════════════════════════════════════════════ */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+.skeleton-base {
+  background: linear-gradient(90deg,
+    #f0e6ec 25%,
+    #fce4f0 50%,
+    #f0e6ec 75%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-xs);
+}
+.skeleton-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.skeleton-img {
+  aspect-ratio: 1/1;
+  width: 100%;
+}
+.skeleton-body {
+  padding: 14px 15px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.skeleton-line {
+  height: 13px;
+  border-radius: 6px;
+}
+.skeleton-line.w-80 { width: 80%; }
+.skeleton-line.w-60 { width: 60%; }
+.skeleton-line.w-40 { width: 40%; }
+.skeleton-footer {
+  padding: 10px 15px 15px;
+  border-top: 1px solid rgba(232,160,191,.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.skeleton-price {
+  height: 20px;
+  width: 70px;
+  border-radius: 6px;
+}
+.skeleton-btn {
+  height: 34px;
+  width: 90px;
+  border-radius: 50px;
+}
+
+/* card fade-in after skeleton */
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(12px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);   }
+}
+.product-card.revealed {
+  animation: cardReveal .38s var(--ease) both;
+}
   </style>
 </head>
 <body>
@@ -1042,6 +1281,10 @@ footer span { color:var(--rose-deep); }
       <input type="text" id="navSearch" placeholder="Buscar productos…" autocomplete="off" />
       <button class="ns-clear" id="nsClear" aria-label="Limpiar"><i class="fas fa-times"></i></button>
     </div>
+    <button class="nav-wish-btn" onclick="openWish()" aria-label="Ver favoritos">
+      <i class="fas fa-heart"></i>
+      <span class="nav-wish-badge" id="wishBadge"></span>
+    </button>
     <button class="nav-cart-btn" onclick="openCart()" aria-label="Ver carrito">
       <i class="fas fa-shopping-bag"></i>
       <span class="nav-badge" id="cartBadge">0</span>
@@ -1099,6 +1342,12 @@ footer span { color:var(--rose-deep); }
         </button>
         <button class="sort-btn" id="s-desc" onclick="setSort('desc',this)">
           <i class="fas fa-arrow-down"></i> Mayor precio
+        </button>
+        <button class="sort-btn" id="s-sold" onclick="setSort('sold',this)">
+          <i class="fas fa-fire"></i> Más vendidos
+        </button>
+        <button class="sort-btn" id="s-new" onclick="setSort('new',this)">
+          <i class="fas fa-sparkles"></i> Novedades
         </button>
       </div>
     </div>
@@ -1328,6 +1577,21 @@ footer span { color:var(--rose-deep); }
 </div>
 
 <!-- ═══════════════ CART DRAWER ═══════════════ -->
+<!-- ═══════════════ WISH OVERLAY & DRAWER ═══════════════ -->
+<div class="wish-overlay" id="wishOverlay" onclick="closeWish()"></div>
+<aside class="wish-drawer" id="wishDrawer" role="dialog" aria-label="Mis Favoritos">
+  <div class="wish-drawer-header">
+    <h2><i class="fas fa-heart"></i> Mis Favoritos</h2>
+    <button class="wish-close" onclick="closeWish()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="wish-items" id="wishItems"></div>
+  <div class="wish-footer" id="wishFooter" style="display:none">
+    <button class="wish-add-all-btn" onclick="addAllToCart()">
+      <i class="fas fa-shopping-bag"></i> Agregar todo al carrito
+    </button>
+  </div>
+</aside>
+
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Carrito de compras">
   <div class="drawer-header">
@@ -1364,6 +1628,13 @@ footer span { color:var(--rose-deep); }
   <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- ═══════════════ VOLVER ARRIBA ═══════════════ -->
+<button class="back-to-top" id="backToTop"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        aria-label="Volver arriba">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
 <!-- ═══════════════════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════════════════ -->
@@ -1373,93 +1644,93 @@ footer span { color:var(--rose-deep); }
 ════════════════════════════════════════ */
 const PRODUCTS = {
   'grid-facial': [
-    { id:1,  name:'Crema Hidratante de Arroz BIOAQUA',         price:7000,  img:'imagenes/crema_facialarroz.jpg',         cat:'Cuidado Facial', desc:'Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.' },
-    { id:2,  name:'Crema Polipéptidos de Perilla',             price:7000,  img:'imagenes/crema_perilla.jpg',             cat:'Cuidado Facial', desc:'Hidratación intensa, reduce signos del envejecimiento, piel más uniforme y radiante.' },
-    { id:3,  name:'Crema Centella Asiática BIOAQUA',           price:7000,  img:'imagenes/crema_facial_centella.jpg',     cat:'Cuidado Facial', desc:'Reduce enrojecimiento e irritación. Potente antioxidante que protege de radicales libres.' },
-    { id:4,  name:'Crema Vitamina C BIOAQUA',                  price:7000,  img:'imagenes/crema_facialvitaminaC.jpg',     cat:'Cuidado Facial', desc:'Reduce líneas de expresión, activa síntesis de colágeno, minimiza manchas. 50g.' },
-    { id:5,  name:'Crema Facial Hinojo BIOAQUA',               price:6000,  img:'imagenes/crema_facial_hinojo.jpg',       cat:'Cuidado Facial', desc:'Base de ácido hialurónico y extracto de hinojo para piel hidratada y radiante.' },
-    { id:6,  name:'Crema Camelias BIOAQUA',                    price:7000,  img:'imagenes/crema_camelias_1.jpg',          cat:'Cuidado Facial', desc:'Hidrata profundamente y protege del daño ambiental, piel fresca y juvenil.' },
-    { id:7,  name:'Gel Ácido Hialurónico BIOAQUA',             price:4800,  img:'imagenes/crema_gel.jpg',                 cat:'Cuidado Facial', desc:'Reduce signos de envejecimiento, mejora líneas finas y deja la piel suave y luminosa.' },
-    { id:8,  name:'Crema Ácido Hialurónico BIOAQUA',           price:9500,  img:'imagenes/crema_acido_hialuronico.jpg',   cat:'Cuidado Facial', desc:'Alta concentración, poder antioxidante, previene envejecimiento prematuro.' },
-    { id:9,  name:'Crema Retinol BIOAQUA',                     price:7500,  img:'imagenes/crema_facialretinol.jpg',       cat:'Cuidado Facial', desc:'Elimina manchas de sol, edad y acné; reduce líneas de expresión y mejora luminosidad.' },
-    { id:10, name:'Crema Vitamina C Aclarante BIOAQUA',        price:7000,  img:'imagenes/crema_facial_vitaminacaclarante.jpg', cat:'Cuidado Facial', desc:'Nutre, ilumina y rejuvenece con Vitamina C y Elastina.' },
-    { id:11, name:'Crema Ácido Salicílico Acné BIOAQUA',       price:8000,  img:'imagenes/ACIDO-SALICILICO-BIOAQUA_.jpg', cat:'Cuidado Facial', desc:'Combate el acné, controla grasa, limpia poros y regula la producción de sebo.' },
-    { id:12, name:'Crema Vitamina E + B5 BIOAQUA',             price:7000,  img:'imagenes/crema_facial_vitaminae+b5.jpg', cat:'Cuidado Facial', desc:'Vitamina E antioxidante + B5 humectante para piel saludable y nutrida.' },
-    { id:13, name:'Crema Antiacné BIOAQUA',                    price:7500,  img:'imagenes/crema_facial_anec.jpg',         cat:'Cuidado Facial', desc:'Reduce sebo, controla bacterias y mejora manchas y cicatrices de acné.' },
-    { id:14, name:'Crema Blanqueadora Para Pecas BIOAQUA',     price:7500,  img:'imagenes/cremablanqueadora.jpg',         cat:'Cuidado Facial', desc:'Elimina eficazmente pecas, manchas y acné, aclarando la piel sin efectos secundarios.' },
-    { id:15, name:'Crema Rosas + Ácido Hialurónico BIOAQUA',  price:7500,  img:'imagenes/crema_camelias.jpg',            cat:'Cuidado Facial', desc:'Combina rosas calmantes con ácido hialurónico para piel suave e hidratada.' },
-    { id:16, name:'Mascarilla Vitamina C SADOER',              price:8500,  img:'imagenes/mascarillavitaminae.jpg',       cat:'Cuidado Facial', desc:'Ilumina, revitaliza y unifica el tono, ideal para pieles apagadas o con manchas.' },
-    { id:17, name:'Mascarilla Gel Arroz BIOAQUA',              price:8500,  img:'imagenes/mascarilladearrozengel.jpg',    cat:'Cuidado Facial', desc:'Gel suave con extractos de arroz que remueve suciedad de poros y piel muerta.' },
-    { id:18, name:'Mascarilla Aloe Vera BIOAQUA',              price:8500,  img:'imagenes/mascarilla_gelaloevera.jpg',    cat:'Cuidado Facial', desc:'Para pieles sensibles, con acné, envejecimiento o necesidad extrema de hidratación.' },
-    { id:19, name:'Crema Depilatoria Aloe Vera BIOAQUA',       price:7500,  img:'imagenes/crema_depilatoria.jpg',         cat:'Cuidado Facial', desc:'3 min de depilación rápida y suave. Apta para cara, axilas, piernas y piel sensible.' },
-    { id:20, name:'Crema Corporal Peach BIOAQUA',              price:8500,  img:'imagenes/crematarrodurazno.jpg',         cat:'Cuidado Facial', desc:'Nutre profundamente, hidrata todo el día y deja la piel brillante y luminosa.' },
-    { id:21, name:'Jabón Facial Camelias BIOAQUA',             price:7500,  img:'imagenes/jabon_camelias (2).jpg',        cat:'Cuidado Facial', desc:'Limpia, protege y revitaliza con extracto de camelia y propiedades antioxidantes.' },
-    { id:22, name:'Jabón Facial Centella Asiática BIOAQUA',    price:7500,  img:'imagenes/jabon_centella.jpg',            cat:'Cuidado Facial', desc:'Limpia, hidrata y ayuda a prevenir brotes y arrugas con centella asiática.' },
-    { id:23, name:'Jabón Peptide Perilla Niacinamida BIOAQUA', price:8500,  img:'imagenes/jabon_perilla.jpg',             cat:'Cuidado Facial', desc:'Perilla calmante con niacinamida, ideal para piel sensible y propensa a irritaciones.' },
-    { id:24, name:'Jabón Hinojo Marino + AH BIOAQUA',          price:8500,  img:'imagenes/jabon_hinojo.jpg',              cat:'Cuidado Facial', desc:'Limpiador tipo espuma anti-arrugas con hinojo marino y ácido hialurónico.' },
-    { id:25, name:'Sérum Perilla Polipéptidos BIOAQUA',        price:5000,  img:'imagenes/serum_perilla.jpg',             cat:'Cuidado Facial', desc:'Nutrición profunda con polipéptidos de perilla para hidratación intensa y anti-edad.' },
-    { id:28, name:'Suero Ácido Hialurónico BIOAQUA',           price:8500,  img:'imagenes/serum_acido_grande.jpg',        cat:'Cuidado Facial', desc:'Hidrata, da volumen y elasticidad, reduciendo arrugas y mejorando la apariencia.' },
-    { id:29, name:'Suero Gold 24K AH BIOAQUA',                 price:10500, img:'imagenes/serum_acido_oro.jpg',           cat:'Cuidado Facial', desc:'Nanopartículas de oro 24K + nicotinamida que aportan luminosidad e hidratación profunda.' },
-    { id:30, name:'Sérum Anti-Edad Vitamina C BIOAQUA',        price:10500, img:'imagenes/serum_vtaminaC_grande.jpg',     cat:'Cuidado Facial', desc:'Hidrata, nutre, reduce manchas y signos de envejecimiento, aporta firmeza y protección.' },
-    { id:31, name:'Contorno de Ojos Arroz Blanco BIOAQUA',     price:3500,  img:'imagenes/CONTORNO DE ARROZ.jpg',         cat:'Cuidado Facial', desc:'El arroz hidrata, ilumina y elimina células muertas en el delicado contorno de ojos.' },
-    { id:32, name:'Jabón Facial Rose Hyaluronic BIOAQUA',      price:8500,  img:'imagenes/JABONROSAS.jpg',                cat:'Cuidado Facial', desc:'ÁH + rosas que limpian, hidratan, suavizan y revitalizan la piel profundamente.' },
-    { id:33, name:'Agua de Rosas',                             price:8500,  img:'imagenes/aguarosas500ml.jpg',            cat:'Cuidado Facial', desc:'Tónico hidratante, tonificante y reafirmante. Sin alcohol ni parabenos.' },
-    { id:34, name:'Crema Aclarante Zona Íntima BIOAQUA',       price:9500,  img:'imagenes/despigmentante.jpg',            cat:'Cuidado Facial', desc:'Despigmenta y aclara zonas sensibles: axilas, labios, pezones y más.' },
-    { id:35, name:'Protector Solar Arroz SPF50+ BIOAQUA',      price:5500,  img:'imagenes/bloqueadorcremaarroz.jpg',      cat:'Cuidado Facial', desc:'Alta protección UVB/UVA para el rostro con extracto de arroz.' },
-    { id:36, name:'Protector Solar en Spray BIOAQUA',          price:8500,  img:'imagenes/bloqueadorrosado.jpg',          cat:'Cuidado Facial', desc:'Ideal sobre maquillaje, sin grasa, transparente y con defensa UV.' },
-    { id:37, name:'Protector Solar Aloe Vera BIOAQUA',         price:7000,  img:'imagenes/bloqueador_solar_aloevera.jpg', cat:'Cuidado Facial', desc:'Defensa UVA/UVB + propiedades antibacterianas e hidratación intensiva.' },
-    { id:38, name:'Crema Depilatoria Arroz BIOAQUA',           price:7500,  img:'imagenes/depiladorarroz.jpg',            cat:'Cuidado Facial', desc:'Elimina vello en minutos con efecto despigmentante, piel suave e hidratada.' },
-    { id:39, name:'Sérum Retinol BIOAQUA',                     price:5000,  img:'imagenes/m_38.jpg',                      cat:'Cuidado Facial', desc:'Reduce arrugas, estimula colágeno, combate manchas y deja la piel radiante.' },
-    { id:40, name:'Sérum Vitamina C 30ml BIOAQUA',             price:5000,  img:'imagenes/m_42.jpg',                      cat:'Cuidado Facial', desc:'Aclara el tono, nutre profundamente y mejora la suavidad del rostro.' },
-    { id:41, name:'Sérum Esencia de Arroz BIOAQUA',            price:5000,  img:'imagenes/SERUMARROZ.jpg',                cat:'Cuidado Facial', desc:'Anti-edad con arroz y ácido hialurónico para piel firme, suave y protegida.' },
-    { id:42, name:'Tratamiento Crecimiento Pestañas BIOAQUA',  price:6500,  img:'imagenes/m_39.jpg',                      cat:'Cuidado Facial', desc:'Estimula folículos y fortalece pestañas, cejas, barba y bigote.' },
-    { id:43, name:'Sérum Rosas + AH BIOAQUA',                  price:5000,  img:'imagenes/serumrosas.jpg',                cat:'Cuidado Facial', desc:'Hidratación profunda, reduce arrugas y mejora firmeza y luminosidad.' },
-    { id:44, name:'Sérum Ácido Hialurónico BIOAQUA',           price:5000,  img:'imagenes/serumverde.jpg',                cat:'Cuidado Facial', desc:'Repara, hidrata y revitaliza, restaura luminosidad. Absorción rápida.' },
-    { id:45, name:'Sérum Centella Asiática BIOAQUA',           price:5000,  img:'imagenes/serumcentella.jpg',             cat:'Cuidado Facial', desc:'Calma enrojecimiento, protege con antioxidantes y fortalece la barrera cutánea.' },
-    { id:46, name:'Sérum Antiedad Camelias BIOAQUA',           price:5000,  img:'imagenes/serumcamelias.jpg',             cat:'Cuidado Facial', desc:'Fórmula con aguacate y vitamina E que nutre, hidrata y promueve brillo natural.' },
-    { id:47, name:'Sérum Vitamina E y B5 BIOAQUA',             price:5000,  img:'imagenes/serumvitaminaE.jpg',            cat:'Cuidado Facial', desc:'Hidrata, mejora firmeza y elasticidad, promueve regeneración celular.' },
-    { id:48, name:'Sérum Whitening Vitamina C BIOAQUA',        price:5000,  img:'imagenes/serumvitaminacnaranja.jpg',     cat:'Cuidado Facial', desc:'Aclara manchas, protege con antioxidantes e hidrata profundamente.' },
-    { id:49, name:'Exfoliante Facial Durazno BIOAQUA',         price:8500,  img:'imagenes/exfoliantedurazno.jpg',         cat:'Cuidado Facial', desc:'Limpia, elimina células muertas y deja la piel más suave desde el primer uso.' },
-    { id:50, name:'Jabón Facial Durazno con Aminoácidos',      price:5000,  img:'imagenes/jabonfacialdurazno.jpg',        cat:'Cuidado Facial', desc:'Limpia suavemente con aminoácidos y fragancia de durazno fresco.' },
-    { id:51, name:'Crema Contorno Ojos Anti-Arrugas BIOAQUA',  price:5000,  img:'imagenes/CREMAARRUJAS.jpg',              cat:'Cuidado Facial', desc:'Suaviza arrugas y ojeras, hidrata y tensa la piel. Uso diario mañana y noche.' },
+    { id:1,  name:'Crema Hidratante de Arroz BIOAQUA',         price:7000,  sold:320, isNew:false, img:'imagenes/crema_facialarroz.jpg',         cat:'Cuidado Facial', desc:'Textura suave y ligera que se absorbe fácilmente. Ideal para uso diario mañana y noche.' },
+    { id:2,  name:'Crema Polipéptidos de Perilla',             price:7000,  sold:210, isNew:false, img:'imagenes/crema_perilla.jpg',             cat:'Cuidado Facial', desc:'Hidratación intensa, reduce signos del envejecimiento, piel más uniforme y radiante.' },
+    { id:3,  name:'Crema Centella Asiática BIOAQUA',           price:7000,  sold:280, isNew:false, img:'imagenes/crema_facial_centella.jpg',     cat:'Cuidado Facial', desc:'Reduce enrojecimiento e irritación. Potente antioxidante que protege de radicales libres.' },
+    { id:4,  name:'Crema Vitamina C BIOAQUA',                  price:7000,  sold:195, isNew:false, img:'imagenes/crema_facialvitaminaC.jpg',     cat:'Cuidado Facial', desc:'Reduce líneas de expresión, activa síntesis de colágeno, minimiza manchas. 50g.' },
+    { id:5,  name:'Crema Facial Hinojo BIOAQUA',               price:6000,  sold:140, isNew:false, img:'imagenes/crema_facial_hinojo.jpg',       cat:'Cuidado Facial', desc:'Base de ácido hialurónico y extracto de hinojo para piel hidratada y radiante.' },
+    { id:6,  name:'Crema Camelias BIOAQUA',                    price:7000,  sold:175, isNew:false, img:'imagenes/crema_camelias_1.jpg',          cat:'Cuidado Facial', desc:'Hidrata profundamente y protege del daño ambiental, piel fresca y juvenil.' },
+    { id:7,  name:'Gel Ácido Hialurónico BIOAQUA',             price:4800,  sold:260, isNew:false, img:'imagenes/crema_gel.jpg',                 cat:'Cuidado Facial', desc:'Reduce signos de envejecimiento, mejora líneas finas y deja la piel suave y luminosa.' },
+    { id:8,  name:'Crema Ácido Hialurónico BIOAQUA',           price:9500,  sold:190, isNew:false, img:'imagenes/crema_acido_hialuronico.jpg',   cat:'Cuidado Facial', desc:'Alta concentración, poder antioxidante, previene envejecimiento prematuro.' },
+    { id:9,  name:'Crema Retinol BIOAQUA',                     price:7500,  sold:230, isNew:false, img:'imagenes/crema_facialretinol.jpg',       cat:'Cuidado Facial', desc:'Elimina manchas de sol, edad y acné; reduce líneas de expresión y mejora luminosidad.' },
+    { id:10, name:'Crema Vitamina C Aclarante BIOAQUA',        price:7000,  sold:160, isNew:false, img:'imagenes/crema_facial_vitaminacaclarante.jpg', cat:'Cuidado Facial', desc:'Nutre, ilumina y rejuvenece con Vitamina C y Elastina.' },
+    { id:11, name:'Crema Ácido Salicílico Acné BIOAQUA',       price:8000,  sold:310, isNew:false, img:'imagenes/ACIDO-SALICILICO-BIOAQUA_.jpg', cat:'Cuidado Facial', desc:'Combate el acné, controla grasa, limpia poros y regula la producción de sebo.' },
+    { id:12, name:'Crema Vitamina E + B5 BIOAQUA',             price:7000,  sold:145, isNew:false, img:'imagenes/crema_facial_vitaminae+b5.jpg', cat:'Cuidado Facial', desc:'Vitamina E antioxidante + B5 humectante para piel saludable y nutrida.' },
+    { id:13, name:'Crema Antiacné BIOAQUA',                    price:7500,  sold:270, isNew:false, img:'imagenes/crema_facial_anec.jpg',         cat:'Cuidado Facial', desc:'Reduce sebo, controla bacterias y mejora manchas y cicatrices de acné.' },
+    { id:14, name:'Crema Blanqueadora Para Pecas BIOAQUA',     price:7500,  sold:130, isNew:false, img:'imagenes/cremablanqueadora.jpg',         cat:'Cuidado Facial', desc:'Elimina eficazmente pecas, manchas y acné, aclarando la piel sin efectos secundarios.' },
+    { id:15, name:'Crema Rosas + Ácido Hialurónico BIOAQUA',  price:7500,  sold:185, isNew:false, img:'imagenes/crema_camelias.jpg',            cat:'Cuidado Facial', desc:'Combina rosas calmantes con ácido hialurónico para piel suave e hidratada.' },
+    { id:16, name:'Mascarilla Vitamina C SADOER',              price:8500,  sold:95,  isNew:true,  img:'imagenes/mascarillavitaminae.jpg',       cat:'Cuidado Facial', desc:'Ilumina, revitaliza y unifica el tono, ideal para pieles apagadas o con manchas.' },
+    { id:17, name:'Mascarilla Gel Arroz BIOAQUA',              price:8500,  sold:110, isNew:true,  img:'imagenes/mascarilladearrozengel.jpg',    cat:'Cuidado Facial', desc:'Gel suave con extractos de arroz que remueve suciedad de poros y piel muerta.' },
+    { id:18, name:'Mascarilla Aloe Vera BIOAQUA',              price:8500,  sold:120, isNew:false, img:'imagenes/mascarilla_gelaloevera.jpg',    cat:'Cuidado Facial', desc:'Para pieles sensibles, con acné, envejecimiento o necesidad extrema de hidratación.' },
+    { id:19, name:'Crema Depilatoria Aloe Vera BIOAQUA',       price:7500,  sold:88,  isNew:false, img:'imagenes/crema_depilatoria.jpg',         cat:'Cuidado Facial', desc:'3 min de depilación rápida y suave. Apta para cara, axilas, piernas y piel sensible.' },
+    { id:20, name:'Crema Corporal Peach BIOAQUA',              price:8500,  sold:200, isNew:false, img:'imagenes/crematarrodurazno.jpg',         cat:'Cuidado Facial', desc:'Nutre profundamente, hidrata todo el día y deja la piel brillante y luminosa.' },
+    { id:21, name:'Jabón Facial Camelias BIOAQUA',             price:7500,  sold:155, isNew:false, img:'imagenes/jabon_camelias (2).jpg',        cat:'Cuidado Facial', desc:'Limpia, protege y revitaliza con extracto de camelia y propiedades antioxidantes.' },
+    { id:22, name:'Jabón Facial Centella Asiática BIOAQUA',    price:7500,  sold:170, isNew:false, img:'imagenes/jabon_centella.jpg',            cat:'Cuidado Facial', desc:'Limpia, hidrata y ayuda a prevenir brotes y arrugas con centella asiática.' },
+    { id:23, name:'Jabón Peptide Perilla Niacinamida BIOAQUA', price:8500,  sold:90,  isNew:true,  img:'imagenes/jabon_perilla.jpg',             cat:'Cuidado Facial', desc:'Perilla calmante con niacinamida, ideal para piel sensible y propensa a irritaciones.' },
+    { id:24, name:'Jabón Hinojo Marino + AH BIOAQUA',          price:8500,  sold:80,  isNew:true,  img:'imagenes/jabon_hinojo.jpg',              cat:'Cuidado Facial', desc:'Limpiador tipo espuma anti-arrugas con hinojo marino y ácido hialurónico.' },
+    { id:25, name:'Sérum Perilla Polipéptidos BIOAQUA',        price:5000,  sold:135, isNew:false, img:'imagenes/serum_perilla.jpg',             cat:'Cuidado Facial', desc:'Nutrición profunda con polipéptidos de perilla para hidratación intensa y anti-edad.' },
+    { id:28, name:'Suero Ácido Hialurónico BIOAQUA',           price:8500,  sold:240, isNew:false, img:'imagenes/serum_acido_grande.jpg',        cat:'Cuidado Facial', desc:'Hidrata, da volumen y elasticidad, reduciendo arrugas y mejorando la apariencia.' },
+    { id:29, name:'Suero Gold 24K AH BIOAQUA',                 price:10500, sold:75,  isNew:true,  img:'imagenes/serum_acido_oro.jpg',           cat:'Cuidado Facial', desc:'Nanopartículas de oro 24K + nicotinamida que aportan luminosidad e hidratación profunda.' },
+    { id:30, name:'Sérum Anti-Edad Vitamina C BIOAQUA',        price:10500, sold:115, isNew:false, img:'imagenes/serum_vtaminaC_grande.jpg',     cat:'Cuidado Facial', desc:'Hidrata, nutre, reduce manchas y signos de envejecimiento, aporta firmeza y protección.' },
+    { id:31, name:'Contorno de Ojos Arroz Blanco BIOAQUA',     price:3500,  sold:180, isNew:false, img:'imagenes/CONTORNO DE ARROZ.jpg',         cat:'Cuidado Facial', desc:'El arroz hidrata, ilumina y elimina células muertas en el delicado contorno de ojos.' },
+    { id:32, name:'Jabón Facial Rose Hyaluronic BIOAQUA',      price:8500,  sold:165, isNew:false, img:'imagenes/JABONROSAS.jpg',                cat:'Cuidado Facial', desc:'ÁH + rosas que limpian, hidratan, suavizan y revitalizan la piel profundamente.' },
+    { id:33, name:'Agua de Rosas',                             price:8500,  sold:295, isNew:false, img:'imagenes/aguarosas500ml.jpg',            cat:'Cuidado Facial', desc:'Tónico hidratante, tonificante y reafirmante. Sin alcohol ni parabenos.' },
+    { id:34, name:'Crema Aclarante Zona Íntima BIOAQUA',       price:9500,  sold:100, isNew:false, img:'imagenes/despigmentante.jpg',            cat:'Cuidado Facial', desc:'Despigmenta y aclara zonas sensibles: axilas, labios, pezones y más.' },
+    { id:35, name:'Protector Solar Arroz SPF50+ BIOAQUA',      price:5500,  sold:220, isNew:false, img:'imagenes/bloqueadorcremaarroz.jpg',      cat:'Cuidado Facial', desc:'Alta protección UVB/UVA para el rostro con extracto de arroz.' },
+    { id:36, name:'Protector Solar en Spray BIOAQUA',          price:8500,  sold:85,  isNew:true,  img:'imagenes/bloqueadorrosado.jpg',          cat:'Cuidado Facial', desc:'Ideal sobre maquillaje, sin grasa, transparente y con defensa UV.' },
+    { id:37, name:'Protector Solar Aloe Vera BIOAQUA',         price:7000,  sold:150, isNew:false, img:'imagenes/bloqueador_solar_aloevera.jpg', cat:'Cuidado Facial', desc:'Defensa UVA/UVB + propiedades antibacterianas e hidratación intensiva.' },
+    { id:38, name:'Crema Depilatoria Arroz BIOAQUA',           price:7500,  sold:125, isNew:false, img:'imagenes/depiladorarroz.jpg',            cat:'Cuidado Facial', desc:'Elimina vello en minutos con efecto despigmentante, piel suave e hidratada.' },
+    { id:39, name:'Sérum Retinol BIOAQUA',                     price:5000,  sold:205, isNew:false, img:'imagenes/m_38.jpg',                      cat:'Cuidado Facial', desc:'Reduce arrugas, estimula colágeno, combate manchas y deja la piel radiante.' },
+    { id:40, name:'Sérum Vitamina C 30ml BIOAQUA',             price:5000,  sold:175, isNew:false, img:'imagenes/m_42.jpg',                      cat:'Cuidado Facial', desc:'Aclara el tono, nutre profundamente y mejora la suavidad del rostro.' },
+    { id:41, name:'Sérum Esencia de Arroz BIOAQUA',            price:5000,  sold:160, isNew:false, img:'imagenes/SERUMARROZ.jpg',                cat:'Cuidado Facial', desc:'Anti-edad con arroz y ácido hialurónico para piel firme, suave y protegida.' },
+    { id:42, name:'Tratamiento Crecimiento Pestañas BIOAQUA',  price:6500,  sold:190, isNew:false, img:'imagenes/m_39.jpg',                      cat:'Cuidado Facial', desc:'Estimula folículos y fortalece pestañas, cejas, barba y bigote.' },
+    { id:43, name:'Sérum Rosas + AH BIOAQUA',                  price:5000,  sold:145, isNew:false, img:'imagenes/serumrosas.jpg',                cat:'Cuidado Facial', desc:'Hidratación profunda, reduce arrugas y mejora firmeza y luminosidad.' },
+    { id:44, name:'Sérum Ácido Hialurónico BIOAQUA',           price:5000,  sold:200, isNew:false, img:'imagenes/serumverde.jpg',                cat:'Cuidado Facial', desc:'Repara, hidrata y revitaliza, restaura luminosidad. Absorción rápida.' },
+    { id:45, name:'Sérum Centella Asiática BIOAQUA',           price:5000,  sold:135, isNew:false, img:'imagenes/serumcentella.jpg',             cat:'Cuidado Facial', desc:'Calma enrojecimiento, protege con antioxidantes y fortalece la barrera cutánea.' },
+    { id:46, name:'Sérum Antiedad Camelias BIOAQUA',           price:5000,  sold:110, isNew:false, img:'imagenes/serumcamelias.jpg',             cat:'Cuidado Facial', desc:'Fórmula con aguacate y vitamina E que nutre, hidrata y promueve brillo natural.' },
+    { id:47, name:'Sérum Vitamina E y B5 BIOAQUA',             price:5000,  sold:95,  isNew:true,  img:'imagenes/serumvitaminaE.jpg',            cat:'Cuidado Facial', desc:'Hidrata, mejora firmeza y elasticidad, promueve regeneración celular.' },
+    { id:48, name:'Sérum Whitening Vitamina C BIOAQUA',        price:5000,  sold:120, isNew:false, img:'imagenes/serumvitaminacnaranja.jpg',     cat:'Cuidado Facial', desc:'Aclara manchas, protege con antioxidantes e hidrata profundamente.' },
+    { id:49, name:'Exfoliante Facial Durazno BIOAQUA',         price:8500,  sold:70,  isNew:true,  img:'imagenes/exfoliantedurazno.jpg',         cat:'Cuidado Facial', desc:'Limpia, elimina células muertas y deja la piel más suave desde el primer uso.' },
+    { id:50, name:'Jabón Facial Durazno con Aminoácidos',      price:5000,  sold:60,  isNew:true,  img:'imagenes/jabonfacialdurazno.jpg',        cat:'Cuidado Facial', desc:'Limpia suavemente con aminoácidos y fragancia de durazno fresco.' },
+    { id:51, name:'Crema Contorno Ojos Anti-Arrugas BIOAQUA',  price:5000,  sold:140, isNew:false, img:'imagenes/CREMAARRUJAS.jpg',              cat:'Cuidado Facial', desc:'Suaviza arrugas y ojeras, hidrata y tensa la piel. Uso diario mañana y noche.' },
   ],
   'grid-labios': [
-    { id:101, name:'Brillo Hello Kitty Llavero',         price:3500,  img:'imagenes/brillo_hello_kity_llavero.jpg', cat:'Labios', desc:'Brillo mágico en divertida forma de llavero Hello Kitty.' },
-    { id:102, name:'Bálsamo Labial x2 Capuvinni',        price:8500,  img:'imagenes/balsamo_color_capuvinni.jpg',   cat:'Labios', desc:'Empaque en forma de helado con 2 bálsamos de diferentes tonos.' },
-    { id:103, name:'Labial Mate Líquido LAMEILA',         price:4000,  img:'imagenes/labial_mate_lameila.jpg',       cat:'Labios', desc:'Labial líquido con acabado mate de larga duración.' },
-    { id:104, name:'Bálsamo Fresa',                      price:2500,  img:'imagenes/balsamo_fresa.jpg',             cat:'Labios', desc:'Bálsamo hidratante con aroma a fresa para labios suaves.' },
-    { id:105, name:'Colágeno de Labios VEZE',             price:10000, img:'imagenes/colageno_labios.jpg',           cat:'Labios', desc:'Hidrata, suaviza, elimina líneas finas y previene grietas.' },
-    { id:106, name:'Brillo Mágico Aloe Vera',            price:4000,  img:'imagenes/brillo_aloevera.jpg',           cat:'Labios', desc:'Brillo labial con propiedades hidratantes del aloe vera.' },
+    { id:101, name:'Brillo Hello Kitty Llavero',         price:3500,  sold:185, isNew:false, img:'imagenes/brillo_hello_kity_llavero.jpg', cat:'Labios', desc:'Brillo mágico en divertida forma de llavero Hello Kitty.' },
+    { id:102, name:'Bálsamo Labial x2 Capuvinni',        price:8500,  sold:95,  isNew:true,  img:'imagenes/balsamo_color_capuvinni.jpg',   cat:'Labios', desc:'Empaque en forma de helado con 2 bálsamos de diferentes tonos.' },
+    { id:103, name:'Labial Mate Líquido LAMEILA',         price:4000,  sold:220, isNew:false, img:'imagenes/labial_mate_lameila.jpg',       cat:'Labios', desc:'Labial líquido con acabado mate de larga duración.' },
+    { id:104, name:'Bálsamo Fresa',                      price:2500,  sold:310, isNew:false, img:'imagenes/balsamo_fresa.jpg',             cat:'Labios', desc:'Bálsamo hidratante con aroma a fresa para labios suaves.' },
+    { id:105, name:'Colágeno de Labios VEZE',             price:10000, sold:75,  isNew:true,  img:'imagenes/colageno_labios.jpg',           cat:'Labios', desc:'Hidrata, suaviza, elimina líneas finas y previene grietas.' },
+    { id:106, name:'Brillo Mágico Aloe Vera',            price:4000,  sold:140, isNew:false, img:'imagenes/brillo_aloevera.jpg',           cat:'Labios', desc:'Brillo labial con propiedades hidratantes del aloe vera.' },
   ],
   'grid-rubores': [
-    { id:201, name:'Paleta Correctores Full Coverage SFR', price:8000,  img:'imagenes/paleta_correctores.jpg',    cat:'Rubores', desc:'Paleta completa de correctores de alta cobertura para todo tipo de piel.' },
-    { id:202, name:'Rubor Tipo Tiza CAPPUVINI',            price:8000,  img:'imagenes/rubor_tiza.jpg',            cat:'Rubores', desc:'Rubor en polvo compacto con acabado natural y duradero.' },
-    { id:203, name:'Rubor Líquido MLSMILE',                price:8000,  img:'imagenes/rubor_liquido.jpg',         cat:'Rubores', desc:'Rubor líquido de fácil aplicación con acabado natural.' },
-    { id:204, name:'Rubor Jelly Tint ALAMA BEAUTY',        price:8000,  img:'imagenes/rubor_jelly.jpg',           cat:'Rubores', desc:'Textura gelatinosa única, fácil aplicación y acabado natural.' },
+    { id:201, name:'Paleta Correctores Full Coverage SFR', price:8000,  sold:130, isNew:false, img:'imagenes/paleta_correctores.jpg',    cat:'Rubores', desc:'Paleta completa de correctores de alta cobertura para todo tipo de piel.' },
+    { id:202, name:'Rubor Tipo Tiza CAPPUVINI',            price:8000,  sold:160, isNew:false, img:'imagenes/rubor_tiza.jpg',            cat:'Rubores', desc:'Rubor en polvo compacto con acabado natural y duradero.' },
+    { id:203, name:'Rubor Líquido MLSMILE',                price:8000,  sold:85,  isNew:true,  img:'imagenes/rubor_liquido.jpg',         cat:'Rubores', desc:'Rubor líquido de fácil aplicación con acabado natural.' },
+    { id:204, name:'Rubor Jelly Tint ALAMA BEAUTY',        price:8000,  sold:70,  isNew:true,  img:'imagenes/rubor_jelly.jpg',           cat:'Rubores', desc:'Textura gelatinosa única, fácil aplicación y acabado natural.' },
   ],
   'grid-sombras': [
-    { id:301, name:'Iluminador SAGUI',                       price:8000,  img:'imagenes/iluminador_luna.jpg',         cat:'Sombras', desc:'Iluminador para resaltar los puntos altos del rostro con acabado radiante.' },
-    { id:302, name:'Paleta de Sombras 40 Tonos',             price:25000, img:'imagenes/paleta_40_tonos.jpg',         cat:'Sombras', desc:'Paleta completa con 40 tonos para crear looks versátiles.' },
-    { id:303, name:'Paleta de Sombras 38 Tonos',             price:25000, img:'imagenes/paleta_38_tonos.jpg',         cat:'Sombras', desc:'Amplia gama de colores para todos los gustos y ocasiones.' },
-    { id:304, name:'Paleta Pride 117 Colores Kevin & Coco',  price:48000, img:'imagenes/paleta_117_tonos.jpg',        cat:'Sombras', desc:'Paleta profesional con 117 colores para maquillaje completo.' },
+    { id:301, name:'Iluminador SAGUI',                       price:8000,  sold:175, isNew:false, img:'imagenes/iluminador_luna.jpg',         cat:'Sombras', desc:'Iluminador para resaltar los puntos altos del rostro con acabado radiante.' },
+    { id:302, name:'Paleta de Sombras 40 Tonos',             price:25000, sold:145, isNew:false, img:'imagenes/paleta_40_tonos.jpg',         cat:'Sombras', desc:'Paleta completa con 40 tonos para crear looks versátiles.' },
+    { id:303, name:'Paleta de Sombras 38 Tonos',             price:25000, sold:120, isNew:false, img:'imagenes/paleta_38_tonos.jpg',         cat:'Sombras', desc:'Amplia gama de colores para todos los gustos y ocasiones.' },
+    { id:304, name:'Paleta Pride 117 Colores Kevin & Coco',  price:48000, sold:55,  isNew:true,  img:'imagenes/paleta_117_tonos.jpg',        cat:'Sombras', desc:'Paleta profesional con 117 colores para maquillaje completo.' },
   ],
   'grid-pestanas': [
-    { id:401, name:'Sérum Crecimiento Pestañas BIOAQUA',   price:7000,  img:'imagenes/serum_pestanas.jpg',     cat:'Pestañas', desc:'Nutre desde la raíz, agrega grosor y fortalece pestañas cortas.' },
-    { id:402, name:'Pestañina Distinct Roots KARITÉ',      price:7000,  img:'imagenes/pestanina_karite.jpg',   cat:'Pestañas', desc:'Máscara para pestañas con efecto volumen y definición.' },
-    { id:403, name:'Pestañina PROSA',                      price:20000, img:'imagenes/pestanina_prosa.jpg',   cat:'Pestañas', desc:'Máscara premium para pestañas largas y voluminosas.' },
-    { id:404, name:'Pestañina Súper Volumen OLIBOLLA',     price:7000,  img:'imagenes/pestanina_olibolla.jpg',cat:'Pestañas', desc:'Con aloe vera, doble extensión para pestañas impactantes.' },
+    { id:401, name:'Sérum Crecimiento Pestañas BIOAQUA',   price:7000,  sold:190, isNew:false, img:'imagenes/serum_pestanas.jpg',     cat:'Pestañas', desc:'Nutre desde la raíz, agrega grosor y fortalece pestañas cortas.' },
+    { id:402, name:'Pestañina Distinct Roots KARITÉ',      price:7000,  sold:155, isNew:false, img:'imagenes/pestanina_karite.jpg',   cat:'Pestañas', desc:'Máscara para pestañas con efecto volumen y definición.' },
+    { id:403, name:'Pestañina PROSA',                      price:20000, sold:65,  isNew:true,  img:'imagenes/pestanina_prosa.jpg',   cat:'Pestañas', desc:'Máscara premium para pestañas largas y voluminosas.' },
+    { id:404, name:'Pestañina Súper Volumen OLIBOLLA',     price:7000,  sold:210, isNew:false, img:'imagenes/pestanina_olibolla.jpg',cat:'Pestañas', desc:'Con aloe vera, doble extensión para pestañas impactantes.' },
   ],
   'grid-delineadores': [
-    { id:501, name:'Delineador Negro Líquido',             price:6000,  img:'imagenes/delineador_negro.jpg',    cat:'Delineadores', desc:'Trazo preciso, secado rápido y larga duración todo el día.' },
-    { id:502, name:'Delineador de Colores',                price:7000,  img:'imagenes/delineador_colores.jpg', cat:'Delineadores', desc:'Set de delineadores de colores vibrantes para looks creativos.' },
+    { id:501, name:'Delineador Negro Líquido',             price:6000,  sold:290, isNew:false, img:'imagenes/delineador_negro.jpg',    cat:'Delineadores', desc:'Trazo preciso, secado rápido y larga duración todo el día.' },
+    { id:502, name:'Delineador de Colores',                price:7000,  sold:80,  isNew:true,  img:'imagenes/delineador_colores.jpg', cat:'Delineadores', desc:'Set de delineadores de colores vibrantes para looks creativos.' },
   ],
   'grid-cabello': [
-    { id:601, name:'Aceite Capilar Nutritivo',             price:9000,  img:'imagenes/aceite_capilar.jpg',     cat:'Cabello', desc:'Nutre, brilla y protege el cabello del calor y la humedad.' },
-    { id:602, name:'Mascarilla Capilar Hidratante',        price:11000, img:'imagenes/mascarilla_capilar.jpg', cat:'Cabello', desc:'Hidratación profunda para cabello seco, dañado o con puntas abiertas.' },
+    { id:601, name:'Aceite Capilar Nutritivo',             price:9000,  sold:130, isNew:false, img:'imagenes/aceite_capilar.jpg',     cat:'Cabello', desc:'Nutre, brilla y protege el cabello del calor y la humedad.' },
+    { id:602, name:'Mascarilla Capilar Hidratante',        price:11000, sold:75,  isNew:true,  img:'imagenes/mascarilla_capilar.jpg', cat:'Cabello', desc:'Hidratación profunda para cabello seco, dañado o con puntas abiertas.' },
   ],
   'grid-otros': [
-    { id:701, name:'Set de Brochas 10 Piezas',             price:15000, img:'imagenes/brochas_set.jpg',        cat:'Otros', desc:'Set completo de brochas profesionales para una aplicación perfecta.' },
-    { id:702, name:'Esponja Beauty Blender',               price:5000,  img:'imagenes/esponja_bb.jpg',         cat:'Otros', desc:'Esponja para aplicar base, corrector y polvo con acabado impecable.' },
+    { id:701, name:'Set de Brochas 10 Piezas',             price:15000, sold:160, isNew:false, img:'imagenes/brochas_set.jpg',        cat:'Otros', desc:'Set completo de brochas profesionales para una aplicación perfecta.' },
+    { id:702, name:'Esponja Beauty Blender',               price:5000,  sold:95,  isNew:true,  img:'imagenes/esponja_bb.jpg',         cat:'Otros', desc:'Esponja para aplicar base, corrector y polvo con acabado impecable.' },
   ],
 };
 
@@ -1496,18 +1767,62 @@ function fmt(n) { return n.toLocaleString('es-CO'); }
 /* ════════════════════════════════════════
    RENDER PRODUCTS
 ════════════════════════════════════════ */
-function renderProducts() {
+/* ════════════════════════════════════════
+   SKELETON HELPERS
+════════════════════════════════════════ */
+function skeletonCardHTML() {
+  return `
+  <div class="skeleton-card">
+    <div class="skeleton-img skeleton-base"></div>
+    <div class="skeleton-body">
+      <div class="skeleton-line w-80 skeleton-base"></div>
+      <div class="skeleton-line w-60 skeleton-base"></div>
+    </div>
+    <div class="skeleton-footer">
+      <div class="skeleton-price skeleton-base"></div>
+      <div class="skeleton-btn skeleton-base"></div>
+    </div>
+  </div>`;
+}
+
+function injectSkeletons() {
   Object.entries(PRODUCTS).forEach(([gridId, products]) => {
     const grid = document.getElementById(gridId);
     if (!grid) return;
-    grid.innerHTML = products.map(p => cardHTML(p)).join('');
-
-    // update section count
-    const key = gridId.replace('grid-', '');
-    const cnt = document.getElementById(`cnt-${key}`);
-    if (cnt) cnt.textContent = `${products.length} productos`;
+    const count = Math.min(products.length, 6);
+    grid.innerHTML = Array(count).fill(skeletonCardHTML()).join('');
   });
-  updateResultsCount();
+}
+
+function renderProducts() {
+  Object.entries(PRODUCTS).forEach(([gridId, products], sectionIdx) => {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+
+    // stagger each section slightly
+    setTimeout(() => {
+      grid.innerHTML = products.map(p => cardHTML(p)).join('');
+
+      // reveal cards one by one
+      const cards = grid.querySelectorAll('.product-card');
+      cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        setTimeout(() => {
+          card.style.opacity = '';
+          card.classList.add('revealed');
+        }, i * 55);
+      });
+
+      // update section count
+      const key = gridId.replace('grid-', '');
+      const cnt = document.getElementById(`cnt-${key}`);
+      if (cnt) cnt.textContent = `${products.length} productos`;
+    }, sectionIdx * 120);
+  });
+
+  // update count after all sections render
+  const totalDelay = Object.keys(PRODUCTS).length * 120 + 100;
+  setTimeout(() => updateResultsCount(), totalDelay);
 }
 
 function cardHTML(p) {
@@ -1518,6 +1833,7 @@ function cardHTML(p) {
       <img src="${p.img}" alt="${esc(p.name)}" loading="lazy"
            onerror="this.src='https://via.placeholder.com/300x300/fde4ef/7B2D5E?text=AROM'" />
       <div class="card-badge">${p.cat}</div>
+      ${p.isNew ? '<div class="card-badge-new">✨ Nuevo</div>' : ''}
       <div class="card-overlay">
         <span class="card-overlay-pill">
           <i class="fas fa-eye"></i> Ver detalle
@@ -1602,7 +1918,8 @@ function cardDec(id) {
 ════════════════════════════════════════ */
 function toggleWish(e, id) {
   e.stopPropagation();
-  if (wishlist.has(id)) {
+  const wasIn = wishlist.has(id);
+  if (wasIn) {
     wishlist.delete(id);
     toast('Eliminado de favoritos', '');
   } else {
@@ -1610,12 +1927,103 @@ function toggleWish(e, id) {
     toast('❤️ Agregado a favoritos', 'success');
   }
   saveWish();
-  // update button
+
+  // update card button
   const btn = document.querySelector(`.product-card[data-id="${id}"] .card-wish`);
   if (btn) {
     btn.classList.toggle('active', wishlist.has(id));
     btn.querySelector('i').className = `fa${wishlist.has(id)?'s':'r'} fa-heart`;
+    // pop animation
+    btn.classList.remove('pop');
+    void btn.offsetWidth;
+    btn.classList.add('pop');
   }
+
+  updateWishBadge();
+  renderWishDrawer();
+}
+
+function updateWishBadge() {
+  const badge = document.getElementById('wishBadge');
+  if (!badge) return;
+  const count = wishlist.size;
+  badge.textContent = count;
+  badge.classList.toggle('visible', count > 0);
+  badge.classList.remove('bump');
+  void badge.offsetWidth;
+  if (count > 0) badge.classList.add('bump');
+}
+
+function openWish() {
+  renderWishDrawer();
+  document.getElementById('wishOverlay').classList.add('open');
+  document.getElementById('wishDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWish() {
+  document.getElementById('wishOverlay').classList.remove('open');
+  document.getElementById('wishDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderWishDrawer() {
+  const itemsEl  = document.getElementById('wishItems');
+  const footerEl = document.getElementById('wishFooter');
+  if (!itemsEl) return;
+
+  if (!wishlist.size) {
+    itemsEl.innerHTML = `<div class="empty-wish">
+      <div class="ew-icon">🤍</div>
+      <p>No tienes favoritos aún</p>
+      <small>Toca el corazón en cualquier producto para guardarlo aquí.</small>
+    </div>`;
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  itemsEl.innerHTML = [...wishlist].map(id => {
+    const p = findProduct(id);
+    if (!p) return '';
+    const inCart = cart.find(i => i.id === id);
+    return `
+    <div class="wish-item">
+      <img class="wish-thumb" src="${p.img}" alt="${esc(p.name)}"
+           onclick="closeWish();openQV(${p.id})"
+           onerror="this.src='https://via.placeholder.com/62x62/fde4ef/7B2D5E?text=A'" />
+      <div class="wi-info">
+        <div class="wi-name" title="${esc(p.name)}">${p.name}</div>
+        <div class="wi-price">$${fmt(p.price)}</div>
+        ${inCart
+          ? `<span style="font-size:.76rem;color:var(--success);font-weight:600;"><i class="fas fa-check-circle"></i> En el carrito (${inCart.qty})</span>`
+          : `<button class="wi-add-btn" onclick="addToCart(${p.id});renderWishDrawer()"><i class="fas fa-shopping-bag"></i> Agregar</button>`
+        }
+      </div>
+      <button class="wi-remove" onclick="toggleWish(event,${p.id})" aria-label="Quitar de favoritos">
+        <i class="fas fa-heart-broken"></i>
+      </button>
+    </div>`;
+  }).join('');
+
+  footerEl.style.display = wishlist.size ? 'block' : 'none';
+}
+
+function addAllToCart() {
+  let added = 0;
+  wishlist.forEach(id => {
+    if (!cart.find(i => i.id === id)) {
+      const p = findProduct(id);
+      if (p) { cart.push({ id, name:p.name, price:p.price, qty:1, img:p.img }); added++; }
+    }
+  });
+  if (added) {
+    saveCart(); renderDrawer(); bumpBadge();
+    cart.forEach(i => refreshCard(i.id));
+    toast(`🛍️ ${added} producto${added!==1?'s':''} agregado${added!==1?'s':''}`, 'success');
+  } else {
+    toast('Todos los favoritos ya están en el carrito 😊', '');
+  }
+  renderWishDrawer();
 }
 
 /* ════════════════════════════════════════
@@ -1802,9 +2210,8 @@ function applySort(order) {
     const cards = Array.from(grid.querySelectorAll('.product-card'));
     if (!cards.length) return;
 
-    if (order==='default') {
-      const gId = grid.id;
-      const original = PRODUCTS[gId];
+    if (order === 'default') {
+      const original = PRODUCTS[grid.id];
       if (!original) return;
       original.forEach(p => {
         const c = grid.querySelector(`.product-card[data-id="${p.id}"]`);
@@ -1813,15 +2220,41 @@ function applySort(order) {
       return;
     }
 
-    cards.sort((a,b) => {
-      const pA = parseInt(a.querySelector('.card-price')?.textContent.replace(/\D/g,'')||'0');
-      const pB = parseInt(b.querySelector('.card-price')?.textContent.replace(/\D/g,'')||'0');
-      return order==='asc' ? pA-pB : pB-pA;
+    if (order === 'new') {
+      // show only isNew products, hide the rest
+      let anyVisible = false;
+      cards.forEach(c => {
+        const id = parseInt(c.dataset.id);
+        const p = findProduct(id);
+        const show = p?.isNew;
+        c.style.display = show ? '' : 'none';
+        if (show) anyVisible = true;
+      });
+      // move new ones to top with animation
+      cards.filter(c => c.style.display !== 'none').forEach((c, i) => {
+        c.style.opacity = '0'; c.style.transform = 'translateY(10px)';
+        grid.appendChild(c);
+        setTimeout(() => { c.style.transition = 'opacity .2s, transform .2s'; c.style.opacity = ''; c.style.transform = ''; }, i * 30 + 40);
+      });
+      return;
+    }
+
+    cards.sort((a, b) => {
+      const idA = parseInt(a.dataset.id);
+      const idB = parseInt(b.dataset.id);
+      const pA = findProduct(idA);
+      const pB = findProduct(idB);
+      if (order === 'sold') return (pB?.sold || 0) - (pA?.sold || 0);
+      const priceA = parseInt(a.querySelector('.card-price')?.textContent.replace(/\D/g,'') || '0');
+      const priceB = parseInt(b.querySelector('.card-price')?.textContent.replace(/\D/g,'') || '0');
+      return order === 'asc' ? priceA - priceB : priceB - priceA;
     });
-    cards.forEach((c,i) => {
-      c.style.opacity='0'; c.style.transform='translateY(10px)';
+
+    cards.forEach(c => { c.style.display = ''; }); // ensure all visible
+    cards.forEach((c, i) => {
+      c.style.opacity = '0'; c.style.transform = 'translateY(10px)';
       grid.appendChild(c);
-      setTimeout(() => { c.style.transition='opacity .2s, transform .2s'; c.style.opacity=''; c.style.transform=''; }, i*25+50);
+      setTimeout(() => { c.style.transition = 'opacity .2s, transform .2s'; c.style.opacity = ''; c.style.transform = ''; }, i * 25 + 50);
     });
   });
 }
@@ -1861,7 +2294,7 @@ function resetFilters() {
 
   document.querySelectorAll('.category-section').forEach(s=>{
     s.style.display='block';
-    s.querySelectorAll('.product-card').forEach(c=>c.style.display='');
+    s.querySelectorAll('.product-card').forEach(c=>{ c.style.display=''; });
   });
 
   const ns = document.getElementById('navSearch');
@@ -1920,6 +2353,7 @@ function scrollCats(dx) {
 ════════════════════════════════════════ */
 window.addEventListener('scroll', () => {
   document.getElementById('stickyNav')?.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('backToTop')?.classList.toggle('visible', window.scrollY > 400);
 }, { passive:true });
 
 /* ════════════════════════════════════════
@@ -1953,6 +2387,7 @@ function copyPhone(text, el) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     if (document.getElementById('qvOverlay')?.classList.contains('open')) { closeQV(); return; }
+    if (document.getElementById('wishDrawer')?.classList.contains('open')) { closeWish(); return; }
     if (document.getElementById('cartDrawer')?.classList.contains('open')) { closeCart(); }
   }
 });
@@ -1961,10 +2396,13 @@ document.addEventListener('keydown', e => {
    INIT
 ════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  renderProducts();
-  renderDrawer();
-  cart.forEach(i => refreshCard(i.id));
-  updateResultsCount();
+  injectSkeletons();
+  setTimeout(() => {
+    renderProducts();
+    renderDrawer();
+    cart.forEach(i => refreshCard(i.id));
+    updateWishBadge();
+  }, 600);
 });
 </script>
 </body>
