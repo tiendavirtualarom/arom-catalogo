@@ -1165,6 +1165,142 @@ footer span { color:var(--rose-deep); }
 }
 
 /* ═══════════════════════════════════════════════
+   POP-UP DE BIENVENIDA
+═══════════════════════════════════════════════ */
+.welcome-overlay {
+  position:fixed; inset:0;
+  background:rgba(44,26,36,.60);
+  backdrop-filter:blur(12px);
+  display:flex; align-items:center; justify-content:center;
+  z-index:20001; padding:16px;
+  opacity:0; animation:wOverlayIn .4s var(--ease) .25s forwards;
+}
+@keyframes wOverlayIn { to { opacity:1; } }
+.welcome-overlay.closing { animation:wOverlayOut .3s var(--ease) forwards; }
+@keyframes wOverlayOut  { to { opacity:0; pointer-events:none; } }
+
+.welcome-panel {
+  background:#fff; border-radius:var(--radius-xl);
+  width:100%; max-width:460px;
+  box-shadow:var(--shadow-xl); overflow:hidden;
+  transform:scale(.88) translateY(24px);
+  animation:wPanelIn .45s var(--ease-spring) .35s forwards;
+  position:relative;
+}
+@keyframes wPanelIn { to { transform:scale(1) translateY(0); } }
+
+.welcome-top {
+  background:linear-gradient(145deg,#fff0f7,#fde4ef,#f5d0ea);
+  padding:36px 32px 28px; text-align:center; position:relative; overflow:hidden;
+}
+.welcome-top::before {
+  content:''; position:absolute; top:-60px; right:-60px;
+  width:200px; height:200px; border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,191,.35),transparent 70%);
+}
+.welcome-top::after {
+  content:''; position:absolute; bottom:-40px; left:-40px;
+  width:140px; height:140px; border-radius:50%;
+  background:radial-gradient(circle,rgba(123,45,94,.10),transparent 70%);
+}
+.welcome-emoji {
+  font-size:3rem; margin-bottom:10px; display:block;
+  animation:wEmoji .6s var(--ease-spring) .6s both;
+}
+@keyframes wEmoji {
+  from { transform:scale(0) rotate(-20deg); opacity:0; }
+  to   { transform:scale(1) rotate(0deg);  opacity:1; }
+}
+.welcome-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.55rem; font-weight:700; color:var(--plum);
+  line-height:1.2; margin-bottom:6px; position:relative; z-index:1;
+}
+.welcome-sub { font-size:.88rem; color:var(--text-mid); line-height:1.6; position:relative; z-index:1; }
+
+.welcome-body { padding:24px 28px 28px; }
+.welcome-code-label {
+  font-size:.75rem; font-weight:700; color:var(--text-soft);
+  letter-spacing:.8px; text-transform:uppercase; margin-bottom:10px;
+  display:flex; align-items:center; gap:6px;
+}
+.welcome-code-label i { color:var(--rose-deep); }
+.welcome-code-box {
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(135deg,#fdf0f7,#fde8f2);
+  border:2px dashed rgba(200,101,140,.40); border-radius:var(--radius-md);
+  padding:14px 18px; margin-bottom:10px; cursor:pointer;
+  transition:all var(--t-base) var(--ease);
+}
+.welcome-code-box:hover { border-color:var(--rose-deep); background:linear-gradient(135deg,#fce4f0,#fbd8ea); transform:scale(1.01); }
+.welcome-code-text {
+  font-family:'Playfair Display',serif; font-size:1.5rem;
+  font-weight:700; color:var(--plum); letter-spacing:4px;
+}
+.welcome-code-copy { display:flex; align-items:center; gap:5px; font-size:.75rem; font-weight:700; color:var(--rose-deep); white-space:nowrap; }
+.welcome-discount-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; font-size:.8rem; font-weight:700;
+  padding:5px 14px; border-radius:50px; margin-bottom:18px;
+  box-shadow:0 3px 10px rgba(200,101,140,.3);
+}
+.welcome-cta {
+  width:100%; border:none;
+  background:linear-gradient(135deg,var(--plum),var(--plum-dark));
+  color:#fff; padding:15px; border-radius:50px;
+  font-size:1rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  transition:all var(--t-base) var(--ease-spring); margin-bottom:12px;
+}
+.welcome-cta:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.welcome-skip { text-align:center; font-size:.8rem; color:var(--text-faint); cursor:pointer; transition:color var(--t-base); }
+.welcome-skip:hover { color:var(--text-soft); }
+.welcome-close {
+  position:absolute; top:12px; right:14px;
+  background:rgba(255,255,255,.7); border:none;
+  width:30px; height:30px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--plum); font-size:.85rem; backdrop-filter:blur(4px);
+  transition:all var(--t-base); z-index:2; cursor:pointer;
+}
+.welcome-close:hover { background:#fff; transform:scale(1.1); }
+
+/* ─── Cupón en el carrito ─── */
+.coupon-wrap { margin-bottom:14px; }
+.coupon-label {
+  display:flex; align-items:center; gap:6px;
+  font-size:.8rem; font-weight:600; color:var(--text-mid);
+  margin-bottom:7px; letter-spacing:.3px;
+}
+.coupon-label i { color:var(--rose-deep); }
+.coupon-row { display:flex; gap:8px; }
+.coupon-input {
+  flex:1; border:1.5px solid var(--border); border-radius:50px;
+  padding:9px 16px; font-family:'DM Sans',sans-serif; font-size:.86rem;
+  color:var(--text-dark); background:#fdfafc; outline:none;
+  text-transform:uppercase; letter-spacing:1px; transition:all var(--t-base);
+}
+.coupon-input::placeholder { text-transform:none; letter-spacing:0; color:var(--text-faint); }
+.coupon-input:focus { border-color:var(--rose); box-shadow:0 0 0 3px rgba(232,160,191,.18); }
+.coupon-apply-btn {
+  border:none; border-radius:50px;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff; padding:9px 16px; font-size:.82rem; font-weight:700;
+  transition:all var(--t-base) var(--ease-spring); white-space:nowrap;
+}
+.coupon-apply-btn:hover { filter:brightness(1.08); transform:scale(1.04); }
+.coupon-feedback { font-size:.76rem; margin-top:5px; padding:0 4px; min-height:16px; font-weight:500; }
+.coupon-feedback.ok  { color:var(--success); }
+.coupon-feedback.err { color:var(--danger); }
+.discount-row {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:6px; font-size:.88rem;
+}
+.discount-label { color:var(--success); font-weight:600; }
+.discount-amount { color:var(--success); font-weight:700; font-family:'Playfair Display',serif; }
+
+/* ═══════════════════════════════════════════════
    BOTÓN VOLVER ARRIBA
 ═══════════════════════════════════════════════ */
 .back-to-top {
@@ -1604,6 +1740,10 @@ footer span { color:var(--rose-deep); }
       <span class="total-label">Total del pedido</span>
       <span class="total-amount">$<span id="totalAmount">0</span></span>
     </div>
+    <div class="discount-row" id="discountRow" style="display:none">
+      <span class="discount-label"><i class="fas fa-check-circle"></i> Descuento <span id="discountPct"></span></span>
+      <span class="discount-amount">−$<span id="discountAmount">0</span></span>
+    </div>
     <div class="note-wrap">
       <label class="note-label" for="orderNote">
         <i class="fas fa-pen-nib"></i> Nota especial (opcional)
@@ -1613,6 +1753,14 @@ footer span { color:var(--rose-deep); }
         oninput="updateNoteCounter()"></textarea>
       <div class="note-counter" id="noteCounter">0 / 200</div>
     </div>
+    <div class="coupon-wrap">
+      <div class="coupon-label"><i class="fas fa-tag"></i> ¿Tienes un cupón?</div>
+      <div class="coupon-row">
+        <input type="text" class="coupon-input" id="couponInput" placeholder="Ej: AROM10" maxlength="20" oninput="this.value=this.value.toUpperCase()" />
+        <button class="coupon-apply-btn" onclick="applyCoupon()">Aplicar</button>
+      </div>
+      <div class="coupon-feedback" id="couponFeedback"></div>
+    </div>
     <button class="checkout-btn" onclick="checkout()">
       <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
     </button>
@@ -1621,6 +1769,32 @@ footer span { color:var(--rose-deep); }
 
 <!-- ═══════════════ TOAST ═══════════════ -->
 <div id="toast" role="alert" aria-live="polite"></div>
+
+<!-- ═══════════════ POP-UP BIENVENIDA ═══════════════ -->
+<div class="welcome-overlay" id="welcomeOverlay" style="display:none">
+  <div class="welcome-panel">
+    <button class="welcome-close" onclick="closeWelcome()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    <div class="welcome-top">
+      <span class="welcome-emoji">🎀</span>
+      <div class="welcome-title">¡Bienvenida a AROM!</div>
+      <div class="welcome-sub">Tenemos un regalo especial para ti en tu primera compra 💜</div>
+    </div>
+    <div class="welcome-body">
+      <div class="welcome-code-label"><i class="fas fa-tag"></i> Tu código exclusivo</div>
+      <div class="welcome-code-box" onclick="copyWelcomeCode()" title="Clic para copiar">
+        <span class="welcome-code-text">AROM10</span>
+        <span class="welcome-code-copy"><i class="fas fa-copy"></i> Copiar</span>
+      </div>
+      <div>
+        <span class="welcome-discount-pill"><i class="fas fa-percent"></i> 5% de descuento en tu pedido</span>
+      </div>
+      <button class="welcome-cta" onclick="closeWelcome()">
+        <i class="fas fa-shopping-bag"></i> ¡Empezar a comprar!
+      </button>
+      <div class="welcome-skip" onclick="closeWelcome()">Quizás después</div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════ WA FLOAT ═══════════════ -->
 <a href="https://wa.me/573054328798" target="_blank" rel="noopener"
@@ -2079,7 +2253,21 @@ function renderDrawer() {
     </div>`).join('');
 
   const sum = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  total.textContent = fmt(sum);
+  const discountRow = document.getElementById('discountRow');
+  const discountAmountEl = document.getElementById('discountAmount');
+  const discountPctEl = document.getElementById('discountPct');
+
+  if (activeCoupon) {
+    const disc = Math.round(sum * activeCoupon.pct / 100);
+    const finalTotal = sum - disc;
+    total.textContent = fmt(finalTotal);
+    if (discountRow) discountRow.style.display = 'flex';
+    if (discountAmountEl) discountAmountEl.textContent = fmt(disc);
+    if (discountPctEl) discountPctEl.textContent = `(${activeCoupon.label})`;
+  } else {
+    total.textContent = fmt(sum);
+    if (discountRow) discountRow.style.display = 'none';
+  }
   footerEl.style.display = 'block';
 }
 
@@ -2146,6 +2334,77 @@ function qvChange(delta) {
 }
 
 /* ════════════════════════════════════════
+   CUPÓN DE DESCUENTO
+════════════════════════════════════════ */
+const COUPONS = {
+  'AROM10': { pct: 5, label: '5% off' }
+};
+let activeCoupon = null;
+
+function applyCoupon() {
+  const input = document.getElementById('couponInput');
+  const feedback = document.getElementById('couponFeedback');
+  const code = input?.value.trim().toUpperCase();
+  if (!code) { showCouponMsg('Escribe un código primero', 'err'); return; }
+
+  const coupon = COUPONS[code];
+  if (!coupon) {
+    showCouponMsg('❌ Código no válido', 'err');
+    activeCoupon = null;
+    renderDrawer();
+    return;
+  }
+  activeCoupon = { code, ...coupon };
+  showCouponMsg(`✓ ¡Código aplicado! ${coupon.label}`, 'ok');
+  renderDrawer();
+}
+
+function showCouponMsg(msg, type) {
+  const el = document.getElementById('couponFeedback');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = `coupon-feedback ${type}`;
+}
+
+function removeCoupon() {
+  activeCoupon = null;
+  const input = document.getElementById('couponInput');
+  if (input) input.value = '';
+  showCouponMsg('', '');
+  renderDrawer();
+}
+
+/* ════════════════════════════════════════
+   POP-UP BIENVENIDA
+════════════════════════════════════════ */
+function initWelcomePopup() {
+  const seen = localStorage.getItem('aromWelcomeSeen');
+  if (seen) return;
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) return;
+  setTimeout(() => {
+    overlay.style.display = 'flex';
+  }, 1400);
+}
+
+function closeWelcome() {
+  const overlay = document.getElementById('welcomeOverlay');
+  if (!overlay) return;
+  overlay.classList.add('closing');
+  localStorage.setItem('aromWelcomeSeen', '1');
+  setTimeout(() => { overlay.style.display = 'none'; overlay.classList.remove('closing'); }, 320);
+}
+
+function copyWelcomeCode() {
+  navigator.clipboard?.writeText('AROM10').then(() => {
+    toast('✓ Código AROM10 copiado', 'success');
+    // auto-fill in cart input
+    const input = document.getElementById('couponInput');
+    if (input) input.value = 'AROM10';
+  }).catch(() => toast('Código: AROM10', 'success'));
+}
+
+/* ════════════════════════════════════════
    CHECKOUT
 ════════════════════════════════════════ */
 function checkout() {
@@ -2156,7 +2415,14 @@ function checkout() {
     msg += `▸ ${i.name}\n  Cant: ${i.qty} × $${fmt(i.price)} = $${fmt(i.price*i.qty)}\n`;
     total += i.price * i.qty;
   });
-  msg += `\n*Total: $${fmt(total)} COP*`;
+  if (activeCoupon) {
+    const disc = Math.round(total * activeCoupon.pct / 100);
+    msg += `\nSubtotal: $${fmt(total)} COP`;
+    msg += `\n🏷️ Cupón *${activeCoupon.code}* (${activeCoupon.label}): −$${fmt(disc)} COP`;
+    msg += `\n*Total con descuento: $${fmt(total - disc)} COP*`;
+  } else {
+    msg += `\n*Total: $${fmt(total)} COP*`;
+  }
   const note = document.getElementById('orderNote')?.value.trim();
   if (note) msg += `\n\n📝 *Nota:* ${note}`;
   msg += '\n\n¿Me pueden ayudar con el proceso de pago y envío? 🙏';
@@ -2402,6 +2668,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderDrawer();
     cart.forEach(i => refreshCard(i.id));
     updateWishBadge();
+    initWelcomePopup();
   }, 600);
 });
 </script>
