@@ -225,8 +225,52 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 28px;
+      margin-bottom: 14px;
     }
+
+    /* ── Barra de ordenamiento ── */
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    .sort-label {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      letter-spacing: .4px;
+      white-space: nowrap;
+    }
+    .sort-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1.5px solid rgba(200,101,140,.22);
+      background: #fff;
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .84rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .sort-btn:hover {
+      border-color: var(--rose-deep);
+      color: var(--plum);
+      transform: translateY(-1px);
+    }
+    .sort-btn.active {
+      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: var(--shadow-sm);
+    }
+    .sort-btn .sort-arrow { font-size: .75rem; opacity: .8; }
 
     .search-bar {
       flex: 1 1 300px;
@@ -253,6 +297,24 @@
       color: var(--text-dark);
     }
     .search-input::placeholder { color: var(--text-soft); }
+
+    .clear-btn {
+      background: transparent;
+      border: none;
+      padding: 0 12px 0 0;
+      cursor: pointer;
+      color: var(--text-soft);
+      font-size: .95rem;
+      line-height: 1;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .clear-btn:hover { color: var(--rose-deep); transform: scale(1.2); }
+    .clear-btn.visible { display: flex; }
+
     .search-btn {
       background: linear-gradient(135deg, var(--rose), var(--rose-deep));
       border: none;
@@ -497,6 +559,39 @@
     }
     .add-to-cart:active { transform: scale(.97); }
 
+    /* ── Stepper en tarjeta (cuando ya está en el carrito) ── */
+    .card-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-radius: 50px;
+      overflow: hidden;
+      border: 1.5px solid var(--rose-deep);
+      background: #fff;
+    }
+    .card-stepper button {
+      border: none;
+      background: transparent;
+      color: var(--rose-deep);
+      width: 32px; height: 34px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-stepper button:hover { background: var(--rose-deep); color: #fff; }
+    .card-stepper .card-qty {
+      min-width: 28px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: .97rem;
+      font-weight: 700;
+      color: var(--plum);
+      pointer-events: none;
+    }
+
     /* ═══════════════════════════════════════════
        MODAL CARRITO
     ═══════════════════════════════════════════ */
@@ -569,16 +664,32 @@
       padding: 14px 0;
       border-bottom: 1px solid rgba(232,160,191,.20);
     }
-    .cart-item-info { flex: 1 }
+
+    /* ── Miniatura ── */
+    .cart-thumb {
+      width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(232,160,191,.30);
+      background: linear-gradient(135deg, #fde4ef, #fdf0f5);
+    }
+
+    .cart-item-info { flex: 1; min-width: 0; }
     .cart-item-name {
       font-weight: 600;
-      font-size: .92rem;
+      font-size: .88rem;
       color: var(--text-dark);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
+      /* recortar nombres muy largos */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .cart-item-price {
       font-family: 'Playfair Display', serif;
-      font-size: .97rem;
+      font-size: .95rem;
       color: var(--plum);
     }
 
@@ -640,6 +751,49 @@
       font-weight: 700;
       color: var(--plum);
     }
+
+    /* ── Campo de nota ── */
+    .note-wrap {
+      margin-bottom: 14px;
+    }
+    .note-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      margin-bottom: 7px;
+      letter-spacing: .3px;
+    }
+    .note-label i { color: var(--rose-deep); font-size: .85rem; }
+    .note-input {
+      width: 100%;
+      border: 1.5px solid rgba(200,101,140,.22);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .88rem;
+      color: var(--text-dark);
+      background: #fdfafc;
+      resize: none;
+      outline: none;
+      transition: var(--transition);
+      line-height: 1.5;
+    }
+    .note-input::placeholder { color: var(--text-soft); }
+    .note-input:focus {
+      border-color: var(--rose);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(232,160,191,.18);
+    }
+    .note-counter {
+      text-align: right;
+      font-size: .75rem;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+    .note-counter.warn { color: var(--rose-deep); font-weight: 600; }
     .checkout-btn {
       width: 100%;
       border: none;
@@ -856,6 +1010,9 @@
     <div class="search-bar">
       <input type="text" id="searchInput" class="search-input"
              placeholder="Buscar productos, marcas…" autocomplete="off" />
+      <button class="clear-btn" id="clearBtn" onclick="clearSearch()" aria-label="Limpiar búsqueda">
+        <i class="fas fa-times"></i>
+      </button>
       <button class="search-btn" onclick="searchProducts()" aria-label="Buscar">
         <i class="fas fa-search"></i>
       </button>
@@ -866,6 +1023,20 @@
       <span class="cart-badge" id="cartCount">0</span>
     </button>
   </section>
+
+  <!-- ═══════════════ ORDENAMIENTO ═══════════════ -->
+  <div class="sort-bar">
+    <span class="sort-label">Ordenar por:</span>
+    <button class="sort-btn active" id="sort-default" onclick="sortProducts('default', this)">
+      <i class="fas fa-th-large sort-arrow"></i> Por defecto
+    </button>
+    <button class="sort-btn" id="sort-asc" onclick="sortProducts('asc', this)">
+      <i class="fas fa-arrow-up sort-arrow"></i> Menor precio
+    </button>
+    <button class="sort-btn" id="sort-desc" onclick="sortProducts('desc', this)">
+      <i class="fas fa-arrow-down sort-arrow"></i> Mayor precio
+    </button>
+  </div>
 
   <!-- ═══════════════ CATEGORÍAS ═══════════════ -->
   <div class="categories-wrapper">
@@ -978,6 +1149,19 @@
         <span class="cart-total-label">Total del pedido</span>
         <span class="cart-total-amount">$<span id="totalAmount">0</span></span>
       </div>
+
+      <!-- Campo de nota -->
+      <div class="note-wrap">
+        <label class="note-label" for="orderNote">
+          <i class="fas fa-pen-nib"></i> Nota o instrucción especial (opcional)
+        </label>
+        <textarea id="orderNote" class="note-input" rows="2"
+                  maxlength="200"
+                  placeholder="Ej: dirección de entrega, color preferido, regalo, etc."
+                  oninput="updateNoteCounter()"></textarea>
+        <div class="note-counter" id="noteCounter">0 / 200</div>
+      </div>
+
       <button class="checkout-btn" onclick="checkout()">
         <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
       </button>
@@ -1107,13 +1291,26 @@ function renderProducts() {
         </div>
         <div class="product-footer">
           <div class="product-price">$${p.price.toLocaleString('es-CO')}</div>
-          <button class="add-to-cart"
-                  onclick="addToCart(${p.id},'${escHtml(p.name)}',${p.price})">
-            Agregar
-          </button>
+          <div id="card-ctrl-${p.id}">${cardControl(p)}</div>
         </div>
       </div>`).join('');
   });
+}
+
+/* devuelve el HTML del control según cantidad en carrito */
+function cardControl(p) {
+  const item = cart.find(i => i.id === p.id);
+  if (!item) {
+    return `<button class="add-to-cart"
+              onclick="addToCart(${p.id},'${escHtml(p.name)}',${p.price})">
+              + Agregar
+            </button>`;
+  }
+  return `<div class="card-stepper">
+    <button onclick="cardMinus(${p.id},'${escHtml(p.name)}',${p.price})" aria-label="Quitar uno">−</button>
+    <span class="card-qty">${item.qty}</span>
+    <button onclick="cardPlus(${p.id},'${escHtml(p.name)}',${p.price})" aria-label="Agregar uno">+</button>
+  </div>`;
 }
 
 const escHtml = s => s.replace(/'/g,"&#39;").replace(/"/g,"&quot;");
@@ -1133,10 +1330,16 @@ function addToCart(id, name, price) {
   if (existing) {
     existing.qty += 1;
   } else {
-    cart.push({ id, name, price, qty: 1 });
+    let img = '';
+    for (const list of Object.values(PRODUCTS)) {
+      const p = list.find(p => p.id === id);
+      if (p) { img = p.img; break; }
+    }
+    cart.push({ id, name, price, qty: 1, img });
   }
   saveCart();
   renderCart();
+  refreshCardControl(id);
   bumpBadge();
   toast(`✓ ${name} agregado`, 'success');
 }
@@ -1145,6 +1348,7 @@ function removeFromCart(id) {
   cart = cart.filter(i => i.id !== id);
   saveCart();
   renderCart();
+  refreshCardControl(id);
 }
 
 function changeQty(id, delta) {
@@ -1154,6 +1358,38 @@ function changeQty(id, delta) {
   if (item.qty <= 0) { removeFromCart(id); return; }
   saveCart();
   renderCart();
+  refreshCardControl(id);
+}
+
+/* ── Stepper desde la tarjeta ── */
+function cardPlus(id, name, price) {
+  addToCart(id, name, price);
+}
+
+function cardMinus(id, name, price) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty -= 1;
+  if (item.qty <= 0) {
+    removeFromCart(id);
+  } else {
+    saveCart();
+    renderCart();
+    refreshCardControl(id);
+  }
+}
+
+/* Actualiza solo el control de UNA tarjeta sin re-renderizar todo el grid */
+function refreshCardControl(id) {
+  const wrap = document.getElementById(`card-ctrl-${id}`);
+  if (!wrap) return;
+  /* buscar el producto en PRODUCTS */
+  let p = null;
+  for (const list of Object.values(PRODUCTS)) {
+    p = list.find(x => x.id === id);
+    if (p) break;
+  }
+  if (p) wrap.innerHTML = cardControl(p);
 }
 
 function renderCart() {
@@ -1179,8 +1415,12 @@ function renderCart() {
 
   wrap.innerHTML = cart.map(i => `
     <div class="cart-item">
+      <img class="cart-thumb"
+           src="${i.img || ''}"
+           alt="${i.name}"
+           onerror="this.src='https://via.placeholder.com/58x58/fde4ef/7B2D5E?text=A'" />
       <div class="cart-item-info">
-        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-name" title="${i.name}">${i.name}</div>
         <div class="cart-item-price">$${(i.price * i.qty).toLocaleString('es-CO')}</div>
         <div class="quantity-controls">
           <button class="quantity-btn" onclick="changeQty(${i.id},-1)" aria-label="Quitar uno">−</button>
@@ -1236,13 +1476,32 @@ function checkout() {
     msg += `▸ ${i.name}\n  Cantidad: ${i.qty} × $${i.price.toLocaleString('es-CO')} = $${(i.price*i.qty).toLocaleString('es-CO')}\n`;
     total += i.price * i.qty;
   });
-  msg += `\n*Total: $${total.toLocaleString('es-CO')} COP*\n\n¿Me pueden ayudar con el proceso de pago y envío? 🙏`;
+  msg += `\n*Total: $${total.toLocaleString('es-CO')} COP*`;
+
+  const note = document.getElementById('orderNote')?.value.trim();
+  if (note) msg += `\n\n📝 *Nota:* ${note}`;
+
+  msg += '\n\n¿Me pueden ayudar con el proceso de pago y envío? 🙏';
   window.open(`https://wa.me/573054328798?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ────────────────────────────────────────────
+   CONTADOR DE NOTA
+──────────────────────────────────────────── */
+function updateNoteCounter() {
+  const ta      = document.getElementById('orderNote');
+  const counter = document.getElementById('noteCounter');
+  if (!ta || !counter) return;
+  const len = ta.value.length;
+  counter.textContent = `${len} / 200`;
+  counter.classList.toggle('warn', len >= 160);
 }
 
 /* ────────────────────────────────────────────
    FILTRO POR CATEGORÍA
 ──────────────────────────────────────────── */
+let currentSort = 'default'; /* estado global del orden */
+
 function filterCat(cat, btn = null) {
   document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
@@ -1251,6 +1510,66 @@ function filterCat(cat, btn = null) {
     const show = cat === 'all' || sec.dataset.category === cat;
     sec.style.display = show ? 'block' : 'none';
   });
+
+  /* mantener el orden activo al cambiar categoría */
+  if (currentSort !== 'default') applySort(currentSort);
+}
+
+/* ────────────────────────────────────────────
+   ORDENAR POR PRECIO
+──────────────────────────────────────────── */
+function sortProducts(order, btn) {
+  currentSort = order;
+
+  /* botones activos */
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  applySort(order);
+}
+
+function applySort(order) {
+  document.querySelectorAll('.products-grid').forEach(grid => {
+    const cards = Array.from(grid.querySelectorAll('.product-card'));
+    if (!cards.length) return;
+
+    if (order === 'default') {
+      /* restaurar orden original usando data-id como referencia */
+      const gridId = grid.id;
+      const originalList = PRODUCTS[gridId];
+      if (!originalList) return;
+      originalList.forEach(p => {
+        const card = grid.querySelector(`.product-card[data-id="${p.id}"]`);
+        if (card) grid.appendChild(card); /* mueve al final respetando el orden */
+      });
+      return;
+    }
+
+    cards.sort((a, b) => {
+      const priceA = getCardPrice(a);
+      const priceB = getCardPrice(b);
+      return order === 'asc' ? priceA - priceB : priceB - priceA;
+    });
+
+    /* reinsertar en el nuevo orden con micro-animación */
+    cards.forEach((card, idx) => {
+      card.style.transition = 'opacity .2s, transform .2s';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(8px)';
+      grid.appendChild(card);
+      setTimeout(() => {
+        card.style.opacity = '';
+        card.style.transform = '';
+      }, idx * 30 + 60);
+    });
+  });
+}
+
+function getCardPrice(card) {
+  /* lee el precio del elemento .product-price dentro de la tarjeta */
+  const el = card.querySelector('.product-price');
+  if (!el) return 0;
+  return parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
 }
 
 /* ────────────────────────────────────────────
@@ -1278,9 +1597,25 @@ function searchProducts() {
 document.getElementById('searchInput')
   ?.addEventListener('keydown', e => { if (e.key === 'Enter') searchProducts(); });
 
-// Limpiar búsqueda si se borra el input
 document.getElementById('searchInput')
-  ?.addEventListener('input', e => { if (!e.target.value) filterCat('all'); });
+  ?.addEventListener('input', e => {
+    const val = e.target.value;
+    const btn = document.getElementById('clearBtn');
+    if (btn) btn.classList.toggle('visible', val.length > 0);
+    if (!val) clearSearch();
+  });
+
+function clearSearch() {
+  const input = document.getElementById('searchInput');
+  const btn   = document.getElementById('clearBtn');
+  if (input) input.value = '';
+  if (btn)   btn.classList.remove('visible');
+  filterCat('all');
+  // Resetear botón de categoría activo a "Todos"
+  document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.category-btn')?.classList.add('active');
+  input?.focus();
+}
 
 /* ────────────────────────────────────────────
    SCROLL CATEGORÍAS
@@ -1321,6 +1656,8 @@ function copyToClipboard(text, el) {
 document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   renderCart();
+  /* si hay productos guardados en localStorage, reflejarlos en las tarjetas */
+  cart.forEach(i => refreshCardControl(i.id));
 });
 </script>
 </body>
