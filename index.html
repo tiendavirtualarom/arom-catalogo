@@ -128,9 +128,9 @@ a { text-decoration:none; color:inherit; }
 .nav-search .ns-clear.visible { display:flex; }
 .nav-search .ns-clear:hover { color:var(--rose-deep); }
 
-/* ── Botón lupa móvil (oculto en desktop) ── */
+/* ── Botón lupa móvil ── */
 .nav-search-toggle {
-  display:none;           /* se muestra solo en ≤480px */
+  display:none;
   background:rgba(232,160,191,.18);
   border:1.5px solid rgba(200,101,140,.25);
   color:var(--plum);
@@ -143,17 +143,16 @@ a { text-decoration:none; color:inherit; }
 .nav-search-toggle:hover { background:var(--rose-deep); color:#fff; transform:scale(1.08); }
 .nav-search-toggle.active { background:var(--plum); color:#fff; }
 
-/* ── Barra de búsqueda móvil (desplegable) ── */
+/* ── Barra de búsqueda móvil ── */
 .mobile-search-bar {
-  display:none;           /* solo en ≤480px */
+  display:none;
   position:sticky;
-  top:64px;               /* justo bajo el sticky-nav */
+  top:64px;
   z-index:499;
   background:rgba(253,246,240,.97);
   backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
   padding:10px 16px;
-  /* animación de apertura */
   max-height:0;
   overflow:hidden;
   transition:max-height var(--t-base) var(--ease), padding var(--t-base) var(--ease);
@@ -214,6 +213,82 @@ a { text-decoration:none; color:inherit; }
 }
 .nav-badge.bump { animation:badgeBump .35s var(--ease-spring); }
 @keyframes badgeBump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.5)} }
+
+/* ── HISTORIAL DE PEDIDOS – Botón nav ── */
+.nav-hist-btn {
+  position:relative;
+  background:rgba(232,160,191,.18);
+  border:1.5px solid rgba(200,101,140,.25);
+  color:var(--plum);
+  width:44px; height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  transition:all var(--t-base) var(--ease-spring);
+  flex-shrink:0;
+}
+.nav-hist-btn:hover {
+  background:var(--plum);
+  color:#fff;
+  transform:scale(1.08);
+  box-shadow:var(--shadow-sm);
+}
+
+/* ── HISTORIAL – Drawer ── */
+.hist-overlay { position:fixed;inset:0;background:rgba(44,26,36,.40);backdrop-filter:blur(6px);display:none;z-index:9999; }
+.hist-overlay.open { display:block; }
+.hist-drawer {
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(460px,100vw);
+  background:var(--warm-white);
+  box-shadow:var(--shadow-xl);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  transition:transform var(--t-slow) var(--ease);
+  z-index:10000;
+}
+.hist-drawer.open { transform:translateX(0); }
+.hist-header {
+  padding:22px 24px;
+  background:linear-gradient(135deg,var(--rose-deep),var(--plum));
+  color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.hist-header h2 { font-family:'Playfair Display',serif;font-size:1.3rem;display:flex;align-items:center;gap:10px; }
+.hist-close { background:rgba(255,255,255,.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background var(--t-base); }
+.hist-close:hover { background:rgba(255,255,255,.28); }
+.hist-body { flex:1;overflow-y:auto;padding:16px 20px; }
+.empty-hist { display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--text-soft);padding:40px;gap:12px; }
+.empty-hist .eh-icon { font-size:3rem;opacity:.35; }
+.empty-hist p { font-size:.95rem; }
+.empty-hist small { font-size:.82rem;color:var(--text-faint); }
+.hist-order {
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:16px;
+  margin-bottom:14px;
+  animation:itemIn .22s var(--ease) both;
+}
+.ho-head { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px; }
+.ho-date { font-size:.78rem;color:var(--text-soft); }
+.ho-total { font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--plum); }
+.ho-items { font-size:.82rem;color:var(--text-mid);line-height:1.7;border-top:1px solid rgba(232,160,191,.15);padding-top:10px;margin-top:4px; }
+.ho-repeat-btn {
+  margin-top:12px;width:100%;border:none;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  color:#fff;padding:10px;border-radius:50px;
+  font-size:.84rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:all var(--t-base) var(--ease-spring);
+}
+.ho-repeat-btn:hover { filter:brightness(1.08);transform:scale(1.02); }
+.hist-footer { padding:14px 20px;border-top:1px solid var(--border);background:#fff;flex-shrink:0; }
+.hist-clear-btn { width:100%;border:1.5px solid rgba(231,76,60,.3);background:transparent;color:var(--danger);padding:11px;border-radius:50px;font-size:.86rem;font-weight:600;transition:all var(--t-base); }
+.hist-clear-btn:hover { background:var(--danger);color:#fff;border-color:var(--danger); }
 
 /* ═══════════════════════════════════════════════
    HERO HEADER
@@ -445,7 +520,6 @@ header::after {
   box-shadow:0 2px 8px rgba(200,101,140,.35);
 }
 
-/* ── card-overlay (FIXED — selector intact) ── */
 .card-overlay {
   position:absolute; inset:0;
   background:rgba(74,16,64,.42);
@@ -734,7 +808,6 @@ header::after {
 @keyframes cardReveal { from{opacity:0;transform:translateY(12px) scale(.97);} to{opacity:1;transform:translateY(0) scale(1);} }
 .product-card.revealed { animation:cardReveal .38s var(--ease) both; }
 
-/* footer */
 footer { text-align:center; margin-top:56px; padding:28px 20px 16px; border-top:1px solid var(--border); color:var(--text-soft); font-size:.83rem; }
 footer span { color:var(--rose-deep); }
 
@@ -753,10 +826,9 @@ footer span { color:var(--rose-deep); }
 }
 
 @media (max-width:480px) {
-  /* ── CORRECCIÓN: ocultar buscador desktop, mostrar toggle + barra móvil ── */
-  .nav-search        { display:none; }        /* oculta el buscador inline del nav */
-  .nav-search-toggle { display:flex; }        /* muestra el botón lupa */
-  .mobile-search-bar { display:block; }       /* activa la barra desplegable */
+  .nav-search        { display:none; }
+  .nav-search-toggle { display:flex; }
+  .mobile-search-bar { display:block; }
 
   .logo-image  { width:82px; height:82px; }
   .logo-main   { letter-spacing:7px; }
@@ -773,14 +845,14 @@ footer span { color:var(--rose-deep); }
   <span class="nav-brand">AROM</span>
   <div class="nav-right">
 
-    <!-- Buscador desktop (visible en >480px) -->
+    <!-- Buscador desktop -->
     <div class="nav-search">
       <i class="fas fa-search"></i>
       <input type="text" id="navSearch" placeholder="Buscar productos…" autocomplete="off" />
       <button class="ns-clear" id="nsClear" aria-label="Limpiar"><i class="fas fa-times"></i></button>
     </div>
 
-    <!-- Botón lupa móvil (visible en ≤480px) -->
+    <!-- Botón lupa móvil -->
     <button class="nav-search-toggle" id="searchToggle"
             onclick="toggleMobileSearch()"
             aria-label="Abrir buscador" aria-expanded="false" aria-controls="mobileSearchBar">
@@ -791,6 +863,12 @@ footer span { color:var(--rose-deep); }
       <i class="fas fa-heart"></i>
       <span class="nav-wish-badge" id="wishBadge"></span>
     </button>
+
+    <!-- ── BOTÓN HISTORIAL DE PEDIDOS ── -->
+    <button class="nav-hist-btn" onclick="openHist()" aria-label="Ver historial" title="Mis pedidos">
+      <i class="fas fa-history"></i>
+    </button>
+
     <button class="nav-cart-btn" onclick="openCart()" aria-label="Ver carrito">
       <i class="fas fa-shopping-bag"></i>
       <span class="nav-badge" id="cartBadge">0</span>
@@ -798,7 +876,7 @@ footer span { color:var(--rose-deep); }
   </div>
 </nav>
 
-<!-- ── Barra de búsqueda móvil (debajo del nav, oculta hasta que se abre) ── -->
+<!-- ── Barra de búsqueda móvil ── -->
 <div class="mobile-search-bar" id="mobileSearchBar" role="search" aria-label="Búsqueda móvil">
   <div class="mobile-search-inner">
     <i class="fas fa-search"></i>
@@ -988,6 +1066,21 @@ footer span { color:var(--rose-deep); }
   </div>
 </aside>
 
+<!-- ── HISTORIAL DE PEDIDOS – Drawer ── -->
+<div class="hist-overlay" id="histOverlay" onclick="closeHist()"></div>
+<aside class="hist-drawer" id="histDrawer">
+  <div class="hist-header">
+    <h2><i class="fas fa-history"></i> Mis Pedidos</h2>
+    <button class="hist-close" onclick="closeHist()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="hist-body" id="histBody"></div>
+  <div class="hist-footer" id="histFooter" style="display:none">
+    <button class="hist-clear-btn" onclick="clearHistory()">
+      <i class="fas fa-trash-alt"></i> Borrar historial
+    </button>
+  </div>
+</aside>
+
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer">
   <div class="drawer-header">
@@ -1054,7 +1147,7 @@ footer span { color:var(--rose-deep); }
   <i class="fas fa-chevron-up"></i>
 </button>
 
-<!-- ═══════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════════════════ -->
 <script>
@@ -1195,17 +1288,14 @@ function toggleMobileSearch() {
   toggle.querySelector('i').className = mobileSearchOpen ? 'fas fa-times' : 'fas fa-search';
 
   if (mobileSearchOpen) {
-    // pequeño delay para que la animación termine antes de enfocar
     setTimeout(() => input?.focus(), 180);
   } else {
-    // cerrar = limpiar búsqueda
     if (input) input.value = '';
     document.getElementById('msClear')?.classList.remove('visible');
     if (activeSearch) resetFilters();
   }
 }
 
-/* Cerrar barra móvil al hacer clic fuera */
 document.addEventListener('click', e => {
   if (!mobileSearchOpen) return;
   const bar    = document.getElementById('mobileSearchBar');
@@ -1478,19 +1568,123 @@ function copyWelcomeCode() {
 }
 
 /* ════════════════════════════════════════
-   CHECKOUT
+   CHECKOUT + HISTORIAL DE PEDIDOS
 ════════════════════════════════════════ */
 function checkout() {
-  if(!cart.length){toast('Tu bolsa está vacía 😅','error');return;}
-  let msg='¡Hola AROM! Quiero hacer el siguiente pedido:\n\n'; let total=0;
-  cart.forEach(i=>{ msg+=`▸ ${i.name}\n  Cant: ${i.qty} × $${fmt(i.price)} = $${fmt(i.price*i.qty)}\n`; total+=i.price*i.qty; });
-  if(activeCoupon){ const disc=Math.round(total*activeCoupon.pct/100); msg+=`\nSubtotal: $${fmt(total)} COP\n🏷️ Cupón *${activeCoupon.code}* (${activeCoupon.label}): −$${fmt(disc)} COP\n*Total con descuento: $${fmt(total-disc)} COP*`; }
-  else { msg+=`\n*Total: $${fmt(total)} COP*`; }
-  const note=document.getElementById('orderNote')?.value.trim();
-  if(note) msg+=`\n\n📝 *Nota:* ${note}`;
-  msg+='\n\n¿Me pueden ayudar con el proceso de pago y envío? 🙏';
-  window.open(`https://wa.me/573054328798?text=${encodeURIComponent(msg)}`,'_blank');
+  if (!cart.length) { toast('Tu bolsa está vacía 😅', 'error'); return; }
+  let msg = '¡Hola AROM! Quiero hacer el siguiente pedido:\n\n';
+  let total = 0;
+  cart.forEach(i => {
+    msg += `▸ ${i.name}\n  Cant: ${i.qty} × $${fmt(i.price)} = $${fmt(i.price * i.qty)}\n`;
+    total += i.price * i.qty;
+  });
+  let finalTotal = total;
+  if (activeCoupon) {
+    const disc = Math.round(total * activeCoupon.pct / 100);
+    finalTotal = total - disc;
+    msg += `\nSubtotal: $${fmt(total)} COP\n🏷️ Cupón *${activeCoupon.code}* (${activeCoupon.label}): −$${fmt(disc)} COP\n*Total con descuento: $${fmt(finalTotal)} COP*`;
+  } else {
+    msg += `\n*Total: $${fmt(total)} COP*`;
+  }
+  const note = document.getElementById('orderNote')?.value.trim();
+  if (note) msg += `\n\n📝 *Nota:* ${note}`;
+  msg += '\n\n¿Me pueden ayudar con el proceso de pago y envío? 🙏';
+
+  /* ── Guardar en historial ── */
+  saveOrder({
+    items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
+    total: finalTotal,
+    coupon: activeCoupon?.code || null,
+    note: note || null,
+  });
+
+  window.open(`https://wa.me/573054328798?text=${encodeURIComponent(msg)}`, '_blank');
 }
+
+function saveOrder(order) {
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem('aromHistory')) || []; } catch(e){}
+  order.date = new Date().toISOString();
+  order.id   = Date.now();
+  history.unshift(order);
+  if (history.length > 20) history = history.slice(0, 20);
+  try { localStorage.setItem('aromHistory', JSON.stringify(history)); } catch(e){}
+}
+
+function openHist() {
+  renderHistory();
+  document.getElementById('histOverlay').classList.add('open');
+  document.getElementById('histDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeHist() {
+  document.getElementById('histOverlay').classList.remove('open');
+  document.getElementById('histDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderHistory() {
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem('aromHistory')) || []; } catch(e){}
+  const body   = document.getElementById('histBody');
+  const footer = document.getElementById('histFooter');
+  if (!history.length) {
+    body.innerHTML = `<div class="empty-hist">
+      <div class="eh-icon">📋</div>
+      <p>Aún no tienes pedidos</p>
+      <small>Tus compras aparecerán aquí.</small>
+    </div>`;
+    footer.style.display = 'none';
+    return;
+  }
+  body.innerHTML = history.map(o => {
+    const d    = new Date(o.date);
+    const date = d.toLocaleDateString('es-CO', { day:'2-digit', month:'short', year:'numeric' });
+    const time = d.toLocaleTimeString('es-CO', { hour:'2-digit', minute:'2-digit' });
+    const lines = o.items.map(i => `▸ ${i.name} × ${i.qty}`).join('<br>');
+    const itemsData = encodeURIComponent(JSON.stringify(o.items));
+    return `<div class="hist-order">
+      <div class="ho-head">
+        <div>
+          <div style="font-weight:600;font-size:.86rem;color:var(--plum)">Pedido #${o.id.toString().slice(-6)}</div>
+          <div class="ho-date">${date} · ${time}${o.coupon ? ` · 🏷️ ${o.coupon}` : ''}</div>
+        </div>
+        <div class="ho-total">$${fmt(o.total)}</div>
+      </div>
+      <div class="ho-items">${lines}</div>
+      <button class="ho-repeat-btn" onclick='repeatOrder(${itemsData})'>
+        <i class="fas fa-redo"></i> Repetir pedido
+      </button>
+    </div>`;
+  }).join('');
+  footer.style.display = 'block';
+}
+
+function repeatOrder(items) {
+  items.forEach(item => {
+    const existing = cart.find(i => i.name === item.name);
+    if (existing) { existing.qty += item.qty; }
+    else {
+      let prod = null;
+      Object.values(PRODUCTS).forEach(list => {
+        const f = list.find(p => p.name === item.name);
+        if (f) prod = f;
+      });
+      if (prod) cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: item.qty, img: prod.img });
+    }
+  });
+  saveCart(); renderDrawer(); bumpBadge();
+  cart.forEach(i => refreshCard(i.id));
+  closeHist(); openCart();
+  toast('🛍️ Pedido anterior cargado al carrito', 'success');
+}
+
+function clearHistory() {
+  if (!confirm('¿Segura que quieres borrar todo el historial?')) return;
+  localStorage.removeItem('aromHistory');
+  renderHistory(); toast('Historial borrado', '');
+}
+
 function updateNoteCounter() { const ta=document.getElementById('orderNote'); const ct=document.getElementById('noteCounter'); if(!ta||!ct) return; const len=ta.value.length; ct.textContent=`${len} / 200`; ct.classList.toggle('warn',len>=160); }
 
 /* ════════════════════════════════════════
@@ -1528,7 +1722,7 @@ function applySort(order) {
   });
 }
 
-/* ── Unified search handler (works for both desktop + mobile) ── */
+/* ── Unified search handler ── */
 function doSearch(term) {
   activeSearch=term.trim().toLowerCase();
   if(!activeSearch){ resetFilters(); return; }
@@ -1567,7 +1761,6 @@ function updateClearBtn() { const btn=document.getElementById('clearFiltersBtn')
 document.getElementById('navSearch')?.addEventListener('input', e => {
   const val=e.target.value;
   document.getElementById('nsClear')?.classList.toggle('visible',val.length>0);
-  // sync mobile input
   const ms=document.getElementById('mobileSearch'); if(ms) ms.value=val;
   doSearch(val);
 });
@@ -1578,11 +1771,10 @@ document.getElementById('nsClear')?.addEventListener('click', () => {
   resetFilters();
 });
 
-/* ── Mobile search wiring ── */
+/* ── Mobile search wiring (con bug corregido) ── */
 document.getElementById('mobileSearch')?.addEventListener('input', e => {
   const val=e.target.value;
   document.getElementById('msClear')?.classList.toggle('visible',val.length>0);
-  // sync desktop input
   const ns=document.getElementById('navSearch'); if(ns) ns.value=val;
   doSearch(val);
 });
@@ -1591,14 +1783,14 @@ document.getElementById('mobileSearch')?.addEventListener('keydown', e => {
 });
 document.getElementById('msClear')?.addEventListener('click', () => {
   document.getElementById('mobileSearch').value='';
-  document.getElementById('nsClear').value='';
+  document.getElementById('navSearch').value='';   /* ✅ BUG CORREGIDO: era .value en un botón */
   document.getElementById('msClear').classList.remove('visible');
   document.getElementById('nsClear')?.classList.remove('visible');
   resetFilters();
 });
 
 /* ════════════════════════════════════════
-   SCROLL / CATS
+   SCROLL / CATS / UTILS
 ════════════════════════════════════════ */
 function scrollCats(dx) { document.getElementById('catScroll')?.scrollBy({left:dx,behavior:'smooth'}); }
 function copyPhone(text,el) {
@@ -1612,6 +1804,7 @@ document.addEventListener('keydown', e => {
   if(e.key!=='Escape') return;
   if(document.getElementById('qvOverlay')?.classList.contains('open'))   { closeQV();   return; }
   if(document.getElementById('wishDrawer')?.classList.contains('open'))  { closeWish(); return; }
+  if(document.getElementById('histDrawer')?.classList.contains('open'))  { closeHist(); return; }
   if(document.getElementById('cartDrawer')?.classList.contains('open'))  { closeCart(); return; }
   if(mobileSearchOpen) toggleMobileSearch();
 });
