@@ -99,7 +99,6 @@ a { text-decoration:none; color:inherit; }
 }
 .nav-right { display:flex; align-items:center; gap:10px; }
 
-/* desktop search */
 .nav-search {
   display:flex; align-items:center;
   background:#fff; border:1.5px solid var(--border);
@@ -128,7 +127,6 @@ a { text-decoration:none; color:inherit; }
 .nav-search .ns-clear.visible { display:flex; }
 .nav-search .ns-clear:hover { color:var(--rose-deep); }
 
-/* ── Botón lupa móvil ── */
 .nav-search-toggle {
   display:none;
   background:rgba(232,160,191,.18);
@@ -143,7 +141,6 @@ a { text-decoration:none; color:inherit; }
 .nav-search-toggle:hover { background:var(--rose-deep); color:#fff; transform:scale(1.08); }
 .nav-search-toggle.active { background:var(--plum); color:#fff; }
 
-/* ── Barra de búsqueda móvil ── */
 .mobile-search-bar {
   display:none;
   position:sticky;
@@ -214,7 +211,6 @@ a { text-decoration:none; color:inherit; }
 .nav-badge.bump { animation:badgeBump .35s var(--ease-spring); }
 @keyframes badgeBump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.5)} }
 
-/* ── HISTORIAL DE PEDIDOS – Botón nav ── */
 .nav-hist-btn {
   position:relative;
   background:rgba(232,160,191,.18);
@@ -236,7 +232,6 @@ a { text-decoration:none; color:inherit; }
   box-shadow:var(--shadow-sm);
 }
 
-/* ── HISTORIAL – Drawer ── */
 .hist-overlay { position:fixed;inset:0;background:rgba(44,26,36,.40);backdrop-filter:blur(6px);display:none;z-index:9999; }
 .hist-overlay.open { display:block; }
 .hist-drawer {
@@ -663,7 +658,6 @@ header::after {
 .checkout-btn { width:100%; border:none; background:linear-gradient(135deg,var(--plum),var(--plum-dark)); color:#fff; padding:15px; border-radius:50px; font-size:1rem; font-weight:700; display:flex; align-items:center; justify-content:center; gap:9px; transition:all var(--t-base) var(--ease); }
 .checkout-btn:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
 
-/* coupon */
 .coupon-wrap { margin-bottom:14px; }
 .coupon-label { display:flex; align-items:center; gap:6px; font-size:.8rem; font-weight:600; color:var(--text-mid); margin-bottom:7px; letter-spacing:.3px; }
 .coupon-label i { color:var(--rose-deep); }
@@ -844,31 +838,23 @@ footer span { color:var(--rose-deep); }
 <nav class="sticky-nav" id="stickyNav">
   <span class="nav-brand">AROM</span>
   <div class="nav-right">
-
-    <!-- Buscador desktop -->
     <div class="nav-search">
       <i class="fas fa-search"></i>
       <input type="text" id="navSearch" placeholder="Buscar productos…" autocomplete="off" />
       <button class="ns-clear" id="nsClear" aria-label="Limpiar"><i class="fas fa-times"></i></button>
     </div>
-
-    <!-- Botón lupa móvil -->
     <button class="nav-search-toggle" id="searchToggle"
             onclick="toggleMobileSearch()"
             aria-label="Abrir buscador" aria-expanded="false" aria-controls="mobileSearchBar">
       <i class="fas fa-search"></i>
     </button>
-
     <button class="nav-wish-btn" onclick="openWish()" aria-label="Ver favoritos">
       <i class="fas fa-heart"></i>
       <span class="nav-wish-badge" id="wishBadge"></span>
     </button>
-
-    <!-- ── BOTÓN HISTORIAL DE PEDIDOS ── -->
     <button class="nav-hist-btn" onclick="openHist()" aria-label="Ver historial" title="Mis pedidos">
       <i class="fas fa-history"></i>
     </button>
-
     <button class="nav-cart-btn" onclick="openCart()" aria-label="Ver carrito">
       <i class="fas fa-shopping-bag"></i>
       <span class="nav-badge" id="cartBadge">0</span>
@@ -1066,7 +1052,6 @@ footer span { color:var(--rose-deep); }
   </div>
 </aside>
 
-<!-- ── HISTORIAL DE PEDIDOS – Drawer ── -->
 <div class="hist-overlay" id="histOverlay" onclick="closeHist()"></div>
 <aside class="hist-drawer" id="histDrawer">
   <div class="hist-header">
@@ -1147,9 +1132,6 @@ footer span { color:var(--rose-deep); }
   <i class="fas fa-chevron-up"></i>
 </button>
 
-<!-- ═══════════════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════════ -->
 <script>
 /* ════════════════════════════════════════
    PRODUCT DATABASE
@@ -1590,7 +1572,6 @@ function checkout() {
   if (note) msg += `\n\n📝 *Nota:* ${note}`;
   msg += '\n\n¿Me pueden ayudar con el proceso de pago y envío? 🙏';
 
-  /* ── Guardar en historial ── */
   saveOrder({
     items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
     total: finalTotal,
@@ -1688,8 +1669,32 @@ function clearHistory() {
 function updateNoteCounter() { const ta=document.getElementById('orderNote'); const ct=document.getElementById('noteCounter'); if(!ta||!ct) return; const len=ta.value.length; ct.textContent=`${len} / 200`; ct.classList.toggle('warn',len>=160); }
 
 /* ════════════════════════════════════════
-   FILTER / SEARCH
+   FILTER / SEARCH  ← ÚNICO CAMBIO
 ════════════════════════════════════════ */
+function doSearch(term) {
+  activeSearch = term.trim().toLowerCase();
+  if (!activeSearch) { resetFilters(); return; }
+  let visible = 0;
+  document.querySelectorAll('.category-section').forEach(sec => {
+    let hit = false;
+    sec.querySelectorAll('.product-card').forEach(card => {
+      const id = parseInt(card.dataset.id);
+      const p  = findProduct(id);
+      const match = p && (
+        p.name.toLowerCase().includes(activeSearch) ||
+        p.desc.toLowerCase().includes(activeSearch) ||
+        p.cat.toLowerCase().includes(activeSearch)
+      );
+      card.style.display = match ? '' : 'none';
+      if (match) { hit = true; visible++; }
+    });
+    sec.style.display = hit ? 'block' : 'none';
+  });
+  updateResultsCount(visible);
+  updateClearBtn();
+  if (!visible) toast(`Sin resultados para "${term}"`, 'error');
+}
+
 function filterCat(cat,btn) {
   activeCat=cat;
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
@@ -1720,20 +1725,6 @@ function applySort(order) {
     cards.forEach(c=>c.style.display='');
     cards.forEach((c,i)=>{ c.style.opacity='0'; c.style.transform='translateY(10px)'; grid.appendChild(c); setTimeout(()=>{ c.style.transition='opacity .2s,transform .2s'; c.style.opacity=''; c.style.transform=''; },i*25+50); });
   });
-}
-
-/* ── Unified search handler ── */
-function doSearch(term) {
-  activeSearch=term.trim().toLowerCase();
-  if(!activeSearch){ resetFilters(); return; }
-  let visible=0;
-  document.querySelectorAll('.category-section').forEach(sec=>{
-    let hit=false;
-    sec.querySelectorAll('.product-card').forEach(card=>{ const match=card.textContent.toLowerCase().includes(activeSearch); card.style.display=match?'':'none'; if(match){hit=true;visible++;} });
-    sec.style.display=hit?'block':'none';
-  });
-  updateResultsCount(visible); updateClearBtn();
-  if(!visible) toast(`Sin resultados para "${term}"`,'error');
 }
 
 function resetFilters() {
@@ -1771,7 +1762,7 @@ document.getElementById('nsClear')?.addEventListener('click', () => {
   resetFilters();
 });
 
-/* ── Mobile search wiring (con bug corregido) ── */
+/* ── Mobile search wiring ── */
 document.getElementById('mobileSearch')?.addEventListener('input', e => {
   const val=e.target.value;
   document.getElementById('msClear')?.classList.toggle('visible',val.length>0);
@@ -1783,7 +1774,7 @@ document.getElementById('mobileSearch')?.addEventListener('keydown', e => {
 });
 document.getElementById('msClear')?.addEventListener('click', () => {
   document.getElementById('mobileSearch').value='';
-  document.getElementById('navSearch').value='';   /* ✅ BUG CORREGIDO: era .value en un botón */
+  document.getElementById('navSearch').value='';
   document.getElementById('msClear').classList.remove('visible');
   document.getElementById('nsClear')?.classList.remove('visible');
   resetFilters();
